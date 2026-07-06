@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Engineering Notebook — Day 1</title>
+<link rel="stylesheet" href="../../styles/style.css">
+</head>
+<body>
+<a class="back-btn" href="index.html">← Day 1</a>
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <span class="eyebrow">Engineering Notebook · Day 1</span>
+      <h1>Circuit Log &amp; Debug Trail</h1>
+      <span class="level-badge l1"><span class="dot"></span>LEVEL 1</span>
+    </div>
+    <div class="doc-meta">Name: <span class="fillin">&nbsp;</span></div>
+  </div>
+  <div class="rail"></div>
+
+  <div class="card">
+    <h2>Why keep this log</h2>
+    <p>Real engineers write down what they wired and why, so when something breaks, they can retrace their steps instead of guessing. You're doing the same thing today.</p>
+  </div>
+
+  <div class="card">
+    <h2>1. Wiring log</h2>
+    <p>Every time you connect or move a wire, add a row. Even the ones that turned out wrong.</p>
+    <table>
+      <tr><th>From</th><th>To</th><th>Purpose</th><th>Worked? (Y/N)</th></tr>
+      <tr class="fill-row"><td></td><td></td><td></td><td></td></tr>
+      <tr class="fill-row"><td></td><td></td><td></td><td></td></tr>
+      <tr class="fill-row"><td></td><td></td><td></td><td></td></tr>
+      <tr class="fill-row"><td></td><td></td><td></td><td></td></tr>
+      <tr class="fill-row"><td></td><td></td><td></td><td></td></tr>
+      <tr class="fill-row"><td></td><td></td><td></td><td></td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>2. When something doesn't work, walk this checklist</h2>
+    <div class="checkbox-line"><div class="box"></div><p>Is the LED in the right direction? (long leg = positive)</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Does the GPIO number in your code match the pin you actually wired?</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Is there a complete path from GPIO, through the LED and resistor, back to GND?</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Did you save the file before running it?</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Does the terminal show an error message? Read it out loud, it usually tells you exactly what's wrong.</p></div>
+  </div>
+
+  <div class="card">
+    <h2>3. Bug report</h2>
+    <p>Pick one thing that went wrong today and document it like an engineer would.</p>
+    <table>
+      <tr><td style="width:35%"><b>What I expected</b></td><td class="fill-row"></td></tr>
+      <tr><td><b>What actually happened</b></td><td class="fill-row"></td></tr>
+      <tr><td><b>What I checked</b></td><td class="fill-row"></td></tr>
+      <tr><td><b>What fixed it</b></td><td class="fill-row"></td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>4. Final circuit sketch</h2>
+    <p>Draw your finished circuit here, label every wire and pin.</p>
+    <div style="border:1.5px dashed var(--line); border-radius:10px; height:220px;"></div>
+  </div>
+
+  <div class="footer-note">Raspberry Pi Camp · Day 1 · Engineering Notebook</div>
+  <div class="copyright">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Level 3 — Mode-Switching Light — Day 1</title>
+<link rel="stylesheet" href="../../styles/style.css">
+</head>
+<body>
+<a class="back-btn" href="index.html">← Day 1</a>
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <span class="eyebrow">Independent Challenge · Day 1</span>
+      <h1>Build a Mode-Switching Light</h1>
+      <span class="level-badge l3"><span class="dot"></span>LEVEL 3 · HARDEST</span>
+    </div>
+    <div class="doc-meta">Name: <span class="fillin">&nbsp;</span></div>
+  </div>
+  <div class="rail" style="color:var(--signal-coral)"></div>
+
+  <div class="card">
+    <h2>The challenge</h2>
+    <p>You've now got a button and a PWM-capable LED wired into the same breadboard. Combine them. Every time the button is pressed, the LED should switch to the <b>next</b> mode in a cycle of three:</p>
+    <table>
+      <tr><th>Mode</th><th>Behavior</th></tr>
+      <tr><td>1</td><td>Off</td></tr>
+      <tr><td>2</td><td>Solid on, full brightness</td></tr>
+      <tr><td>3</td><td>Breathing fade, like your Level 2 code</td></tr>
+    </table>
+    <p>Press the button once more from mode 3, and it should loop back to mode 1.</p>
+  </div>
+
+  <div class="card">
+    <h2>Why this is genuinely hard</h2>
+    <p>Your fade code from Level 2 uses <code>while True</code> and <code>sleep()</code>, which blocks the program from checking the button at the same time. You need the LED to keep breathing <i>while</i> still watching for a button press. That's a real problem professional programmers run into constantly, it's called <b>blocking code</b>.</p>
+  </div>
+
+  <div class="card">
+    <h2>Your task</h2>
+    <div class="checkbox-line"><div class="box"></div><p>Keep a variable that tracks the current mode number</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>When the button is pressed, advance the mode and wrap back to 1 after 3</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>In your main loop, check the mode variable every cycle and act accordingly</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Make sure the fade animation still responds to a button press mid-fade</p></div>
+  </div>
+
+  <details class="hint"><summary>Hint 1: don't use sleep() in the main loop</summary>
+    <p style="margin-top:8px">Instead of one big <code>sleep(0.05)</code> that freezes everything, try tracking brightness with a variable that increases a tiny bit each pass through a fast loop, and check the button every single pass.</p>
+  </details>
+
+  <details class="hint"><summary>Hint 2: when_pressed doesn't need to pause anything</summary>
+    <p style="margin-top:8px">Set <code>button.when_pressed</code> to a function that just changes the mode variable. It runs instantly and returns control right back to your main loop, it doesn't block anything.</p>
+    <pre>mode = 0
+
+def next_mode():
+    global mode
+    mode = (mode + 1) % 3
+
+button.when_pressed = next_mode</pre>
+  </details>
+
+  <details class="hint"><summary>Hint 3: full structure, if you're really stuck</summary>
+    <pre>from gpiozero import PWMLED, Button
+from time import sleep
+
+led = PWMLED(17)
+button = Button(2)
+mode = 0
+
+def next_mode():
+    global mode
+    mode = (mode + 1) % 3
+
+button.when_pressed = next_mode
+
+brightness = 0
+direction = 1
+
+while True:
+    if mode == 0:
+        led.value = 0
+    elif mode == 1:
+        led.value = 1
+    elif mode == 2:
+        brightness += direction * 0.02
+        if brightness >= 1 or brightness <= 0:
+            direction *= -1
+        led.value = max(0, min(1, brightness))
+    sleep(0.02)</pre>
+  </details>
+
+  <div class="card">
+    <h2>Push further (optional)</h2>
+    <p>Add a fourth mode: a fast, sharp blink instead of a smooth fade. What would you need to track differently, compared to the smooth fade?</p>
+  </div>
+
+  <div class="footer-note">Raspberry Pi Camp · Day 1 · Level 3</div>
+  <div class="copyright">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>

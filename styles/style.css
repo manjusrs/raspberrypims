@@ -1,0 +1,302 @@
+/* ============================================================
+   Raspberry Pi Camp — shared design system
+   Signature motif: the breadboard power rail (two rows of holes)
+   used as a section divider everywhere. It's literally the object
+   on every kid's desk, so it doubles as a wayfinding device.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --ink: #171B26;
+  --ink-soft: #232838;
+  --paper: #FBF7EE;
+  --paper-card: #FFFFFF;
+  --graphite: #3A4150;
+  --circuit-teal: #2FB8AC;
+  --circuit-teal-dim: #1F8378;
+  --led-amber: #FFB238;
+  --signal-coral: #FF6B5E;
+  --wire-red: #E4572E;
+  --line: rgba(23, 27, 38, 0.12);
+  --line-dark: rgba(255, 255, 255, 0.14);
+
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .eyebrow, .step-num {
+  font-family: var(--font-display);
+}
+
+code, .pin, .mono {
+  font-family: var(--font-mono);
+}
+
+a { color: var(--circuit-teal-dim); }
+
+/* ---------- breadboard rail divider (signature element) ---------- */
+.rail {
+  height: 14px;
+  width: 100%;
+  background-image:
+    radial-gradient(circle, currentColor 1.6px, transparent 1.8px),
+    radial-gradient(circle, currentColor 1.6px, transparent 1.8px);
+  background-size: 22px 6px, 22px 6px;
+  background-position: 0 1px, 11px 9px;
+  background-repeat: repeat-x;
+  color: var(--line);
+  opacity: 0.9;
+}
+.rail.red { color: var(--wire-red); opacity: 0.55; }
+.rail.teal { color: var(--circuit-teal); opacity: 0.55; }
+.rail.on-dark { color: rgba(255,255,255,0.35); }
+
+/* ---------- eyebrow / labels ---------- */
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--circuit-teal-dim);
+}
+.eyebrow.on-dark { color: var(--led-amber); }
+
+/* ---------- level badges ---------- */
+.level-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 13px;
+  padding: 5px 12px 5px 10px;
+  border-radius: 999px;
+  border: 1.5px solid currentColor;
+}
+.level-badge.l1 { color: var(--circuit-teal-dim); }
+.level-badge.l2 { color: var(--wire-red); }
+.level-badge.l3 { color: var(--signal-coral); }
+.level-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+
+/* ---------- page shell for handouts/worksheets/notebooks ---------- */
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 48px 32px 96px;
+}
+.doc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+.doc-header h1 {
+  font-size: 34px;
+  margin: 6px 0 4px;
+  line-height: 1.15;
+}
+.doc-meta {
+  text-align: right;
+  font-size: 13px;
+  color: var(--graphite);
+  font-family: var(--font-mono);
+}
+.doc-meta .fillin {
+  display: inline-block;
+  border-bottom: 1.4px solid var(--ink);
+  min-width: 110px;
+  padding: 2px 4px;
+}
+
+.card {
+  background: var(--paper-card);
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  padding: 22px 24px;
+  margin: 20px 0;
+}
+.card h2 {
+  font-size: 19px;
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 14px;
+  font-weight: 600;
+  flex: none;
+}
+.step {
+  display: flex;
+  gap: 14px;
+  padding: 12px 0;
+  border-top: 1px dashed var(--line);
+}
+.step:first-child { border-top: none; }
+.step p { margin: 2px 0 0; }
+.step .callout {
+  margin-top: 8px;
+  font-size: 14px;
+  background: rgba(255, 178, 56, 0.14);
+  border-left: 3px solid var(--led-amber);
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+.step .danger {
+  margin-top: 8px;
+  font-size: 14px;
+  background: rgba(255, 107, 94, 0.12);
+  border-left: 3px solid var(--signal-coral);
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+th, td {
+  border: 1px solid var(--line);
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+th {
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+}
+.fill-row td { height: 30px; }
+
+.pin {
+  display: inline-block;
+  font-size: 12.5px;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 2px 7px;
+  border-radius: 5px;
+}
+.pin.power { background: var(--wire-red); }
+.pin.gnd { background: var(--graphite); }
+.pin.gpio { background: var(--circuit-teal-dim); }
+
+.hint {
+  border: 1.5px dashed var(--circuit-teal);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 14px;
+  background: rgba(47, 184, 172, 0.06);
+  margin-top: 10px;
+}
+.hint summary {
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--circuit-teal-dim);
+}
+
+pre {
+  background: var(--ink);
+  color: #E8F6F4;
+  padding: 14px 16px;
+  border-radius: 10px;
+  overflow-x: auto;
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+pre .c { color: #7FE0D5; }
+pre .k { color: var(--led-amber); }
+
+.checkbox-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+}
+.checkbox-line .box {
+  width: 16px; height: 16px;
+  border: 1.6px solid var(--ink);
+  border-radius: 4px;
+  flex: none;
+}
+
+.footer-note {
+  margin-top: 40px;
+  font-size: 12.5px;
+  color: var(--graphite);
+  text-align: center;
+}
+
+/* ---------- back button ---------- */
+.back-btn {
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  z-index: 30;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 8px 14px 8px 12px;
+  border-radius: 999px;
+  background: var(--paper-card);
+  border: 1.5px solid var(--line);
+  color: var(--ink);
+  text-decoration: none;
+}
+.back-btn:hover { border-color: var(--circuit-teal); }
+.back-btn.on-dark {
+  background: var(--ink-soft);
+  border-color: var(--line-dark);
+  color: var(--paper);
+}
+
+/* ---------- copyright ---------- */
+.copyright {
+  margin-top: 10px;
+  font-size: 11.5px;
+  color: var(--graphite);
+  text-align: center;
+}
+.copyright.fixed-bottom {
+  position: fixed;
+  bottom: 8px;
+  left: 0;
+  right: 0;
+  color: rgba(255, 255, 255, 0.35);
+  font-family: var(--font-mono);
+}
+
+@media print {
+  body { background: white; }
+  .no-print { display: none; }
+}

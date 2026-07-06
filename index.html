@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Raspberry Pi Camp</title>
+<link rel="stylesheet" href="styles/style.css">
+<style>
+  .page { max-width: 820px; }
+  .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 24px; }
+  .day-card {
+    display:block; text-decoration:none; color: var(--ink);
+    background: var(--paper-card); border:1.5px solid var(--line);
+    border-radius: 14px; padding: 22px 20px; position: relative;
+  }
+  .day-card:hover { border-color: var(--circuit-teal); }
+  .day-card .num { font-family: var(--font-display); font-size: 34px; font-weight: 700; color: var(--circuit-teal-dim); }
+  .day-card h3 { font-family: var(--font-display); font-size: 17px; margin: 6px 0 4px; }
+  .day-card p { font-size: 13px; color: var(--graphite); margin: 0; }
+  .day-card.pending { opacity: 0.55; }
+  .day-card .status { position:absolute; top:18px; right:18px; font-family: var(--font-mono); font-size: 10.5px; letter-spacing:.04em; text-transform:uppercase; color: var(--wire-red); }
+  .day-card.ready .status { color: var(--circuit-teal-dim); }
+</style>
+</head>
+<body>
+<div class="page">
+  <span class="eyebrow">Week Overview</span>
+  <h1 style="font-size:38px;margin:6px 0 20px">Raspberry Pi Camp</h1>
+  <p style="max-width:56ch;color:var(--graphite)">Five days, two sessions each. Every day layers a hands-on build with the teacher, a Linux &amp; Python warm-up, and two independent challenge levels.</p>
+  <div class="rail"></div>
+  <div class="grid">
+    <a class="day-card ready" href="pages/day1/index.html">
+      <span class="status">Ready</span>
+      <span class="num">01</span>
+      <h3>Getting Started &amp; Our First Circuit</h3>
+      <p>GPIO basics, coding fundamentals, LED + button circuit</p>
+    </a>
+    <a class="day-card pending" href="pages/day2/index.html">
+      <span class="status">Coming soon</span>
+      <span class="num">02</span>
+      <h3>Functions &amp; Basic GUIs</h3>
+      <p>Writing functions, building a Tkinter interface</p>
+    </a>
+    <a class="day-card pending" href="pages/day3/index.html">
+      <span class="status">Coming soon</span>
+      <span class="num">03</span>
+      <h3>Making a Distance Sensor</h3>
+      <p>Ultrasonic sensors, randomized RGB LED code</p>
+    </a>
+    <a class="day-card pending" href="pages/day4/index.html">
+      <span class="status">Coming soon</span>
+      <span class="num">04</span>
+      <h3>Making a Weather Sensor</h3>
+      <p>Temperature &amp; humidity, bonus light sensor module</p>
+    </a>
+    <a class="day-card pending" href="pages/day5/index.html">
+      <span class="status">Coming soon</span>
+      <span class="num">05</span>
+      <h3>DIY Day &amp; Showcase</h3>
+      <p>Open build time, review, parent showcase</p>
+    </a>
+  </div>
+  <div class="copyright" style="margin-top:36px">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>

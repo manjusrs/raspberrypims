@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Handout — LED &amp; Button Circuit — Day 1</title>
+<link rel="stylesheet" href="../../styles/style.css">
+</head>
+<body>
+<a class="back-btn" href="index.html">← Day 1</a>
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <span class="eyebrow">Hands-On Handout · Day 1</span>
+      <h1>Building &amp; Coding Your LED Circuit</h1>
+      <span class="level-badge l1"><span class="dot"></span>LEVEL 1 · WITH YOUR TEACHER</span>
+    </div>
+    <div class="doc-meta">Name: <span class="fillin">&nbsp;</span></div>
+  </div>
+  <div class="rail"></div>
+
+  <div class="card">
+    <h2>What you need</h2>
+    <p>1 LED · 1 resistor (220Ω–330Ω) · 1 breadboard · 1 push button · jumper wires</p>
+  </div>
+
+  <div class="card">
+    <h2>Wiring diagram</h2>
+    <img src="../../images/day1/circuit-diagram.svg" alt="Wiring diagram: LED and resistor to GPIO 17 and GND, button to GPIO 2" style="max-width:640px;width:100%;display:block;margin:0 auto">
+    <p style="font-size:13px;color:var(--graphite);text-align:center">Simplified schematic. Match wire colors to the labels above, not to real wire color.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">1</span>Place the LED</h2>
+    <div class="step"><p>Push the LED into the breadboard so its two legs sit in different rows. The <b>longer leg is positive</b>, note which row it's in.</p></div>
+    <div class="step"><div class="danger">If the LED never lights up later, this is the first thing to flip. LEDs only work one direction.</div></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">2</span>Add the resistor</h2>
+    <div class="step"><p>Connect the resistor between the LED's positive leg and an empty row. The resistor protects the LED from too much current.</p></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">3</span>Wire it to the Pi</h2>
+    <div class="step"><p>Run a wire from <span class="pin gpio">GPIO 17</span> to the resistor's row.</p></div>
+    <div class="step"><p>Run a wire from the LED's negative leg to a <span class="pin gnd">GND</span> pin.</p></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">4</span>Write the code</h2>
+    <pre>from gpiozero import LED
+from time import sleep
+
+led = LED(17)
+
+led.on()
+sleep(1)
+led.off()</pre>
+    <p>Run it from the terminal: <code>python3 led.py</code></p>
+    <div class="callout">If nothing happens, check: is GPIO 17 actually where your wire lands? Typos in pin numbers are the #1 cause of "nothing happened."</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">5</span>Make it blink</h2>
+    <pre>for i in range(10):
+    led.on()
+    sleep(0.5)
+    led.off()
+    sleep(0.5)</pre>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">6</span>Add the button</h2>
+    <div class="step"><p>Keep your LED circuit exactly as it is. Add a push button, one leg to <span class="pin gpio">GPIO 2</span>, the opposite leg to <span class="pin gnd">GND</span>.</p></div>
+    <pre>from gpiozero import LED, Button
+
+led = LED(17)
+button = Button(2)
+
+button.when_pressed = led.on
+button.when_released = led.off</pre>
+  </div>
+
+  <div class="card">
+    <h2>Before you move on</h2>
+    <div class="checkbox-line"><div class="box"></div><p>LED blinks correctly when you run your code</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Button turns the LED on and off</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Worksheet observations filled in</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Engineering notebook wiring log filled in</p></div>
+  </div>
+
+  <div class="footer-note">Raspberry Pi Camp · Day 1 · Level 1 Handout</div>
+  <div class="copyright">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>

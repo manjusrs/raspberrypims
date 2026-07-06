@@ -1,0 +1,30 @@
+<svg viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg" width="100%" style="max-width:640px;display:block">
+  <rect x="10" y="20" width="620" height="180" rx="10" fill="#F1ECDF" stroke="#3A4150" stroke-width="1.5"/>
+  <!-- breadboard rails -->
+  <g fill="#3A4150">
+    <circle cx="30" cy="40" r="2.5"/><circle cx="50" cy="40" r="2.5"/><circle cx="70" cy="40" r="2.5"/><circle cx="90" cy="40" r="2.5"/>
+    <circle cx="30" cy="180" r="2.5"/><circle cx="50" cy="180" r="2.5"/><circle cx="70" cy="180" r="2.5"/><circle cx="90" cy="180" r="2.5"/>
+  </g>
+  <!-- LED -->
+  <line x1="220" y1="70" x2="220" y2="110" stroke="#FFB238" stroke-width="4"/>
+  <polygon points="205,70 235,70 220,95" fill="#FFB238"/>
+  <text x="200" y="130" font-size="12" font-family="JetBrains Mono, monospace" fill="#171B26">LED</text>
+  <text x="185" y="65" font-size="10" font-family="JetBrains Mono, monospace" fill="#3A4150">long leg = +</text>
+  <!-- resistor -->
+  <rect x="290" y="85" width="60" height="14" fill="#E4D9B8" stroke="#3A4150"/>
+  <text x="295" y="115" font-size="12" font-family="JetBrains Mono, monospace" fill="#171B26">resistor</text>
+  <!-- wires -->
+  <path d="M120 92 L220 92" stroke="#2FB8AC" stroke-width="3" fill="none"/>
+  <path d="M240 92 L290 92" stroke="#2FB8AC" stroke-width="3" fill="none"/>
+  <path d="M350 92 L420 92" stroke="#3A4150" stroke-width="3" fill="none"/>
+  <!-- GPIO / GND labels -->
+  <rect x="100" y="78" width="20" height="28" rx="4" fill="#1F8378"/>
+  <text x="80" y="60" font-size="11" font-family="JetBrains Mono, monospace" fill="#1F8378">GPIO 17</text>
+  <rect x="420" y="78" width="20" height="28" rx="4" fill="#3A4150"/>
+  <text x="415" y="60" font-size="11" font-family="JetBrains Mono, monospace" fill="#3A4150">GND</text>
+  <!-- Button -->
+  <rect x="500" y="80" width="40" height="24" rx="3" fill="#FF6B5E"/>
+  <text x="495" y="60" font-size="11" font-family="JetBrains Mono, monospace" fill="#FF6B5E">GPIO 2</text>
+  <text x="495" y="125" font-size="12" font-family="JetBrains Mono, monospace" fill="#171B26">button</text>
+  <path d="M480 92 L500 92" stroke="#FF6B5E" stroke-width="3" fill="none"/>
+</svg>

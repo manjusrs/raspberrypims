@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Warm-Up — Linux &amp; Python — Day 1</title>
+<link rel="stylesheet" href="../../styles/style.css">
+</head>
+<body>
+<a class="back-btn" href="index.html">← Day 1</a>
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <span class="eyebrow">Daily Warm-Up · Day 1</span>
+      <h1>Terminal &amp; Python Basics</h1>
+      <span class="level-badge l1"><span class="dot"></span>LEVEL 1 · GUIDED</span>
+    </div>
+    <div class="doc-meta">Name: <span class="fillin">&nbsp;</span><br><br>Time: <span class="fillin">&nbsp;</span></div>
+  </div>
+  <div class="rail"></div>
+
+  <div class="card">
+    <h2>Why we start here every day</h2>
+    <p>The terminal is how you'll actually talk to your Pi all week. Ten minutes a day, and by Day 5 it'll feel as normal as opening an app on your phone.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">1</span>Four commands</h2>
+    <table>
+      <tr><th>Command</th><th>What it does</th><th>Example</th></tr>
+      <tr><td class="mono">pwd</td><td>Prints your current folder ("print working directory")</td><td class="mono">pwd</td></tr>
+      <tr><td class="mono">ls</td><td>Lists what's inside the current folder</td><td class="mono">ls</td></tr>
+      <tr><td class="mono">cd</td><td>Changes folder</td><td class="mono">cd Desktop</td></tr>
+      <tr><td class="mono">mkdir</td><td>Makes a new folder</td><td class="mono">mkdir day1</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">2</span>Try it: terminal scavenger hunt</h2>
+    <div class="checkbox-line"><div class="box"></div><p>Open the terminal application</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Type <code>pwd</code> and write your result here: <span class="fillin" style="min-width:220px">&nbsp;</span></p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Make a folder called <code>day1</code></p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Move into it using <code>cd day1</code></p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Run <code>ls</code>. It should print nothing, the folder is empty. That's correct!</p></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">3</span>Your first Python line</h2>
+    <p>Python programs are just text files ending in <code>.py</code>. Let's write one from the terminal.</p>
+    <pre>nano hello.py</pre>
+    <p>Type this inside the editor, then press <code>Ctrl+O</code> to save and <code>Ctrl+X</code> to exit:</p>
+    <pre>print("Hello, Pi!")</pre>
+    <p>Now run it:</p>
+    <pre>python3 hello.py</pre>
+    <div class="hint"><summary style="pointer-events:none">Expected output</summary><p style="margin-top:8px">Your terminal should print exactly: <code>Hello, Pi!</code></p></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">4</span>Vocabulary check</h2>
+    <p>Match each word to its meaning by writing the letter.</p>
+    <table>
+      <tr><th>Term</th><th>Your answer</th></tr>
+      <tr><td>Variable</td><td class="fill-row"></td></tr>
+      <tr><td>Loop</td><td class="fill-row"></td></tr>
+      <tr><td>Conditional</td><td class="fill-row"></td></tr>
+      <tr><td>Library</td><td class="fill-row"></td></tr>
+    </table>
+    <p style="font-size:13.5px;color:var(--graphite)">A) Pre-written code you can borrow &nbsp; B) A labeled box that holds a value that can change &nbsp; C) Code that repeats &nbsp; D) Code that makes a decision</p>
+  </div>
+
+  <div class="footer-note">Raspberry Pi Camp · Day 1 Warm-Up</div>
+  <div class="copyright">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>

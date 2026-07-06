@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Day 1 Slides — Raspberry Pi Camp</title>
+<link rel="stylesheet" href="../../styles/style.css">
+<style>
+  body { background: var(--ink); overflow: hidden; }
+  .deck { position: relative; width: 100vw; height: 100vh; }
+  .slide {
+    position: absolute; inset: 0;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6vh 9vw;
+    color: var(--paper);
+  }
+  .slide.active { display: flex; }
+  .slide .eyebrow { margin-bottom: 10px; }
+  .slide h1 { font-size: 46px; margin: 0 0 20px; line-height: 1.1; max-width: 20ch; }
+  .slide h2.sub { font-size: 22px; font-weight: 500; color: rgba(255,255,255,0.65); margin: -10px 0 24px; font-family: var(--font-body); }
+  .slide ul { font-size: 24px; line-height: 1.65; max-width: 30ch; padding-left: 26px; }
+  .slide ul li::marker { color: var(--led-amber); }
+  .two-col { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; }
+  .card-dark {
+    background: var(--ink-soft);
+    border: 1px solid var(--line-dark);
+    border-radius: 16px;
+    padding: 24px 26px;
+  }
+  .card-dark h3 { margin-top: 0; font-size: 15px; color: var(--led-amber); letter-spacing: .03em; }
+  pre { font-size: 16px; }
+  .pins { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+  .rail-wrap { position: absolute; bottom: 0; left: 0; right: 0; }
+  .progress { position: fixed; top: 0; left: 0; height: 4px; background: var(--circuit-teal); transition: width .2s; z-index: 5; }
+  .nav-hint {
+    position: fixed; bottom: 20px; right: 28px;
+    font-family: var(--font-mono); font-size: 12px; color: rgba(255,255,255,0.4);
+  }
+  .count { position: fixed; bottom: 20px; left: 28px; font-family: var(--font-mono); font-size: 12px; color: rgba(255,255,255,0.4); }
+  .tag { position: fixed; top: 18px; right: 28px; font-family: var(--font-mono); font-size: 12px; padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.6); }
+  .big-num { font-family: var(--font-display); font-size: 100px; color: var(--led-amber); line-height: 1; }
+  .checklist li { list-style: none; margin-left: -26px; }
+  .checklist li::before { content: "→ "; color: var(--circuit-teal); }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<a class="back-btn on-dark" href="index.html" onclick="event.stopPropagation()">← Day 1</a>
+<div class="deck" id="deck"></div>
+<div class="count" id="count"></div>
+<div class="tag" id="tag"></div>
+<div class="nav-hint">← → or space to navigate</div>
+<div class="copyright fixed-bottom">© 2026 Manju Muralidharan Priya</div>
+
+<script id="slide-data" type="application/json">
+[
+{"session":"AM","html":"<div class='eyebrow on-dark'>Day 1 · Getting Started</div><h1>Building Our First Circuit</h1><h2 class='sub'>Raspberry Pi Camp — Day 1</h2><ul><li>Meet the Pi &amp; GPIO</li><li>Terminal + Python basics</li><li>Build a working LED circuit</li><li>Write the code that runs it</li></ul>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Rules for the Lab</div><h1>Before we touch anything...</h1><ul><li>Be respectful, this is a shared workspace</li><li>Phones away during build time</li><li>Raise your hand for questions or a bathroom break</li><li>Power off before you rewire a circuit</li></ul>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>What is a Raspberry Pi?</div><h1>A full computer, palm-sized</h1><div class='two-col'><ul><li>Runs Linux, just like a laptop</li><li>Has a CPU, memory, and storage, only smaller</li><li>Has <b>GPIO pins</b> most computers don't: General Purpose Input/Output</li></ul><div class='card-dark'><h3>WHY GPIO MATTERS</h3><p style='font-size:17px;line-height:1.5'>Your laptop can't light an LED or read a sensor directly. The Pi can, because GPIO pins are a bridge between code and the real, physical world.</p></div></div>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Warm-Up · Linux</div><h1>Meet the Terminal</h1><div class='two-col'><ul><li>A text window that talks directly to the computer</li><li>No mouse clicks, just typed commands</li><li>Every app on your Pi, including Python, can be launched from here</li></ul><div class='card-dark'><h3>ANALOGY</h3><p style='font-size:17px;line-height:1.5'>If the desktop is like ordering from a menu with pictures, the terminal is calling the kitchen directly and telling them exactly what you want.</p></div></div>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Warm-Up · Linux</div><h1>Four commands to survive on</h1><div class='card-dark'><pre><span class='c'># where am I?</span>\npwd\n\n<span class='c'># what's here?</span>\nls\n\n<span class='c'># go into a folder</span>\ncd Day1\n\n<span class='c'># make a new folder</span>\nmkdir my_project</pre></div>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Warm-Up · Try It</div><h1>Terminal scavenger hunt</h1><ul class='checklist'><li>Open the terminal</li><li>Print your current folder with <code>pwd</code></li><li>Make a folder called <code>day1</code></li><li>Move into it with <code>cd day1</code></li><li>List what's inside with <code>ls</code>, it should be empty!</li></ul>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>What is Python?</div><h1>Instructions the Pi can follow</h1><div class='two-col'><ul><li>A programming language, a way to write instructions precisely</li><li>High-level, meaning it reads close to English</li><li>Comes with tools built in, so we don't build everything from scratch</li></ul><div class='card-dark'><h3>YOUR FIRST LINE</h3><pre>print(\"Hello, Pi!\")</pre></div></div>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Coding Fundamentals</div><h1>Variables</h1><div class='two-col'><ul><li>A labeled box that holds a value</li><li>The value can change, that's why it's called a <i>variable</i></li></ul><div class='card-dark'><pre>blink_count = 5\nled_name = \"red\"\nis_on = True</pre></div></div>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Coding Fundamentals</div><h1>Loops</h1><div class='two-col'><ul><li>Repeat a block of instructions without retyping it</li><li><code>for</code> loops: repeat a set number of times</li><li><code>while</code> loops: repeat until something changes</li></ul><div class='card-dark'><pre>for i in range(5):\n    print(\"blink\")</pre></div></div>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Coding Fundamentals</div><h1>Conditionals</h1><div class='two-col'><ul><li>Let code make decisions</li><li><code>if</code> / <code>else</code>, run different code depending on a condition</li></ul><div class='card-dark'><pre>if is_on:\n    print(\"LED is on\")\nelse:\n    print(\"LED is off\")</pre></div></div>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Coding Fundamentals</div><h1>Classes &amp; Objects</h1><div class='two-col'><ul><li>A <b>class</b> is a blueprint, an <b>object</b> is a real thing built from it</li><li>Today's LED code is built entirely from a class called <code>LED</code></li></ul><div class='card-dark'><pre>my_led = LED(17)\n<span class='c'># my_led is an object, LED is the class</span></pre></div></div>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Hands-On · Level 1</div><h1>Simple Circuit Setup</h1><div class='two-col'><ul><li>We're using an LED and a resistor</li><li>Every circuit needs a path back to <b>ground</b></li><li>A GPIO pin will supply the power, on command</li></ul><div class='card-dark'><h3>PIN MAP FOR TODAY</h3><div class='pins'><span class='pin gpio'>GPIO 17</span><span class='pin gnd'>GND</span></div></div></div>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Hands-On · Level 1</div><h1>Build it, step by step</h1><ul><li>Grab your handout, it has the full wiring diagram</li><li>Long leg of the LED = positive</li><li>Resistor protects the LED from too much current</li><li>Fill in your Engineering Notebook as you go</li></ul>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Break</div><h1 class='big-num'>10:00</h1><ul><li>Stretch, hydrate, ask a neighbor how their circuit looks</li><li>Back in 10 minutes for code</li></ul>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Welcome Back</div><h1>Quick recall</h1><ul class='checklist'><li>What does GPIO stand for?</li><li>What command shows you what's in a folder?</li><li>What do we call a repeating block of code?</li></ul>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Making It Work With Code</div><h1>What is a library?</h1><div class='two-col'><ul><li>Pre-written code we can borrow instead of writing from scratch</li><li>We'll use <code>gpiozero</code>, built for exactly this hardware</li></ul><div class='card-dark'><pre>from gpiozero import LED</pre></div></div>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Level 1 · Guided</div><h1>Turning the LED on and off</h1><div class='card-dark'><pre>from gpiozero import LED\nfrom time import sleep\n\nled = LED(17)\n\nled.on()\nsleep(1)\nled.off()</pre></div>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Level 1 · Guided</div><h1>Now make it blink</h1><div class='card-dark'><pre>from gpiozero import LED\nfrom time import sleep\n\nled = LED(17)\n\nfor i in range(10):\n    led.on()\n    sleep(0.5)\n    led.off()\n    sleep(0.5)</pre></div>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Hands-On · Level 1</div><h1>Adding a Button</h1><ul><li>Keep your LED circuit exactly as it is</li><li>We're adding one more component: a push button</li><li>Buttons need a GPIO pin too, we'll use GPIO 2</li></ul>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Level 1 · Guided</div><h1>Reading the button in code</h1><div class='card-dark'><pre>from gpiozero import LED, Button\n\nled = LED(17)\nbutton = Button(2)\n\nbutton.when_pressed = led.on\nbutton.when_released = led.off</pre></div>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Break</div><h1 class='big-num'>1:30</h1><ul><li>Save your code before you get up</li><li>Back in 10, then it's your turn to drive</li></ul>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Your Turn</div><h1>Two challenges, no hand-holding</h1><div class='two-col'><div class='card-dark'><span class='level-badge l2' style='color:var(--wire-red)'><span class='dot'></span>LEVEL 2</span><p style='font-size:16px;margin-top:10px'>Make your LED fade in and out smoothly using <code>PWMLED</code>, brightness is a number between 0 and 1.</p></div><div class='card-dark'><span class='level-badge l3' style='color:var(--signal-coral)'><span class='dot'></span>LEVEL 3</span><p style='font-size:16px;margin-top:10px'>Use the button to switch between three different light patterns on one LED.</p></div></div>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>How To Work Right Now</div><h1>Use your handout, use your hints</h1><ul><li>Every challenge has a hint box, open it only after you've tried</li><li>Log every wiring change in your Engineering Notebook, even the ones that didn't work</li><li>I'm circulating, wave me down if you're stuck for more than 5 minutes</li></ul>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Wrap-Up</div><h1>Before you go</h1><ul class='checklist'><li>Save your code, name the file <code>day1_yourname.py</code></li><li>Finish your Engineering Notebook entry</li><li>Unplug carefully, components go back in the tray</li><li>Tomorrow: functions and building a GUI</li></ul>"}
+]
+</script>
+
+<script>
+const data = JSON.parse(document.getElementById('slide-data').textContent);
+const deck = document.getElementById('deck');
+data.forEach((s, i) => {
+  const el = document.createElement('div');
+  el.className = 'slide' + (i === 0 ? ' active' : '');
+  el.innerHTML = s.html + "<div class='rail-wrap'><div class='rail on-dark'></div></div>";
+  deck.appendChild(el);
+});
+let idx = 0;
+const slides = document.querySelectorAll('.slide');
+const progress = document.getElementById('progress');
+const count = document.getElementById('count');
+const tag = document.getElementById('tag');
+function render() {
+  slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+  progress.style.width = ((idx + 1) / slides.length * 100) + '%';
+  count.textContent = (idx + 1) + ' / ' + slides.length;
+  tag.textContent = 'DAY 1 · ' + data[idx].session + ' SESSION';
+}
+function next() { idx = Math.min(idx + 1, slides.length - 1); render(); }
+function prev() { idx = Math.max(idx - 1, 0); render(); }
+document.addEventListener('keydown', e => {
+  if (['ArrowRight', ' ', 'PageDown'].includes(e.key)) next();
+  if (['ArrowLeft', 'PageUp'].includes(e.key)) prev();
+});
+document.addEventListener('click', e => { if (e.clientX > window.innerWidth / 2) next(); else prev(); });
+render();
+</script>
+</body>
+</html>

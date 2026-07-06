@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Level 2 — Fading LED — Day 1</title>
+<link rel="stylesheet" href="../../styles/style.css">
+</head>
+<body>
+<a class="back-btn" href="index.html">← Day 1</a>
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <span class="eyebrow">Independent Challenge · Day 1</span>
+      <h1>Make Your LED Breathe</h1>
+      <span class="level-badge l2"><span class="dot"></span>LEVEL 2 · ON YOUR OWN</span>
+    </div>
+    <div class="doc-meta">Name: <span class="fillin">&nbsp;</span></div>
+  </div>
+  <div class="rail red"></div>
+
+  <div class="card">
+    <h2>The challenge</h2>
+    <p>So far your LED has only known two states: on or off. Real dimmer switches, phone flashlights, and mood lighting can be anywhere in between. Your job: make your LED smoothly fade from off to fully bright, then back down, like it's breathing.</p>
+  </div>
+
+  <div class="card">
+    <h2>What you know already</h2>
+    <p>You've used the <code>LED</code> class, which only understands <code>on()</code> and <code>off()</code>. That's not enough for this. You'll need a different class from the same library: <code>PWMLED</code>. It accepts a brightness value between <code>0</code> (off) and <code>1</code> (full brightness), including decimals like <code>0.3</code>.</p>
+  </div>
+
+  <div class="card">
+    <h2>Your task</h2>
+    <div class="checkbox-line"><div class="box"></div><p>Swap your circuit's LED wiring to use the same GPIO 17 pin, no rewiring needed, this is a code-only challenge</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Import <code>PWMLED</code> instead of <code>LED</code></p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Write a loop that raises the brightness from 0 to 1 in small steps</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Write a second loop that lowers it back from 1 to 0</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Wrap both in an outer loop so it breathes continuously</p></div>
+  </div>
+
+  <details class="hint"><summary>Hint 1: how do I count in decimals?</summary>
+    <p style="margin-top:8px"><code>range()</code> only works with whole numbers. You'll want a whole number counter, then divide it by something to turn it into a decimal brightness value. Think: if you count from 0 to 10, how do you turn each step into a number between 0 and 1?</p>
+  </details>
+
+  <details class="hint"><summary>Hint 2: the shape of the loop</summary>
+    <p style="margin-top:8px">You need two directions: brightness going up, then brightness going down. That's two loops, or one loop with a list that goes up and then back down.</p>
+    <pre>for i in range(0, 11):
+    led.value = i / 10
+    sleep(0.05)</pre>
+  </details>
+
+  <details class="hint"><summary>Hint 3: full structure, if you're really stuck</summary>
+    <pre>from gpiozero import PWMLED
+from time import sleep
+
+led = PWMLED(17)
+
+while True:
+    for i in range(0, 11):
+        led.value = i / 10
+        sleep(0.05)
+    for i in range(10, -1, -1):
+        led.value = i / 10
+        sleep(0.05)</pre>
+  </details>
+
+  <div class="card">
+    <h2>Push further (optional)</h2>
+    <p>Can you make the fade speed up as the light gets brighter, and slow down as it dims? What line would you need to change?</p>
+  </div>
+
+  <div class="footer-note">Raspberry Pi Camp · Day 1 · Level 2</div>
+  <div class="copyright">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>
