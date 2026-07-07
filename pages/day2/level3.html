@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Level 3 — Smart Buzzer — Day 2</title>
+<link rel="stylesheet" href="../../styles/style.css">
+</head>
+<body>
+<a class="back-btn" href="index.html">← Day 2</a>
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <span class="eyebrow">Independent Challenge · Day 2</span>
+      <h1>Make the Buzzer Track the Lights</h1>
+      <span class="level-badge l3"><span class="dot"></span>LEVEL 3 · HARDEST</span>
+    </div>
+    <div class="doc-meta">Name: <span class="fillin">&nbsp;</span></div>
+  </div>
+  <div class="rail" style="color:var(--signal-coral)"></div>
+
+  <div class="card">
+    <h2>The challenge</h2>
+    <p>Right now the buzzer has its own independent slider. Disconnect that idea completely. Instead, the buzzer's volume should update automatically, live, based on the average brightness of your three LEDs. Turn the LEDs up, the buzzer gets louder on its own, with no separate slider touched.</p>
+  </div>
+
+  <div class="card">
+    <h2>Why this is genuinely hard</h2>
+    <p>Your LED sliders each call their own small function the moment they move. But the buzzer needs to react to <i>all three</i> at once, and none of those three functions know about each other. You need a shared piece of logic that all three sliders trigger, that recalculates the average and updates the buzzer every time.</p>
+  </div>
+
+  <div class="card">
+    <h2>Your task</h2>
+    <div class="checkbox-line"><div class="box"></div><p>Remove the buzzer's independent slider</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Write one function that reads all three LED brightness values and sets the buzzer's volume to their average</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Call that function from all three LED sliders, not just one</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Make sure the master button still silences the buzzer along with the LEDs</p></div>
+  </div>
+
+  <details class="hint"><summary>Hint 1: one function, called from three places</summary>
+    <p style="margin-top:8px">Your slider functions currently only set one LED's value each. Add a second line at the end of each one that calls a new function, something like <code>update_buzzer()</code>.</p>
+  </details>
+
+  <details class="hint"><summary>Hint 2: reading current slider values</summary>
+    <p style="margin-top:8px"><code>PWMLED</code> objects remember their own current value. You don't need to track brightness separately, you can just read <code>led1.value</code>, <code>led2.value</code>, and <code>led3.value</code> directly, any time.</p>
+  </details>
+
+  <details class="hint"><summary>Hint 3: full structure, if you're really stuck</summary>
+    <pre>def update_buzzer():
+    average = (led1.value + led2.value + led3.value) / 3
+    buzzer.value = average
+
+def set_led1(val):
+    led1.value = int(val) / 100
+    update_buzzer()
+
+def set_led2(val):
+    led2.value = int(val) / 100
+    update_buzzer()
+
+def set_led3(val):
+    led3.value = int(val) / 100
+    update_buzzer()</pre>
+  </details>
+
+  <div class="card">
+    <h2>Push further (optional)</h2>
+    <p>Right now every LED counts equally toward the average. What would you change if LED 1 should count twice as much as the other two? You don't need to build it, just describe the change to <code>update_buzzer()</code> in words.</p>
+  </div>
+
+  <div class="footer-note">Raspberry Pi Camp · Day 2 · Level 3</div>
+  <div class="copyright">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>

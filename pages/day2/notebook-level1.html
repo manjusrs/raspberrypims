@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Engineering Notebook — Day 2</title>
+<link rel="stylesheet" href="../../styles/style.css">
+</head>
+<body>
+<a class="back-btn" href="index.html">← Day 2</a>
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <span class="eyebrow">Engineering Notebook · Day 2</span>
+      <h1>Circuit Log &amp; Debug Trail</h1>
+      <span class="level-badge l1"><span class="dot"></span>LEVEL 1</span>
+    </div>
+    <div class="doc-meta">Name: <span class="fillin">&nbsp;</span></div>
+  </div>
+  <div class="rail"></div>
+
+  <div class="card">
+    <h2>1. Wiring log</h2>
+    <p>Log every connection you add today. You should end up with at least 5 rows: LED 3, buzzer, and master button, plus grounds.</p>
+    <table>
+      <tr><th>From</th><th>To</th><th>Purpose</th><th>Worked? (Y/N)</th></tr>
+      <tr class="fill-row"><td></td><td></td><td></td><td></td></tr>
+      <tr class="fill-row"><td></td><td></td><td></td><td></td></tr>
+      <tr class="fill-row"><td></td><td></td><td></td><td></td></tr>
+      <tr class="fill-row"><td></td><td></td><td></td><td></td></tr>
+      <tr class="fill-row"><td></td><td></td><td></td><td></td></tr>
+      <tr class="fill-row"><td></td><td></td><td></td><td></td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>2. Debug checklist</h2>
+    <div class="checkbox-line"><div class="box"></div><p>Does every GPIO number in your code match the pin you actually wired?</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Is every component sharing the same ground rail?</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>If a slider does nothing, is that GPIO already used somewhere else in your code?</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>If the GUI window won't open, did you forget <code>window.mainloop()</code> at the very end?</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>If the master button doesn't reset the sliders, is that actually a bug? Check the worksheet question about this.</p></div>
+  </div>
+
+  <div class="card">
+    <h2>3. Bug report</h2>
+    <table>
+      <tr><td style="width:35%"><b>What I expected</b></td><td class="fill-row"></td></tr>
+      <tr><td><b>What actually happened</b></td><td class="fill-row"></td></tr>
+      <tr><td><b>What I checked</b></td><td class="fill-row"></td></tr>
+      <tr><td><b>What fixed it</b></td><td class="fill-row"></td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>4. Final circuit sketch</h2>
+    <p>Draw your finished circuit here: 3 LEDs, buzzer, master button, all pin numbers labeled.</p>
+    <div style="border:1.5px dashed var(--line); border-radius:10px; height:220px;"></div>
+  </div>
+
+  <div class="footer-note">Raspberry Pi Camp · Day 2 · Engineering Notebook</div>
+  <div class="copyright">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>

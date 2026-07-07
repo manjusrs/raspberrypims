@@ -1,0 +1,46 @@
+<svg viewBox="0 0 760 260" xmlns="http://www.w3.org/2000/svg" width="100%" style="max-width:760px;display:block">
+  <rect x="10" y="20" width="740" height="220" rx="10" fill="#F1ECDF" stroke="#3A4150" stroke-width="1.5"/>
+
+  <!-- LED 1 -->
+  <line x1="90" y1="70" x2="90" y2="110" stroke="#FFB238" stroke-width="4"/>
+  <polygon points="75,70 105,70 90,95" fill="#FFB238"/>
+  <text x="66" y="130" font-size="11" font-family="JetBrains Mono, monospace" fill="#171B26">LED 1</text>
+  <rect x="80" y="150" width="20" height="26" rx="3" fill="#1F8378"/>
+  <text x="58" y="196" font-size="10.5" font-family="JetBrains Mono, monospace" fill="#1F8378">GPIO 17</text>
+  <path d="M90 110 L90 150" stroke="#2FB8AC" stroke-width="3" fill="none"/>
+
+  <!-- LED 2 -->
+  <line x1="230" y1="70" x2="230" y2="110" stroke="#FFB238" stroke-width="4"/>
+  <polygon points="215,70 245,70 230,95" fill="#FFB238"/>
+  <text x="206" y="130" font-size="11" font-family="JetBrains Mono, monospace" fill="#171B26">LED 2</text>
+  <rect x="220" y="150" width="20" height="26" rx="3" fill="#1F8378"/>
+  <text x="198" y="196" font-size="10.5" font-family="JetBrains Mono, monospace" fill="#1F8378">GPIO 27</text>
+  <path d="M230 110 L230 150" stroke="#2FB8AC" stroke-width="3" fill="none"/>
+
+  <!-- LED 3 -->
+  <line x1="370" y1="70" x2="370" y2="110" stroke="#FFB238" stroke-width="4"/>
+  <polygon points="355,70 385,70 370,95" fill="#FFB238"/>
+  <text x="346" y="130" font-size="11" font-family="JetBrains Mono, monospace" fill="#171B26">LED 3</text>
+  <rect x="360" y="150" width="20" height="26" rx="3" fill="#1F8378"/>
+  <text x="338" y="196" font-size="10.5" font-family="JetBrains Mono, monospace" fill="#1F8378">GPIO 22</text>
+  <path d="M370 110 L370 150" stroke="#2FB8AC" stroke-width="3" fill="none"/>
+
+  <!-- Buzzer -->
+  <circle cx="520" cy="90" r="22" fill="#E4D9B8" stroke="#3A4150" stroke-width="1.5"/>
+  <text x="497" y="130" font-size="11" font-family="JetBrains Mono, monospace" fill="#171B26">buzzer</text>
+  <rect x="510" y="150" width="20" height="26" rx="3" fill="#1F8378"/>
+  <text x="488" y="196" font-size="10.5" font-family="JetBrains Mono, monospace" fill="#1F8378">GPIO 23</text>
+  <path d="M520 112 L520 150" stroke="#2FB8AC" stroke-width="3" fill="none"/>
+
+  <!-- Button -->
+  <rect x="640" y="75" width="46" height="28" rx="4" fill="#FF6B5E"/>
+  <text x="636" y="130" font-size="11" font-family="JetBrains Mono, monospace" fill="#171B26">master button</text>
+  <rect x="653" y="150" width="20" height="26" rx="3" fill="#FF6B5E"/>
+  <text x="631" y="196" font-size="10.5" font-family="JetBrains Mono, monospace" fill="#FF6B5E">GPIO 2</text>
+  <path d="M663 103 L663 150" stroke="#FF6B5E" stroke-width="3" fill="none"/>
+
+  <!-- GND rail -->
+  <path d="M90 176 L90 220 L673 220 L673 176" stroke="#3A4150" stroke-width="3" fill="none"/>
+  <rect x="370" y="220" width="20" height="14" rx="3" fill="#3A4150"/>
+  <text x="356" y="248" font-size="10.5" font-family="JetBrains Mono, monospace" fill="#3A4150">shared GND</text>
+</svg>

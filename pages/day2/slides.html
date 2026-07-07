@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Day 2 Slides — Raspberry Pi Camp</title>
+<link rel="stylesheet" href="../../styles/style.css">
+<style>
+  body { background: var(--ink); overflow: hidden; }
+  .deck { position: relative; width: 100vw; height: 100vh; }
+  .slide {
+    position: absolute; inset: 0;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6vh 9vw;
+    color: var(--paper);
+  }
+  .slide.active { display: flex; }
+  .slide .eyebrow { margin-bottom: 10px; }
+  .slide h1 { font-size: 46px; margin: 0 0 20px; line-height: 1.1; max-width: 22ch; }
+  .slide h2.sub { font-size: 22px; font-weight: 500; color: rgba(255,255,255,0.65); margin: -10px 0 24px; font-family: var(--font-body); }
+  .slide ul { font-size: 24px; line-height: 1.65; max-width: 30ch; padding-left: 26px; }
+  .slide ul li::marker { color: var(--led-amber); }
+  .two-col { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; }
+  .card-dark {
+    background: var(--ink-soft);
+    border: 1px solid var(--line-dark);
+    border-radius: 16px;
+    padding: 24px 26px;
+  }
+  .card-dark h3 { margin-top: 0; font-size: 15px; color: var(--led-amber); letter-spacing: .03em; }
+  pre { font-size: 15.5px; }
+  .pins { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+  .rail-wrap { position: absolute; bottom: 0; left: 0; right: 0; }
+  .progress { position: fixed; top: 0; left: 0; height: 4px; background: var(--circuit-teal); transition: width .2s; z-index: 5; }
+  .nav-hint {
+    position: fixed; bottom: 20px; right: 28px;
+    font-family: var(--font-mono); font-size: 12px; color: rgba(255,255,255,0.4);
+  }
+  .count { position: fixed; bottom: 20px; left: 28px; font-family: var(--font-mono); font-size: 12px; color: rgba(255,255,255,0.4); }
+  .tag { position: fixed; top: 18px; right: 28px; font-family: var(--font-mono); font-size: 12px; padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.6); }
+  .big-num { font-family: var(--font-display); font-size: 100px; color: var(--led-amber); line-height: 1; }
+  .checklist li { list-style: none; margin-left: -26px; }
+  .checklist li::before { content: "→ "; color: var(--circuit-teal); }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<a class="back-btn on-dark" href="index.html" onclick="event.stopPropagation()">← Day 2</a>
+<div class="deck" id="deck"></div>
+<div class="count" id="count"></div>
+<div class="tag" id="tag"></div>
+<div class="nav-hint">← → or space to navigate</div>
+<div class="copyright fixed-bottom">© 2026 Manju Muralidharan Priya</div>
+
+<script id="slide-data" type="application/json">
+[
+{"session":"AM","html":"<div class='eyebrow on-dark'>Day 2 · Functions &amp; GUIs</div><h1>Wrapping Code You Can Reuse</h1><h2 class='sub'>Raspberry Pi Camp — Day 2</h2><ul><li>New Linux commands</li><li>Finish conditionals</li><li>Alternate two LEDs</li><li>Functions, then a real GUI</li></ul>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Where We Left Off</div><h1>Your circuit from yesterday</h1><div class='two-col'><ul><li>Two LEDs wired in parallel</li><li>No buttons yet, that's today</li><li>We didn't get to conditionals, so we're finishing that first</li></ul><div class='card-dark'><h3>PINS SO FAR</h3><div class='pins'><span class='pin gpio'>GPIO 17</span><span class='pin gpio'>GPIO 27</span><span class='pin gnd'>GND</span></div></div></div>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Warm-Up · Linux</div><h1>Five new commands</h1><div class='card-dark'><pre><span class='c'># make an empty file</span>\ntouch notes.py\n\n<span class='c'># print a file's contents</span>\ncat notes.py\n\n<span class='c'># copy / rename / delete</span>\ncp a.py b.py\nmv b.py c.py\nrm c.py</pre></div>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Warm-Up · Python</div><h1>Finishing conditionals</h1><div class='two-col'><ul><li><code>if</code>, <code>elif</code>, <code>else</code>, chain as many as you need</li><li>Only one branch ever runs</li></ul><div class='card-dark'><pre>if brightness > 0.5:\n    print(\"bright\")\nelif brightness > 0:\n    print(\"dim\")\nelse:\n    print(\"off\")</pre></div></div>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Hands-On · Level 1</div><h1>Make them flash alternately</h1><ul><li>No new wiring, same two LEDs from yesterday</li><li>When LED 1 is on, LED 2 is off, and they swap</li><li>This is a conditional problem, disguised as a hardware problem</li></ul>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Level 1 · Guided</div><h1>Alternating code</h1><div class='card-dark'><pre>from gpiozero import LED\nfrom time import sleep\n\nled1 = LED(17)\nled2 = LED(27)\n\nfor i in range(10):\n    led1.on()\n    led2.off()\n    sleep(0.5)\n    led1.off()\n    led2.on()\n    sleep(0.5)</pre></div>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Notice Something?</div><h1>That code repeats itself</h1><div class='two-col'><ul><li>The \"swap\" pattern happens twice inside the loop</li><li>What if we wanted to reuse it somewhere else in the program?</li><li>Copy-pasting code is a warning sign, not a solution</li></ul><div class='card-dark'><h3>THE FIX IS COMING</h3><p style='font-size:17px;line-height:1.5'>Functions. A function is a name you give to a block of code, so you can run it again just by calling that name.</p></div></div>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Coding Fundamentals</div><h1>Defining a function</h1><div class='card-dark'><pre>def swap_leds():\n    led1.on()\n    led2.off()\n    sleep(0.5)\n    led1.off()\n    led2.on()\n    sleep(0.5)\n\nfor i in range(10):\n    swap_leds()</pre></div>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Coding Fundamentals</div><h1>Functions can take input</h1><div class='two-col'><ul><li>Values passed into a function are called <b>parameters</b></li><li>They let one function handle many situations</li></ul><div class='card-dark'><pre>def blink(led, times):\n    for i in range(times):\n        led.on()\n        sleep(0.3)\n        led.off()\n        sleep(0.3)\n\nblink(led1, 5)</pre></div></div>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Break</div><h1 class='big-num'>10:00</h1><ul><li>Save your code before you get up</li><li>Back in 10 for GUIs</li></ul>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Welcome Back</div><h1>What is a GUI?</h1><div class='two-col'><ul><li>Graphical User Interface, buttons and sliders instead of typed commands</li><li>We'll build ours with <code>Tkinter</code>, built into Python</li></ul><div class='card-dark'><pre>import tkinter as tk\n\nwindow = tk.Tk()\nwindow.mainloop()</pre></div></div>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Hands-On · Level 1</div><h1>Add a third LED, separately</h1><ul><li>We're using 3 separate LEDs today, not one RGB LED</li><li>Each gets its own GPIO pin and its own resistor</li><li>LED 3 goes on GPIO 22</li></ul>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Recap</div><h1>PWMLED: brightness as a number</h1><div class='card-dark'><pre>from gpiozero import PWMLED\n\nled1 = PWMLED(17)\nled1.value = 0.5   <span class='c'># halfway bright</span></pre></div>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Level 1 · Guided</div><h1>One slider, one LED</h1><div class='card-dark'><pre>import tkinter as tk\nfrom gpiozero import PWMLED\n\nled1 = PWMLED(17)\n\ndef set_brightness(val):\n    led1.value = int(val) / 100\n\nwindow = tk.Tk()\nslider = tk.Scale(window, from_=0, to=100,\n                   orient='horizontal', command=set_brightness)\nslider.pack()\nwindow.mainloop()</pre></div>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Level 1 · Guided</div><h1>Now do it for all three</h1><div class='two-col'><ul><li>Three <code>PWMLED</code> objects</li><li>Three sliders, three functions, or one function with a parameter</li></ul><div class='card-dark'><pre>def make_slider(led):\n    def set_val(val):\n        led.value = int(val) / 100\n    return tk.Scale(window, from_=0, to=100,\n                     orient='horizontal', command=set_val)</pre></div></div>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Hands-On · Level 1</div><h1>Add a buzzer</h1><ul><li>Wire a buzzer to GPIO 23 and GND</li><li>Same idea as an LED, but it makes noise instead of light</li><li>PWM controls how loud it sounds, the same way it controlled brightness</li></ul>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Level 1 · Guided</div><h1>A slider for volume</h1><div class='card-dark'><pre>from gpiozero import PWMOutputDevice\n\nbuzzer = PWMOutputDevice(23)\n\ndef set_volume(val):\n    buzzer.value = int(val) / 100\n\nvol_slider = tk.Scale(window, from_=0, to=100,\n                       orient='horizontal', command=set_volume)\nvol_slider.pack()</pre></div>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Hands-On · Level 1</div><h1>One button to rule the system</h1><ul><li>Wire a button to GPIO 2 and GND</li><li>This button is the master switch, on or off for everything at once</li><li>Not a slider, a hard on/off for the whole board</li></ul>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Level 1 · Guided</div><h1>Master on/off</h1><div class='card-dark'><pre>from gpiozero import Button\n\nsystem_on = True\nbutton = Button(2)\n\ndef toggle_system():\n    global system_on\n    system_on = not system_on\n    if not system_on:\n        led1.off(); led2.off(); led3.off()\n        buzzer.off()\n\nbutton.when_pressed = toggle_system</pre></div>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Break</div><h1 class='big-num'>1:30</h1><ul><li>Save everything before you stand up</li><li>Back in 10, then it's your turn</li></ul>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Your Turn</div><h1>Two challenges, no hand-holding</h1><div class='two-col'><div class='card-dark'><span class='level-badge l2' style='color:var(--wire-red)'><span class='dot'></span>LEVEL 2</span><p style='font-size:16px;margin-top:10px'>Build a traffic light mode: one button in the GUI that automatically cycles all 3 LEDs through a real sequence.</p></div><div class='card-dark'><span class='level-badge l3' style='color:var(--signal-coral)'><span class='dot'></span>LEVEL 3</span><p style='font-size:16px;margin-top:10px'>Make the buzzer's volume automatically track how bright your LEDs are, live.</p></div></div>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Wrap-Up</div><h1>Before you go</h1><ul class='checklist'><li>Save your code as <code>day2_yourname.py</code></li><li>Finish your Engineering Notebook wiring log</li><li>Unplug carefully, components back in the tray</li><li>Tomorrow: a distance sensor</li></ul>"}
+]
+</script>
+
+<script>
+const data = JSON.parse(document.getElementById('slide-data').textContent);
+const deck = document.getElementById('deck');
+data.forEach((s, i) => {
+  const el = document.createElement('div');
+  el.className = 'slide' + (i === 0 ? ' active' : '');
+  el.innerHTML = s.html + "<div class='rail-wrap'><div class='rail on-dark'></div></div>";
+  deck.appendChild(el);
+});
+let idx = 0;
+const slides = document.querySelectorAll('.slide');
+const progress = document.getElementById('progress');
+const count = document.getElementById('count');
+const tag = document.getElementById('tag');
+function render() {
+  slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+  progress.style.width = ((idx + 1) / slides.length * 100) + '%';
+  count.textContent = (idx + 1) + ' / ' + slides.length;
+  tag.textContent = 'DAY 2 · ' + data[idx].session + ' SESSION';
+}
+function next() { idx = Math.min(idx + 1, slides.length - 1); render(); }
+function prev() { idx = Math.max(idx - 1, 0); render(); }
+document.addEventListener('keydown', e => {
+  if (['ArrowRight', ' ', 'PageDown'].includes(e.key)) next();
+  if (['ArrowLeft', 'PageUp'].includes(e.key)) prev();
+});
+document.addEventListener('click', e => { if (e.clientX > window.innerWidth / 2) next(); else prev(); });
+render();
+</script>
+</body>
+</html>

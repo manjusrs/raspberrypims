@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Warm-Up — Linux &amp; Python — Day 2</title>
+<link rel="stylesheet" href="../../styles/style.css">
+</head>
+<body>
+<a class="back-btn" href="index.html">← Day 2</a>
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <span class="eyebrow">Daily Warm-Up · Day 2</span>
+      <h1>New Commands, Finishing Conditionals</h1>
+      <span class="level-badge l1"><span class="dot"></span>LEVEL 1 · GUIDED</span>
+    </div>
+    <div class="doc-meta">Name: <span class="fillin">&nbsp;</span><br><br>Time: <span class="fillin">&nbsp;</span></div>
+  </div>
+  <div class="rail"></div>
+
+  <div class="card">
+    <h2>Two things to close out before we start Day 2</h2>
+    <p>First, five new Linux commands for managing files. Second, we're finishing conditionals since we ran out of time yesterday. Both take about ten minutes, then we move on.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">1</span>Five new commands</h2>
+    <table>
+      <tr><th>Command</th><th>What it does</th><th>Example</th></tr>
+      <tr><td class="mono">touch</td><td>Creates a new empty file</td><td class="mono">touch day2.py</td></tr>
+      <tr><td class="mono">cat</td><td>Prints a file's contents to the screen</td><td class="mono">cat day2.py</td></tr>
+      <tr><td class="mono">cp</td><td>Copies a file</td><td class="mono">cp day2.py backup.py</td></tr>
+      <tr><td class="mono">mv</td><td>Moves or renames a file</td><td class="mono">mv backup.py old.py</td></tr>
+      <tr><td class="mono">rm</td><td>Deletes a file, permanently, no trash can</td><td class="mono">rm old.py</td></tr>
+    </table>
+    <div class="danger">rm does not ask "are you sure." Once it's gone, it's gone. Always double check the filename before you press enter.</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">2</span>Try it</h2>
+    <div class="checkbox-line"><div class="box"></div><p>Move into yesterday's folder: <code>cd day1</code></p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Make a copy of your LED code: <code>cp led.py led_backup.py</code></p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Print the copy to the screen: <code>cat led_backup.py</code></p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Go back up a folder and make today's folder: <code>cd .. &amp;&amp; mkdir day2 &amp;&amp; cd day2</code></p></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">3</span>Finishing conditionals</h2>
+    <p>Quick recap: a conditional lets your code choose between different actions depending on whether something is true or false.</p>
+    <pre>brightness = 0.8
+
+if brightness > 0.5:
+    print("bright")
+elif brightness > 0:
+    print("dim")
+else:
+    print("off")</pre>
+    <p><code>elif</code> means "else, if this other thing is true." You can chain as many as you need, and <code>else</code> catches everything left over.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">4</span>Practice</h2>
+    <p>Write the missing line of code for each one. Use the terminal to test your answer if you're not sure.</p>
+    <table>
+      <tr><th>Goal</th><th>Your code</th></tr>
+      <tr class="fill-row"><td>Print "on" if a variable called <code>state</code> is <code>True</code>, otherwise print "off"</td><td></td></tr>
+      <tr class="fill-row"><td>Print "loud" if <code>volume</code> is above 0.7, "quiet" if above 0.2, otherwise "silent"</td><td></td></tr>
+    </table>
+  </div>
+
+  <div class="footer-note">Raspberry Pi Camp · Day 2 Warm-Up</div>
+  <div class="copyright">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>

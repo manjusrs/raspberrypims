@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Level 2 — Traffic Light Mode — Day 2</title>
+<link rel="stylesheet" href="../../styles/style.css">
+</head>
+<body>
+<a class="back-btn" href="index.html">← Day 2</a>
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <span class="eyebrow">Independent Challenge · Day 2</span>
+      <h1>Build a Traffic Light Mode</h1>
+      <span class="level-badge l2"><span class="dot"></span>LEVEL 2 · ON YOUR OWN</span>
+    </div>
+    <div class="doc-meta">Name: <span class="fillin">&nbsp;</span></div>
+  </div>
+  <div class="rail red"></div>
+
+  <div class="card">
+    <h2>The challenge</h2>
+    <p>Sliders are fine for manual control, but a real traffic light runs itself. Add one button to your GUI, labeled "Traffic Light Mode," that automatically cycles LED 1 (red), LED 2 (yellow), and LED 3 (green) through a realistic sequence: red, then green, then yellow, then back to red.</p>
+  </div>
+
+  <div class="card">
+    <h2>Why <code>sleep()</code> will break your GUI</h2>
+    <p>Your instinct might be to write a function with <code>sleep()</code> between each light change, the same way you did on Day 1. Try it. You'll notice the entire window freezes while it runs, no sliders respond, nothing.</p>
+    <p>That's because <code>sleep()</code> pauses your <i>whole program</i>, and Tkinter needs to keep running constantly in the background to stay responsive. Tkinter has its own way of waiting, without freezing: <code>window.after(milliseconds, function_name)</code>.</p>
+  </div>
+
+  <div class="card">
+    <h2>Your task</h2>
+    <div class="checkbox-line"><div class="box"></div><p>Add a button to the GUI labeled "Traffic Light Mode"</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Write a function for each stage of the sequence (red, green, yellow)</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Use <code>window.after()</code> to schedule the next stage, instead of <code>sleep()</code></p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Make the cycle repeat on its own once started</p></div>
+  </div>
+
+  <details class="hint"><summary>Hint 1: what after() actually does</summary>
+    <p style="margin-top:8px"><code>window.after(2000, show_green)</code> tells Tkinter "in 2000 milliseconds, run the function <code>show_green</code>," then immediately continues running everything else. It doesn't pause anything.</p>
+  </details>
+
+  <details class="hint"><summary>Hint 2: chaining stages together</summary>
+    <p style="margin-top:8px">Each stage function can schedule the next one at its own end. That's how you build a self-repeating cycle without a loop.</p>
+    <pre>def show_red():
+    led1.value = 1
+    led2.value = 0
+    led3.value = 0
+    window.after(2000, show_green)</pre>
+  </details>
+
+  <details class="hint"><summary>Hint 3: full structure, if you're really stuck</summary>
+    <pre>def show_red():
+    led1.value = 1; led2.value = 0; led3.value = 0
+    window.after(2000, show_green)
+
+def show_green():
+    led1.value = 0; led2.value = 0; led3.value = 1
+    window.after(2000, show_yellow)
+
+def show_yellow():
+    led1.value = 0; led2.value = 1; led3.value = 0
+    window.after(500, show_red)
+
+tk.Button(window, text="Traffic Light Mode", command=show_red).pack()</pre>
+  </details>
+
+  <div class="card">
+    <h2>Push further (optional)</h2>
+    <p>Add a second button that stops the cycle mid-sequence and hands control back to the manual sliders. What state do you need to track to make that work cleanly?</p>
+  </div>
+
+  <div class="footer-note">Raspberry Pi Camp · Day 2 · Level 2</div>
+  <div class="copyright">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>

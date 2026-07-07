@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Handout — Functions &amp; GUI Control — Day 2</title>
+<link rel="stylesheet" href="../../styles/style.css">
+</head>
+<body>
+<a class="back-btn" href="index.html">← Day 2</a>
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <span class="eyebrow">Hands-On Handout · Day 2</span>
+      <h1>Functions, Then a Full GUI Control Panel</h1>
+      <span class="level-badge l1"><span class="dot"></span>LEVEL 1 · WITH YOUR TEACHER</span>
+    </div>
+    <div class="doc-meta">Name: <span class="fillin">&nbsp;</span></div>
+  </div>
+  <div class="rail"></div>
+
+  <div class="card">
+    <h2>What you're adding today</h2>
+    <p>You already have 2 LEDs wired from yesterday. Today: alternate them, wrap the pattern in a function, add a 3rd LED, add a buzzer, add a master on/off button, then control all of it from a GUI.</p>
+  </div>
+
+  <div class="card">
+    <h2>Full circuit diagram</h2>
+    <img src="../../images/day2/circuit-diagram.svg" alt="Wiring diagram: 3 LEDs on GPIO 17, 27, 22, buzzer on GPIO 23, master button on GPIO 2, shared GND" style="max-width:760px;width:100%;display:block;margin:0 auto">
+    <p style="font-size:13px;color:var(--graphite);text-align:center">Simplified schematic. Every component shares the same GND rail.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">1</span>Alternate your two LEDs</h2>
+    <p>No new wiring here. Just new code.</p>
+    <pre>from gpiozero import LED
+from time import sleep
+
+led1 = LED(17)
+led2 = LED(27)
+
+for i in range(10):
+    led1.on()
+    led2.off()
+    sleep(0.5)
+    led1.off()
+    led2.on()
+    sleep(0.5)</pre>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">2</span>Wrap it in a function</h2>
+    <p>You just wrote the same 4 lines twice inside that loop. A function lets you name that block and call it instead of repeating it.</p>
+    <pre>def swap_leds():
+    led1.on()
+    led2.off()
+    sleep(0.5)
+    led1.off()
+    led2.on()
+    sleep(0.5)
+
+for i in range(10):
+    swap_leds()</pre>
+    <div class="callout">Notice the loop body is now one line. That's the whole point of a function, it hides the repeated detail behind a name.</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">3</span>Add LED 3, no RGB module</h2>
+    <p>Wire a third, separate LED and resistor to <span class="pin gpio">GPIO 22</span>, ground the same way as the others.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">4</span>Build a GUI with 3 brightness sliders</h2>
+    <pre>import tkinter as tk
+from gpiozero import PWMLED
+
+led1 = PWMLED(17)
+led2 = PWMLED(27)
+led3 = PWMLED(22)
+
+window = tk.Tk()
+window.title("LED Control Panel")
+
+def make_slider(led, label):
+    tk.Label(window, text=label).pack()
+    def set_val(val):
+        led.value = int(val) / 100
+    s = tk.Scale(window, from_=0, to=100, orient='horizontal', command=set_val)
+    s.pack()
+
+make_slider(led1, "LED 1")
+make_slider(led2, "LED 2")
+make_slider(led3, "LED 3")
+
+window.mainloop()</pre>
+    <div class="callout">This is functions doing real work: one <code>make_slider</code> function builds all three sliders instead of copy-pasting the same block three times.</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">5</span>Add the buzzer</h2>
+    <p>Wire a buzzer to <span class="pin gpio">GPIO 23</span> and GND.</p>
+    <pre>from gpiozero import PWMOutputDevice
+
+buzzer = PWMOutputDevice(23)
+
+def set_volume(val):
+    buzzer.value = int(val) / 100
+
+tk.Label(window, text="Buzzer Volume").pack()
+vol_slider = tk.Scale(window, from_=0, to=100, orient='horizontal', command=set_volume)
+vol_slider.pack()</pre>
+    <div class="danger">The buzzer's volume isn't really "loudness," it's how often the signal switches on and off per second. We're calling it volume because that's what it sounds like, but the real term is duty cycle. Keep that in your back pocket, we'll come back to it.</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">6</span>Add the master on/off button</h2>
+    <p>Wire a button to <span class="pin gpio">GPIO 2</span> and GND. This one button controls everything at once, it's not one more slider.</p>
+    <pre>from gpiozero import Button
+
+system_on = True
+button = Button(2)
+
+def toggle_system():
+    global system_on
+    system_on = not system_on
+    if not system_on:
+        led1.off()
+        led2.off()
+        led3.off()
+        buzzer.off()
+
+button.when_pressed = toggle_system</pre>
+    <div class="callout">Notice this function uses a conditional. Functions and conditionals work together constantly, don't think of them as separate topics.</div>
+  </div>
+
+  <div class="card">
+    <h2>Before you move on</h2>
+    <div class="checkbox-line"><div class="box"></div><p>Two LEDs alternate using a function, not copy-pasted code</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Three sliders independently control three separate LEDs</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>A fourth slider controls the buzzer</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>The master button turns everything off at once</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Worksheet and Engineering Notebook filled in</p></div>
+  </div>
+
+  <div class="footer-note">Raspberry Pi Camp · Day 2 · Level 1 Handout</div>
+  <div class="copyright">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>
