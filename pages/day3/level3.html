@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Level 3 — Build a Parking Sensor — Day 3</title>
+<link rel="stylesheet" href="../../styles/style.css">
+</head>
+<body>
+<a class="back-btn" href="index.html">← Day 3</a>
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <span class="eyebrow">Independent Challenge · Day 3</span>
+      <h1>Build a Real Parking Sensor</h1>
+      <span class="level-badge l3"><span class="dot"></span>LEVEL 3 · HARDEST</span>
+    </div>
+    <div class="doc-meta">Name: <span class="fillin">&nbsp;</span></div>
+  </div>
+  <div class="rail" style="color:var(--signal-coral)"></div>
+
+  <div class="card">
+    <h2>The challenge</h2>
+    <p>You've probably heard a real car's parking sensor: a slow beep when something's far away, speeding up into a solid tone as you get close. Build that. The buzzer should beep faster and faster as your hand approaches, not just switch on and off at one threshold.</p>
+  </div>
+
+  <div class="card">
+    <h2>Why this is genuinely hard</h2>
+    <p>Level 2 only had two states: on or off. This challenge has a continuous range, the beep speed itself is a number that changes based on another number, the distance. You'll need a function that converts distance into a delay time, and a way to keep re-scheduling the next beep using that changing delay.</p>
+  </div>
+
+  <div class="card">
+    <h2>Your task</h2>
+    <div class="checkbox-line"><div class="box"></div><p>Write a function that converts a distance in cm into a beep delay in milliseconds, closer distance means a smaller delay</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Use <code>window.after()</code> to schedule each beep, using that delay</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Beyond a certain distance, stop beeping entirely, silence</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Keep the live distance label and toggle button working</p></div>
+  </div>
+
+  <details class="hint"><summary>Hint 1: mapping one range to another</summary>
+    <p style="margin-top:8px">You need to turn "distance from 0 to 50cm" into "delay from 100ms to 800ms." That's the same kind of math you used for the Day 1 fading LED, just with different numbers. Closer distance should produce a smaller delay.</p>
+  </details>
+
+  <details class="hint"><summary>Hint 2: a beep that reschedules itself</summary>
+    <p style="margin-top:8px">A single beep function can turn the buzzer on briefly, then off, then call <code>window.after()</code> again with a freshly recalculated delay, based on whatever the distance is <i>right now</i>. That's how the speed changes over time without a while loop.</p>
+    <pre>def distance_to_delay(cm):
+    if cm > 50:
+        return None
+    return int(100 + (cm / 50) * 700)</pre>
+  </details>
+
+  <details class="hint"><summary>Hint 3: full structure, if you're really stuck</summary>
+    <pre>from gpiozero import DistanceSensor, Buzzer
+
+sensor = DistanceSensor(echo=24, trigger=23)
+buzzer = Buzzer(27)
+
+def distance_to_delay(cm):
+    if cm > 50:
+        return None
+    return int(100 + (cm / 50) * 700)
+
+def beep_cycle():
+    if not system_on:
+        return
+    cm = sensor.distance * 100
+    label.config(text=f"{cm:.1f} cm")
+    delay = distance_to_delay(cm)
+    if delay is None:
+        buzzer.off()
+        window.after(200, beep_cycle)
+    else:
+        buzzer.on()
+        window.after(50, buzzer.off)
+        window.after(delay, beep_cycle)
+
+beep_cycle()</pre>
+  </details>
+
+  <div class="card">
+    <h2>Push further (optional)</h2>
+    <p>Real reversing sensors go fully solid, not beeping, once you're extremely close. What condition would you add to make that happen, and where would it go in <code>beep_cycle()</code>?</p>
+  </div>
+
+  <div class="footer-note">Raspberry Pi Camp · Day 3 · Level 3</div>
+  <div class="copyright">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>

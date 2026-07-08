@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Level 2 — Swap LED for Buzzer — Day 3</title>
+<link rel="stylesheet" href="../../styles/style.css">
+</head>
+<body>
+<a class="back-btn" href="index.html">← Day 3</a>
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <span class="eyebrow">Independent Challenge · Day 3</span>
+      <h1>Trade the Light for a Sound</h1>
+      <span class="level-badge l2"><span class="dot"></span>LEVEL 2 · ON YOUR OWN</span>
+    </div>
+    <div class="doc-meta">Name: <span class="fillin">&nbsp;</span></div>
+  </div>
+  <div class="rail red"></div>
+
+  <div class="card">
+    <h2>The challenge</h2>
+    <p>Everything you built alerts you with light. Rebuild it so it alerts you with sound instead. When your hand gets within 15cm, the buzzer should turn on, exactly the same threshold logic, a different output.</p>
+  </div>
+
+  <div class="card">
+    <h2>Your task</h2>
+    <div class="checkbox-line"><div class="box"></div><p>Wire a buzzer to an open GPIO pin and GND (GPIO 27 is free)</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Import the right class for the buzzer</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Replace every place your code touches the LED with the buzzer instead</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Keep the GUI label and toggle button working exactly as before</p></div>
+  </div>
+
+  <details class="hint"><summary>Hint 1: which class to use</summary>
+    <p style="margin-top:8px">You've used two different buzzer-related classes this week. For a simple on/off buzzer, plain <code>Buzzer</code> from gpiozero works, no PWM needed for this one.</p>
+  </details>
+
+  <details class="hint"><summary>Hint 2: find every LED reference</summary>
+    <p style="margin-top:8px">Search your code for every line with <code>led</code> in it. Each one needs a buzzer equivalent: the import, the object creation, the <code>.on()</code>, and the <code>.off()</code>.</p>
+  </details>
+
+  <details class="hint"><summary>Hint 3: full structure, if you're really stuck</summary>
+    <pre>from gpiozero import DistanceSensor, Buzzer
+
+sensor = DistanceSensor(echo=24, trigger=23)
+buzzer = Buzzer(27)
+
+def check_sensor():
+    if system_on:
+        cm = sensor.distance * 100
+        label.config(text=f"{cm:.1f} cm")
+        if cm < 15:
+            buzzer.on()
+        else:
+            buzzer.off()
+    window.after(200, check_sensor)</pre>
+  </details>
+
+  <div class="card">
+    <h2>Push further (optional)</h2>
+    <p>Right now it's silent or on, nothing in between. What would you need to change to make it beep on and off repeatedly instead of staying on solid?</p>
+  </div>
+
+  <div class="footer-note">Raspberry Pi Camp · Day 3 · Level 2</div>
+  <div class="copyright">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Day 3 Slides — Raspberry Pi Camp</title>
+<link rel="stylesheet" href="../../styles/style.css">
+<style>
+  body { background: var(--ink); overflow: hidden; }
+  .deck { position: relative; width: 100vw; height: 100vh; }
+  .slide {
+    position: absolute; inset: 0;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6vh 9vw;
+    color: var(--paper);
+  }
+  .slide.active { display: flex; }
+  .slide .eyebrow { margin-bottom: 10px; }
+  .slide h1 { font-size: 44px; margin: 0 0 20px; line-height: 1.1; max-width: 23ch; }
+  .slide h2.sub { font-size: 22px; font-weight: 500; color: rgba(255,255,255,0.65); margin: -10px 0 24px; font-family: var(--font-body); }
+  .slide ul { font-size: 24px; line-height: 1.65; max-width: 30ch; padding-left: 26px; }
+  .slide ul li::marker { color: var(--led-amber); }
+  .two-col { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; }
+  .card-dark {
+    background: var(--ink-soft);
+    border: 1px solid var(--line-dark);
+    border-radius: 16px;
+    padding: 24px 26px;
+  }
+  .card-dark h3 { margin-top: 0; font-size: 15px; color: var(--led-amber); letter-spacing: .03em; }
+  pre { font-size: 15px; }
+  .pins { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+  .rail-wrap { position: absolute; bottom: 0; left: 0; right: 0; }
+  .progress { position: fixed; top: 0; left: 0; height: 4px; background: var(--circuit-teal); transition: width .2s; z-index: 5; }
+  .nav-hint {
+    position: fixed; bottom: 20px; right: 28px;
+    font-family: var(--font-mono); font-size: 12px; color: rgba(255,255,255,0.4);
+  }
+  .count { position: fixed; bottom: 20px; left: 28px; font-family: var(--font-mono); font-size: 12px; color: rgba(255,255,255,0.4); }
+  .tag { position: fixed; top: 18px; right: 28px; font-family: var(--font-mono); font-size: 12px; padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.6); }
+  .big-num { font-family: var(--font-display); font-size: 100px; color: var(--led-amber); line-height: 1; }
+  .checklist li { list-style: none; margin-left: -26px; }
+  .checklist li::before { content: "→ "; color: var(--circuit-teal); }
+  .fillblank { display:inline-block; border-bottom: 1.5px solid rgba(255,255,255,0.4); min-width: 160px; height: 1.4em; }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<a class="back-btn on-dark" href="index.html" onclick="event.stopPropagation()">← Day 3</a>
+<div class="deck" id="deck"></div>
+<div class="count" id="count"></div>
+<div class="tag" id="tag"></div>
+<div class="nav-hint">← → or space to navigate</div>
+<div class="copyright fixed-bottom">© 2026 Manju Muralidharan Priya</div>
+
+<script id="slide-data" type="application/json">
+[
+{"session":"AM","html":"<div class='eyebrow on-dark'>Day 3 · Sensing the World</div><h1>Loops, Input, and a Sensor</h1><h2 class='sub'>Raspberry Pi Camp — Day 3</h2><ul><li>New Linux commands</li><li>While loops + user input</li><li>Fix yesterday's master switch bug</li><li>Wire an ultrasonic sensor</li></ul>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Shoutout</div><h1>Top teams from Day 2</h1><ul><li>1st place: <span class='fillblank'></span></li><li>2nd place: <span class='fillblank'></span></li><li>3rd place: <span class='fillblank'></span></li></ul><p style='font-size:16px;color:rgba(255,255,255,0.55);max-width:34ch'>Nice work pushing into conditionals early. That's exactly the kind of thinking that makes today easier.</p>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Warm-Up · Linux</div><h1>Deleting folders, safely</h1><div class='card-dark'><pre><span class='c'># only works if empty</span>\nrmdir old_folder\n\n<span class='c'># deletes everything inside, no confirmation</span>\nrm -r old_folder\n\n<span class='c'># copy a whole folder</span>\ncp -r day2 day2_backup</pre></div>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Warm-Up · Python</div><h1>While loops</h1><div class='two-col'><ul><li><code>for</code>: runs a fixed number of times</li><li><code>while</code>: runs as long as a condition stays true</li></ul><div class='card-dark'><pre>count = 0\nwhile count < 5:\n    print(count)\n    count += 1</pre></div></div>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Warm-Up · Python</div><h1>Getting input from a person</h1><div class='card-dark'><pre>command = \"\"\nwhile command != \"exit\":\n    command = input(\"Type a command: \")\n    print(\"You typed:\", command)</pre></div>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Fixing Yesterday's Bug</div><h1>Remember this question?</h1><ul><li>You tested: does moving a slider still work after the master button turns everything off?</li><li>In yesterday's code, yes, it does, and that's a bug</li><li>The system should stay off until the button says otherwise</li></ul>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Level 1 · Guided</div><h1>The fix: check before you act</h1><div class='card-dark'><pre>def set_led1(val):\n    if system_on:\n        led1.value = int(val) / 100\n\ndef set_led2(val):\n    if system_on:\n        led2.value = int(val) / 100</pre></div>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Level 1 · Guided</div><h1>Give the sliders some style</h1><div class='two-col'><ul><li><code>troughcolor</code> sets the color of the slider track itself</li><li>Match each slider's trough to its LED's color</li></ul><div class='card-dark'><pre>tk.Scale(window, from_=0, to=100,\n         troughcolor='red',\n         label='LED 1')</pre></div></div>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Break</div><h1 class='big-num'>10:00</h1><ul><li>Save your code before you get up</li><li>Back in 10 for sensors</li></ul>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>New Project</div><h1>Simplify the circuit</h1><ul><li>Keep only LED 1, on GPIO 17</li><li>Set the other LEDs, buzzer, and button aside for now</li><li>We're adding an ultrasonic distance sensor instead</li></ul>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>What Is an Ultrasonic Sensor?</div><h1>Sound you can't hear</h1><div class='two-col'><ul><li>Sends out a sound wave humans can't hear</li><li>Times how long it takes to bounce back off an object</li><li>Converts that time into a distance</li></ul><div class='card-dark'><h3>ANALOGY</h3><p style='font-size:16px;line-height:1.5'>It's an echo. Shout in a canyon, count the seconds until you hear it back, and you've measured distance the same way.</p></div></div>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Wiring</div><h1>Four wires</h1><div class='card-dark'><div class='pins'><span class='pin power'>5V</span><span class='pin gnd'>GND</span><span class='pin gpio'>GPIO 23 · Trigger</span><span class='pin gpio'>GPIO 24 · Echo</span></div></div>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Level 1 · Guided</div><h1>Reading the sensor</h1><div class='card-dark'><pre>from gpiozero import DistanceSensor\n\nsensor = DistanceSensor(echo=24, trigger=23)\n\nprint(sensor.distance)\n<span class='c'># this is in METERS, not cm!</span></pre></div>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Level 1 · Guided</div><h1>Hand close, LED on, forever</h1><div class='card-dark'><pre>from gpiozero import DistanceSensor, LED\n\nsensor = DistanceSensor(echo=24, trigger=23)\nled = LED(17)\n\nwhile True:\n    cm = sensor.distance * 100\n    if cm < 15:\n        led.on()\n    else:\n        led.off()</pre></div>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Hands-On · Level 1</div><h1>Now bring it into the GUI</h1><ul><li>A big label shows the live distance in cm</li><li>A toggle button starts and stops the whole system</li><li>Same LED logic, now driven from the GUI's loop</li></ul>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Why while True Won't Work Here</div><h1>Same problem as yesterday</h1><div class='two-col'><ul><li><code>while True</code> would freeze the GUI, just like <code>sleep()</code> did</li><li>We need Tkinter to check the sensor repeatedly, without blocking</li></ul><div class='card-dark'><h3>THE TOOL</h3><p style='font-size:16px;line-height:1.5'><code>window.after(200, check_sensor)</code>, check again in 200 milliseconds, then let Tkinter keep running.</p></div></div>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Level 1 · Guided</div><h1>Live distance label</h1><div class='card-dark'><pre>system_on = True\n\ndef check_sensor():\n    if system_on:\n        cm = sensor.distance * 100\n        label.config(text=f\"{cm:.1f} cm\")\n        led.on() if cm < 15 else led.off()\n    window.after(200, check_sensor)\n\ncheck_sensor()</pre></div>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Level 1 · Guided</div><h1>The toggle button</h1><div class='card-dark'><pre>def toggle_system():\n    global system_on\n    system_on = not system_on\n    if not system_on:\n        led.off()\n\ntk.Button(window, text=\"On/Off\",\n          command=toggle_system).pack()</pre></div>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Break</div><h1 class='big-num'>1:30</h1><ul><li>Save everything before you stand up</li><li>Back in 10, then it's your turn</li></ul>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Your Turn</div><h1>Two challenges, no hand-holding</h1><div class='two-col'><div class='card-dark'><span class='level-badge l2' style='color:var(--wire-red)'><span class='dot'></span>LEVEL 2</span><p style='font-size:16px;margin-top:10px'>Swap the LED for the buzzer. Same threshold logic, different output.</p></div><div class='card-dark'><span class='level-badge l3' style='color:var(--signal-coral)'><span class='dot'></span>LEVEL 3</span><p style='font-size:16px;margin-top:10px'>Build a real parking sensor: the closer your hand gets, the faster the buzzer beeps.</p></div></div>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Wrap-Up</div><h1>Before you go</h1><ul class='checklist'><li>Save your code as <code>day3_yourname.py</code></li><li>Finish your Engineering Notebook wiring log</li><li>Unplug the sensor carefully, it's the most fragile part yet</li><li>Tomorrow: a weather sensor</li></ul>"}
+]
+</script>
+
+<script>
+const data = JSON.parse(document.getElementById('slide-data').textContent);
+const deck = document.getElementById('deck');
+data.forEach((s, i) => {
+  const el = document.createElement('div');
+  el.className = 'slide' + (i === 0 ? ' active' : '');
+  el.innerHTML = s.html + "<div class='rail-wrap'><div class='rail on-dark'></div></div>";
+  deck.appendChild(el);
+});
+let idx = 0;
+const slides = document.querySelectorAll('.slide');
+const progress = document.getElementById('progress');
+const count = document.getElementById('count');
+const tag = document.getElementById('tag');
+function render() {
+  slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+  progress.style.width = ((idx + 1) / slides.length * 100) + '%';
+  count.textContent = (idx + 1) + ' / ' + slides.length;
+  tag.textContent = 'DAY 3 · ' + data[idx].session + ' SESSION';
+}
+function next() { idx = Math.min(idx + 1, slides.length - 1); render(); }
+function prev() { idx = Math.max(idx - 1, 0); render(); }
+document.addEventListener('keydown', e => {
+  if (['ArrowRight', ' ', 'PageDown'].includes(e.key)) next();
+  if (['ArrowLeft', 'PageUp'].includes(e.key)) prev();
+});
+document.addEventListener('click', e => { if (e.clientX > window.innerWidth / 2) next(); else prev(); });
+render();
+</script>
+</body>
+</html>

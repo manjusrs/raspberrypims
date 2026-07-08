@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Handout — Fixing the Switch &amp; Sensing Distance — Day 3</title>
+<link rel="stylesheet" href="../../styles/style.css">
+</head>
+<body>
+<a class="back-btn" href="index.html">← Day 3</a>
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <span class="eyebrow">Hands-On Handout · Day 3</span>
+      <h1>Fixing the Switch, Then Sensing Distance</h1>
+      <span class="level-badge l1"><span class="dot"></span>LEVEL 1 · WITH YOUR TEACHER</span>
+    </div>
+    <div class="doc-meta">Name: <span class="fillin">&nbsp;</span></div>
+  </div>
+  <div class="rail"></div>
+
+  <div class="card">
+    <h2>Part A: fixing yesterday's bug</h2>
+    <p>Yesterday's worksheet asked whether the sliders still worked after the master button turned everything off. In the original code, they did, which is a bug. Let's fix it.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">1</span>Add a check inside every slider function</h2>
+    <pre>system_on = True
+
+def set_led1(val):
+    if system_on:
+        led1.value = int(val) / 100
+
+def set_led2(val):
+    if system_on:
+        led2.value = int(val) / 100
+
+def set_led3(val):
+    if system_on:
+        led3.value = int(val) / 100</pre>
+    <div class="callout">Now moving a slider while the system is off simply does nothing, the LED stays off no matter where the slider sits. The slider will "catch up" once the system is switched back on.</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">2</span>Color and label your sliders</h2>
+    <p><code>troughcolor</code> changes the color of the slider's track, not just its handle. Use it to match each slider to its LED.</p>
+    <pre>tk.Scale(window, from_=0, to=100, orient='horizontal',
+         troughcolor='red', label='LED 1', command=set_led1).pack()
+
+tk.Scale(window, from_=0, to=100, orient='horizontal',
+         troughcolor='#e6b800', label='LED 2', command=set_led2).pack()
+
+tk.Scale(window, from_=0, to=100, orient='horizontal',
+         troughcolor='green', label='LED 3', command=set_led3).pack()</pre>
+  </div>
+
+  <div class="card">
+    <h2>Part B: a new sensor project</h2>
+    <p>Keep LED 1 wired exactly as it is. Set the other LEDs, the buzzer, and the button aside, we won't need them for this next build.</p>
+  </div>
+
+  <div class="card">
+    <h2>Wiring diagram</h2>
+    <img src="../../images/day3/circuit-diagram.svg" alt="Wiring diagram: LED on GPIO 17, ultrasonic sensor with 5V, GND, trigger on GPIO 23, echo on GPIO 24" style="max-width:640px;width:100%;display:block;margin:0 auto">
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">3</span>Wire the sensor</h2>
+    <div class="step"><p>Connect the sensor's <span class="pin power">5V</span> and <span class="pin gnd">GND</span> pins.</p></div>
+    <div class="step"><p>Connect Trigger to <span class="pin gpio">GPIO 23</span> and Echo to <span class="pin gpio">GPIO 24</span>.</p></div>
+    <div class="danger">This sensor is more delicate than an LED. Double check your wiring before powering on, reversed 5V and GND can damage it.</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">4</span>Read the sensor</h2>
+    <pre>from gpiozero import DistanceSensor
+
+sensor = DistanceSensor(echo=24, trigger=23)
+print(sensor.distance)</pre>
+    <div class="callout"><code>sensor.distance</code> is measured in meters, not centimeters. Multiply by 100 to get cm, that's a very easy mistake to make.</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">5</span>Hand close, LED on, forever</h2>
+    <pre>from gpiozero import DistanceSensor, LED
+
+sensor = DistanceSensor(echo=24, trigger=23)
+led = LED(17)
+
+while True:
+    cm = sensor.distance * 100
+    if cm < 15:
+        led.on()
+    else:
+        led.off()</pre>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">6</span>Bring it into a GUI</h2>
+    <p>A <code>while True</code> loop would freeze the GUI the same way <code>sleep()</code> did. Use <code>window.after()</code> instead, the same fix from yesterday's traffic light challenge.</p>
+    <pre>import tkinter as tk
+from gpiozero import DistanceSensor, LED
+
+sensor = DistanceSensor(echo=24, trigger=23)
+led = LED(17)
+system_on = True
+
+window = tk.Tk()
+label = tk.Label(window, text="-- cm", font=("Arial", 32))
+label.pack()
+
+def check_sensor():
+    if system_on:
+        cm = sensor.distance * 100
+        label.config(text=f"{cm:.1f} cm")
+        if cm < 15:
+            led.on()
+        else:
+            led.off()
+    window.after(200, check_sensor)
+
+def toggle_system():
+    global system_on
+    system_on = not system_on
+    if not system_on:
+        led.off()
+        label.config(text="OFF")
+
+tk.Button(window, text="On/Off", command=toggle_system).pack()
+
+check_sensor()
+window.mainloop()</pre>
+  </div>
+
+  <div class="card">
+    <h2>Before you move on</h2>
+    <div class="checkbox-line"><div class="box"></div><p>Slider functions check <code>system_on</code> before setting any LED value</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Sliders have colored troughs matching their LEDs</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>LED turns on when your hand is within 15cm, off otherwise</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>GUI label updates live with the distance in cm</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Toggle button starts and stops the whole system</p></div>
+  </div>
+
+  <div class="footer-note">Raspberry Pi Camp · Day 3 · Level 1 Handout</div>
+  <div class="copyright">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>

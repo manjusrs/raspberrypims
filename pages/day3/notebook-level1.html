@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Engineering Notebook — Day 3</title>
+<link rel="stylesheet" href="../../styles/style.css">
+</head>
+<body>
+<a class="back-btn" href="index.html">← Day 3</a>
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <span class="eyebrow">Engineering Notebook · Day 3</span>
+      <h1>Circuit Log &amp; Debug Trail</h1>
+      <span class="level-badge l1"><span class="dot"></span>LEVEL 1</span>
+    </div>
+    <div class="doc-meta">Name: <span class="fillin">&nbsp;</span></div>
+  </div>
+  <div class="rail"></div>
+
+  <div class="card">
+    <h2>1. Wiring log</h2>
+    <p>Log the sensor's four connections, plus your one remaining LED.</p>
+    <table>
+      <tr><th>From</th><th>To</th><th>Purpose</th><th>Worked? (Y/N)</th></tr>
+      <tr class="fill-row"><td></td><td></td><td></td><td></td></tr>
+      <tr class="fill-row"><td></td><td></td><td></td><td></td></tr>
+      <tr class="fill-row"><td></td><td></td><td></td><td></td></tr>
+      <tr class="fill-row"><td></td><td></td><td></td><td></td></tr>
+      <tr class="fill-row"><td></td><td></td><td></td><td></td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>2. Debug checklist</h2>
+    <div class="checkbox-line"><div class="box"></div><p>Is 5V actually wired to 5V, and GND to GND? Reversed power is the most common sensor killer.</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Does your code's trigger and echo pin number match what you actually wired?</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>If your readings look wrong, did you remember to multiply by 100 for cm?</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>If the GUI label never updates, did you call <code>check_sensor()</code> once before <code>window.mainloop()</code>?</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>If the sliders from Part A stopped responding entirely, is <code>system_on</code> stuck at False?</p></div>
+  </div>
+
+  <div class="card">
+    <h2>3. Bug report</h2>
+    <table>
+      <tr><td style="width:35%"><b>What I expected</b></td><td class="fill-row"></td></tr>
+      <tr><td><b>What actually happened</b></td><td class="fill-row"></td></tr>
+      <tr><td><b>What I checked</b></td><td class="fill-row"></td></tr>
+      <tr><td><b>What fixed it</b></td><td class="fill-row"></td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>4. Final circuit sketch</h2>
+    <p>Draw your finished circuit here: LED and sensor, all four sensor pins labeled.</p>
+    <div style="border:1.5px dashed var(--line); border-radius:10px; height:220px;"></div>
+  </div>
+
+  <div class="footer-note">Raspberry Pi Camp · Day 3 · Engineering Notebook</div>
+  <div class="copyright">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>

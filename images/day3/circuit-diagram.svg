@@ -1,0 +1,35 @@
+<svg viewBox="0 0 640 240" xmlns="http://www.w3.org/2000/svg" width="100%" style="max-width:640px;display:block">
+  <rect x="10" y="20" width="620" height="200" rx="10" fill="#F1ECDF" stroke="#3A4150" stroke-width="1.5"/>
+
+  <!-- LED -->
+  <line x1="90" y1="70" x2="90" y2="110" stroke="#FFB238" stroke-width="4"/>
+  <polygon points="75,70 105,70 90,95" fill="#FFB238"/>
+  <text x="66" y="130" font-size="11" font-family="JetBrains Mono, monospace" fill="#171B26">LED</text>
+  <rect x="80" y="150" width="20" height="26" rx="3" fill="#1F8378"/>
+  <text x="58" y="196" font-size="10.5" font-family="JetBrains Mono, monospace" fill="#1F8378">GPIO 17</text>
+  <path d="M90 110 L90 150" stroke="#2FB8AC" stroke-width="3" fill="none"/>
+  <path d="M90 176 L90 200" stroke="#3A4150" stroke-width="3" fill="none"/>
+
+  <!-- Ultrasonic sensor body -->
+  <rect x="330" y="55" width="150" height="70" rx="8" fill="#DCE9E7" stroke="#3A4150" stroke-width="1.5"/>
+  <circle cx="365" cy="90" r="18" fill="#C7D6D4" stroke="#3A4150"/>
+  <circle cx="445" cy="90" r="18" fill="#C7D6D4" stroke="#3A4150"/>
+  <text x="360" y="145" font-size="11" font-family="JetBrains Mono, monospace" fill="#171B26">ultrasonic sensor</text>
+
+  <!-- 4 pins -->
+  <rect x="345" y="150" width="18" height="24" rx="3" fill="#E4572E"/>
+  <text x="330" y="192" font-size="10" font-family="JetBrains Mono, monospace" fill="#E4572E">5V</text>
+  <path d="M354 125 L354 150" stroke="#E4572E" stroke-width="3" fill="none"/>
+
+  <rect x="380" y="150" width="18" height="24" rx="3" fill="#3A4150"/>
+  <text x="368" y="192" font-size="10" font-family="JetBrains Mono, monospace" fill="#3A4150">GND</text>
+  <path d="M389 125 L389 150" stroke="#3A4150" stroke-width="3" fill="none"/>
+
+  <rect x="415" y="150" width="18" height="24" rx="3" fill="#1F8378"/>
+  <text x="391" y="192" font-size="9.5" font-family="JetBrains Mono, monospace" fill="#1F8378">GPIO 23 trig</text>
+  <path d="M424 125 L424 150" stroke="#2FB8AC" stroke-width="3" fill="none"/>
+
+  <rect x="450" y="150" width="18" height="24" rx="3" fill="#1F8378"/>
+  <text x="426" y="212" font-size="9.5" font-family="JetBrains Mono, monospace" fill="#1F8378">GPIO 24 echo</text>
+  <path d="M459 125 L459 150" stroke="#2FB8AC" stroke-width="3" fill="none"/>
+</svg>

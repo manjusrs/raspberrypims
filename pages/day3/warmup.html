@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Warm-Up — Linux &amp; Python — Day 3</title>
+<link rel="stylesheet" href="../../styles/style.css">
+</head>
+<body>
+<a class="back-btn" href="index.html">← Day 3</a>
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <span class="eyebrow">Daily Warm-Up · Day 3</span>
+      <h1>Deleting Folders, While Loops, User Input</h1>
+      <span class="level-badge l1"><span class="dot"></span>LEVEL 1 · GUIDED</span>
+    </div>
+    <div class="doc-meta">Name: <span class="fillin">&nbsp;</span><br><br>Time: <span class="fillin">&nbsp;</span></div>
+  </div>
+  <div class="rail"></div>
+
+  <div class="card">
+    <h2><span class="step-num">1</span>Deleting and copying folders</h2>
+    <p><code>rm</code> only deletes files. Folders need their own commands.</p>
+    <table>
+      <tr><th>Command</th><th>What it does</th><th>Example</th></tr>
+      <tr><td class="mono">rmdir</td><td>Deletes a folder, only if it's completely empty</td><td class="mono">rmdir old_folder</td></tr>
+      <tr><td class="mono">rm -r</td><td>Deletes a folder and everything inside it, empty or not</td><td class="mono">rm -r old_folder</td></tr>
+      <tr><td class="mono">cp -r</td><td>Copies a whole folder and everything inside it</td><td class="mono">cp -r day2 day2_backup</td></tr>
+      <tr><td class="mono">ls -la</td><td>Lists everything in detail, including hidden files</td><td class="mono">ls -la</td></tr>
+    </table>
+    <div class="danger">rm -r is the most dangerous command you've learned so far. There's no undo, no trash can, no "are you sure." Read the folder name twice before you press enter.</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">2</span>Try it</h2>
+    <div class="checkbox-line"><div class="box"></div><p>Make a throwaway folder: <code>mkdir scratch</code></p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Try to delete it with <code>rmdir scratch</code>. It should work since it's empty.</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Make it again, then put a file inside it: <code>mkdir scratch &amp;&amp; touch scratch/notes.py</code></p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Try <code>rmdir scratch</code> again. It should refuse, the folder isn't empty.</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Use <code>rm -r scratch</code> instead. This time it should work.</p></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">3</span>While loops</h2>
+    <p>A <code>for</code> loop repeats a fixed number of times. A <code>while</code> loop repeats as long as a condition stays true, you don't have to know in advance how many times.</p>
+    <pre>count = 0
+while count < 5:
+    print(count)
+    count = count + 1</pre>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">4</span>Getting input from a person</h2>
+    <p><code>input()</code> pauses your program and waits for someone to type something, then hands that text back to you.</p>
+    <pre>name = input("What's your name? ")
+print("Hello, " + name)</pre>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">5</span>Put them together</h2>
+    <p>Type this into <code>warmup.py</code> and run it. Keep typing commands until you type <code>exit</code>.</p>
+    <pre>command = ""
+while command != "exit":
+    command = input("Type a command (exit to quit): ")
+    print("You typed:", command)
+
+print("Program ended.")</pre>
+    <div class="callout">This loop doesn't know ahead of time how many times it will run, that's exactly what makes it a <code>while</code> loop and not a <code>for</code> loop. This exact pattern, a loop that runs "forever" until a condition changes, is what we're using this afternoon to watch a sensor.</div>
+  </div>
+
+  <div class="footer-note">Raspberry Pi Camp · Day 3 Warm-Up</div>
+  <div class="copyright">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>
