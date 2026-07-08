@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Bonus — Pi Camera Photo Button — Day 3</title>
+<link rel="stylesheet" href="../../styles/style.css">
+</head>
+<body>
+<a class="back-btn" href="index.html">← Day 3</a>
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <span class="eyebrow">Bonus Exercise · Day 3</span>
+      <h1>Add a Camera and a Photo Button</h1>
+      <span class="level-badge bonus"><span class="dot"></span>BONUS · IF YOU FINISH EARLY</span>
+    </div>
+    <div class="doc-meta">Name: <span class="fillin">&nbsp;</span></div>
+  </div>
+  <div class="rail" style="color:var(--led-amber)"></div>
+
+  <div class="card">
+    <h2>Only if you're done</h2>
+    <p>This one's optional, for anyone who finishes the sensor project with time to spare. The ribbon cable is the most fragile connector you'll handle all week, so have your teacher glance at your connection before you power on.</p>
+  </div>
+
+  <div class="card">
+    <h2>This isn't a GPIO device</h2>
+    <p>Every component so far has plugged into GPIO pins. The camera doesn't. It connects through a dedicated slot called the <b>CSI port</b>, using a flat ribbon cable instead of individual wires.</p>
+  </div>
+
+  <div class="card">
+    <h2>Connecting the camera</h2>
+    <img src="../../images/day3/camera-diagram.svg" alt="Diagram showing a ribbon cable connecting a camera module to the CSI port on the Raspberry Pi 3B+, silver contacts facing the HDMI port" style="max-width:500px;width:100%;display:block;margin:0 auto">
+    <div class="step" style="margin-top:14px"><p><span class="step-num">1</span> Find the CSI port, it sits between the HDMI port and the audio jack. Gently pull up the black locking tab.</p></div>
+    <div class="step"><p><span class="step-num">2</span> Slide the ribbon cable in with the silver contacts facing the HDMI port, and the blue tab facing the USB/Ethernet side.</p></div>
+    <div class="step"><p><span class="step-num">3</span> Push the locking tab back down to hold the cable in place. It should feel snug, not loose.</p></div>
+    <div class="danger">Never pull the ribbon cable straight out to remove it, always release the locking tab first. Pulling on the cable itself can tear it.</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">4</span>Test the camera from the terminal</h2>
+    <p>Before writing any code, confirm the camera actually works.</p>
+    <pre>libcamera-hello</pre>
+    <div class="callout">A preview window should pop up showing what the camera sees. If nothing appears, check the ribbon cable connection with your teacher before going further.</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">5</span>Take a photo in Python</h2>
+    <pre>from picamera2 import Picamera2
+
+camera = Picamera2()
+camera.start()
+camera.capture_file("photo.jpg")
+camera.stop()</pre>
+    <p>Check your files with <code>ls</code>, you should see <code>photo.jpg</code> sitting there.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">6</span>Wire it to a GUI button</h2>
+    <pre>import tkinter as tk
+from picamera2 import Picamera2
+from datetime import datetime
+
+camera = Picamera2()
+camera.start()
+
+window = tk.Tk()
+status = tk.Label(window, text="Ready")
+status.pack()
+
+def take_photo():
+    filename = datetime.now().strftime("photo_%H%M%S.jpg")
+    camera.capture_file(filename)
+    status.config(text=f"Saved {filename}")
+
+tk.Button(window, text="Take Photo", command=take_photo).pack()
+
+window.mainloop()</pre>
+    <div class="callout">Each filename includes the current time, so pressing the button twice doesn't overwrite your first photo. That's the same idea as the timing experiments from earlier this week, just applied to filenames instead of LEDs.</div>
+  </div>
+
+  <div class="card">
+    <h2>Push further, if you're still early</h2>
+    <p>Can you make the status label show the actual photo instead of just its filename? Look into a library called <code>PIL</code> and a Tkinter widget that can display images, not just text.</p>
+  </div>
+
+  <div class="footer-note">Raspberry Pi Camp · Day 3 · Bonus</div>
+  <div class="copyright">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>
