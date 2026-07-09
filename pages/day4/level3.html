@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Level 3 — Build a Smart Booth — Day 4</title>
+<link rel="stylesheet" href="../../styles/style.css">
+</head>
+<body>
+<a class="back-btn" href="index.html">← Day 4</a>
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <span class="eyebrow">Independent Challenge · Day 4</span>
+      <h1>Merge the Sensor Into the Booth</h1>
+      <span class="level-badge l3"><span class="dot"></span>LEVEL 3 · HARDEST</span>
+    </div>
+    <div class="doc-meta">Name: <span class="fillin">&nbsp;</span></div>
+  </div>
+  <div class="rail" style="color:var(--signal-coral)"></div>
+
+  <div class="card">
+    <h2>The challenge</h2>
+    <p>Combine everything from today. The booth should fire automatically when someone steps within range, exactly like this morning, but now it applies whichever filter is currently selected in the GUI, exactly like Level 2. The physical shutter button should still work too, as a manual override. The system LED should still reflect whether the booth is armed.</p>
+  </div>
+
+  <div class="card">
+    <h2>Why this is genuinely hard</h2>
+    <p>This morning's sensor code ran inside a plain <code>while True</code> loop. This afternoon's GUI needs Tkinter's own loop, <code>window.mainloop()</code>, running instead. You can't run two different infinite loops at the same time in one script. You need the sensor check to happen <i>inside</i> Tkinter's loop, using the same <code>window.after()</code> pattern you've used all week, not a separate <code>while True</code>.</p>
+  </div>
+
+  <div class="card">
+    <h2>Your task</h2>
+    <div class="checkbox-line"><div class="box"></div><p>Remove any standalone <code>while True</code> sensor loop</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Use <code>window.after()</code> to check the sensor repeatedly, on a timer, inside the GUI</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>When someone's close enough, auto-capture using the currently selected filter, same variable as Level 2</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Keep a cooldown so it doesn't fire repeatedly for the same person</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>The system toggle button and LED still work, and pause the sensor checks while off</p></div>
+  </div>
+
+  <details class="hint"><summary>Hint 1: a self-rescheduling sensor check</summary>
+    <p style="margin-top:8px">Write one function that checks the sensor once, does its job if needed, and then calls <code>window.after()</code> on itself to check again a little later. This is the same shape as Day 3's <code>check_sensor()</code>.</p>
+  </details>
+
+  <details class="hint"><summary>Hint 2: cooldown without sleep()</summary>
+    <p style="margin-top:8px"><code>sleep()</code> would freeze the GUI here too. Instead, track the time of the last capture in a variable, and compare it to the current time before allowing another capture.</p>
+    <pre>from time import time
+
+last_capture = 0
+
+def check_sensor():
+    global last_capture
+    if system_on:
+        cm = sensor.distance * 100
+        if cm < 30 and time() - last_capture > 3:
+            take_photo()
+            last_capture = time()
+    window.after(200, check_sensor)</pre>
+  </details>
+
+  <details class="hint"><summary>Hint 3: full structure, if you're really stuck</summary>
+    <pre>system_on = True
+
+def toggle_system():
+    global system_on
+    system_on = not system_on
+    led.on() if system_on else led.off()
+
+toggle_button.when_pressed = toggle_system
+
+def take_photo():
+    filename = datetime.now().strftime("booth_%H%M%S.jpg")
+    camera.capture_file(filename)
+    img = Image.open(filename)
+    filtered = current_filter(img)
+    display_img = ImageTk.PhotoImage(filtered.resize((320, 240)))
+    photo_label.config(image=display_img)
+    photo_label.image = display_img
+
+shutter.when_pressed = lambda: window.after(0, take_photo)
+
+last_capture = 0
+
+def check_sensor():
+    global last_capture
+    if system_on:
+        cm = sensor.distance * 100
+        if cm < 30 and time() - last_capture > 3:
+            take_photo()
+            last_capture = time()
+    window.after(200, check_sensor)
+
+check_sensor()
+window.mainloop()</pre>
+  </details>
+
+  <div class="card">
+    <h2>Push further (optional)</h2>
+    <p>Right now switching filters mid-countdown is instant and silent. What would you add to the GUI so someone can actually tell which filter is currently active before the booth fires on them automatically?</p>
+  </div>
+
+  <div class="footer-note">Raspberry Pi Camp · Day 4 · Level 3</div>
+  <div class="copyright">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>

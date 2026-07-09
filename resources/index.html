@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Resources &amp; Solutions — Raspberry Pi Camp</title>
+<link rel="stylesheet" href="../styles/style.css">
+<style>
+  .page { max-width: 860px; }
+  .day-section { margin-top: 36px; }
+  .day-section h2 {
+    font-size: 20px; margin-bottom: 4px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .day-section .num {
+    font-family: var(--font-display); font-weight: 700; font-size: 15px;
+    color: var(--paper); background: var(--ink); border-radius: 6px;
+    padding: 3px 9px;
+  }
+  .file-list { list-style:none; padding:0; margin:14px 0 0; display: grid; gap: 10px; }
+  .file-list a {
+    display:flex; justify-content:space-between; align-items:center; gap: 12px;
+    text-decoration:none; color: var(--ink);
+    background: var(--paper-card); border:1.5px solid var(--line);
+    border-radius: 10px; padding: 13px 18px; font-family: var(--font-mono); font-size: 13.5px;
+  }
+  .file-list a:hover { border-color: var(--circuit-teal); }
+  .file-list .tag {
+    font-family: var(--font-display); font-weight: 600; font-size: 11px;
+    color: var(--graphite); text-transform: uppercase; letter-spacing: .03em; flex: none;
+  }
+</style>
+</head>
+<body>
+<a class="back-btn" href="../index.html">← All Days</a>
+<div class="page">
+  <span class="eyebrow">Reference Material</span>
+  <h1 style="font-size:36px;margin:6px 0 12px">Resources &amp; Solutions</h1>
+  <p style="max-width:56ch;color:var(--graphite)">A working <code>.py</code> file for every guided build, independent challenge, and bonus this week. If your code stops working, or your SD card gets wiped, everything here is a clean starting point to compare against or copy back down.</p>
+  <div class="rail"></div>
+
+  <div class="day-section">
+    <h2><span class="num">01</span>Day 1 · Getting Started &amp; Our First Circuit</h2>
+    <ul class="file-list">
+      <li><a href="day1/day1_level1_led_button.py" download>day1_level1_led_button.py<span class="tag">Level 1</span></a></li>
+      <li><a href="day1/day1_level2_fading_led.py" download>day1_level2_fading_led.py<span class="tag">Level 2</span></a></li>
+      <li><a href="day1/day1_level3_mode_switch.py" download>day1_level3_mode_switch.py<span class="tag">Level 3</span></a></li>
+    </ul>
+  </div>
+
+  <div class="day-section">
+    <h2><span class="num">02</span>Day 2 · Functions &amp; Basic GUIs</h2>
+    <ul class="file-list">
+      <li><a href="day2/day2_level1_functions_gui.py" download>day2_level1_functions_gui.py<span class="tag">Level 1</span></a></li>
+      <li><a href="day2/day2_level2_traffic_light.py" download>day2_level2_traffic_light.py<span class="tag">Level 2</span></a></li>
+      <li><a href="day2/day2_level3_smart_buzzer.py" download>day2_level3_smart_buzzer.py<span class="tag">Level 3</span></a></li>
+    </ul>
+  </div>
+
+  <div class="day-section">
+    <h2><span class="num">03</span>Day 3 · Making a Distance Sensor</h2>
+    <ul class="file-list">
+      <li><a href="day3/day3_level1a_fixed_sliders.py" download>day3_level1a_fixed_sliders.py<span class="tag">Level 1a</span></a></li>
+      <li><a href="day3/day3_level1b_sensor_gui.py" download>day3_level1b_sensor_gui.py<span class="tag">Level 1b</span></a></li>
+      <li><a href="day3/day3_level2_buzzer_swap.py" download>day3_level2_buzzer_swap.py<span class="tag">Level 2</span></a></li>
+      <li><a href="day3/day3_level3_parking_sensor.py" download>day3_level3_parking_sensor.py<span class="tag">Level 3</span></a></li>
+      <li><a href="day3/day3_bonus_camera_photo.py" download>day3_bonus_camera_photo.py<span class="tag">Bonus</span></a></li>
+    </ul>
+  </div>
+
+  <div class="day-section">
+    <h2><span class="num">04</span>Day 4 · Automatic Photo Booth</h2>
+    <ul class="file-list">
+      <li><a href="day4/day4_level1_camera_sensor_trigger.py" download>day4_level1_camera_sensor_trigger.py<span class="tag">Level 1</span></a></li>
+      <li><a href="day4/day4_level2_photo_booth.py" download>day4_level2_photo_booth.py<span class="tag">Level 2</span></a></li>
+      <li><a href="day4/day4_level3_smart_booth.py" download>day4_level3_smart_booth.py<span class="tag">Level 3</span></a></li>
+    </ul>
+  </div>
+
+  <div class="day-section">
+    <h2><span class="num">05</span>DIY Day · Reaction Game</h2>
+    <ul class="file-list">
+      <li><a href="day5/day5_reaction_game.py" download>day5_reaction_game.py<span class="tag">Base build</span></a></li>
+      <li><a href="day5/day5_reaction_game_false_start.py" download>day5_reaction_game_false_start.py<span class="tag">Extension</span></a></li>
+      <li><a href="day5/day5_reaction_game_running_score.py" download>day5_reaction_game_running_score.py<span class="tag">Extension</span></a></li>
+    </ul>
+  </div>
+
+  <div class="copyright" style="margin-top:36px">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>

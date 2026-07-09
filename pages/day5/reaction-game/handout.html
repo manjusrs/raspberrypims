@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>DIY Option — 2-Player Reaction Game</title>
+<link rel="stylesheet" href="../../../styles/style.css">
+</head>
+<body>
+<a class="back-btn" href="index.html">← Reaction Game</a>
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <span class="eyebrow">DIY Day Option</span>
+      <h1>Build a 2-Player Reaction Game</h1>
+      <span class="level-badge diy"><span class="dot"></span>DIY OPTION · SELF-GUIDED</span>
+    </div>
+    <div class="doc-meta">Name: <span class="fillin">&nbsp;</span></div>
+  </div>
+  <div class="rail"></div>
+
+  <div class="card">
+    <h2>What you're building</h2>
+    <p>An LED flashes on after a random delay. Two players each have a button. Whoever presses first wins, and the LCD screen displays who won and exactly how fast. This uses everything from earlier in the week, GPIO, while loops, and an I2C screen.</p>
+  </div>
+
+  <div class="card">
+    <h2>Wiring diagram</h2>
+    <img src="../../../images/day5/reaction-game/circuit-diagram.svg" alt="Wiring diagram: LED on GPIO 17, Player 1 button on GPIO 27, Player 2 button on GPIO 22, LCD on I2C (SDA/SCL/5V/GND)" style="max-width:640px;width:100%;display:block;margin:0 auto">
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">1</span>Wire everything</h2>
+    <div class="step"><p>LED to <span class="pin gpio">GPIO 17</span> with a resistor, same as always.</p></div>
+    <div class="step"><p>Player 1's button to <span class="pin gpio">GPIO 27</span> and GND.</p></div>
+    <div class="step"><p>Player 2's button to <span class="pin gpio">GPIO 22</span> and GND.</p></div>
+    <div class="step"><p>LCD: 5V, GND, SDA, SCL, using the header's fixed I2C pins. Run <code>sudo i2cdetect -y 1</code> to find your screen's address if you don't already know it.</p></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">2</span>Set everything up in code</h2>
+    <pre>import random
+from time import sleep, time
+from gpiozero import LED, Button
+from RPLCD.i2c import CharLCD
+
+led = LED(17)
+button1 = Button(27)
+button2 = Button(22)
+lcd = CharLCD('PCF8574', 0x27)   <span class="c"># use YOUR address</span></pre>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">3</span>Get ready, then wait</h2>
+    <pre>lcd.clear()
+lcd.write_string('Get Ready...')
+sleep(random.uniform(2, 5))</pre>
+    <div class="callout">The random delay is the whole point, if it were always the same wait, players would just count and guess instead of actually reacting.</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">4</span>Flash on and start the clock</h2>
+    <pre>led.on()
+lcd.clear()
+lcd.write_string('GO!')
+start_time = time()</pre>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">5</span>Wait for whoever presses first</h2>
+    <pre>winner = None
+while winner is None:
+    if button1.is_pressed:
+        winner = "Player 1"
+    elif button2.is_pressed:
+        winner = "Player 2"</pre>
+    <div class="callout">This is a while loop with no fixed count. It just keeps checking, over and over, until one condition becomes true.</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">6</span>Show the result</h2>
+    <pre>elapsed = time() - start_time
+
+led.off()
+lcd.clear()
+lcd.write_string(winner + " wins!")
+lcd.cursor_pos = (1, 0)
+lcd.write_string(f"Time: {elapsed:.2f}s")</pre>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">7</span>Play again</h2>
+    <pre>again = input("Play again? (y/n): ")
+while again == "y":
+    lcd.clear()
+    lcd.write_string('Get Ready...')
+    sleep(random.uniform(2, 5))
+
+    led.on()
+    lcd.clear()
+    lcd.write_string('GO!')
+    start_time = time()
+
+    winner = None
+    while winner is None:
+        if button1.is_pressed:
+            winner = "Player 1"
+        elif button2.is_pressed:
+            winner = "Player 2"
+
+    elapsed = time() - start_time
+    led.off()
+    lcd.clear()
+    lcd.write_string(winner + " wins!")
+    lcd.cursor_pos = (1, 0)
+    lcd.write_string(f"Time: {elapsed:.2f}s")
+
+    again = input("Play again? (y/n): ")</pre>
+    <div class="danger">Notice steps 3 through 6 got copy-pasted into this loop. If that's bothering you, good, it should. Wrapping this in a function is a great cleanup to try once the core game works.</div>
+  </div>
+
+  <div class="card">
+    <h2>Once the basics work</h2>
+    <p>Two extensions are ready for you if you want to keep pushing this project further.</p>
+    <div class="checkbox-line"><div class="box"></div><p><a href="level2.html">Catch a False Start</a>, penalize pressing before the LED turns on</p></div>
+    <div class="checkbox-line"><div class="box"></div><p><a href="level3.html">Track a Running Score</a>, first to 3 wins the match</p></div>
+  </div>
+
+  <div class="footer-note">Raspberry Pi Camp · DIY Day · Reaction Game</div>
+  <div class="copyright">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Level 2 — Build a Photo Booth — Day 4</title>
+<link rel="stylesheet" href="../../styles/style.css">
+</head>
+<body>
+<a class="back-btn" href="index.html">← Day 4</a>
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <span class="eyebrow">Independent Challenge · Day 4</span>
+      <h1>Build a Real Photo Booth</h1>
+      <span class="level-badge l2"><span class="dot"></span>LEVEL 2 · ON YOUR OWN</span>
+    </div>
+    <div class="doc-meta">Name: <span class="fillin">&nbsp;</span></div>
+  </div>
+  <div class="rail red"></div>
+
+  <div class="card">
+    <h2>The challenge</h2>
+    <p>Build a photo booth with a GUI window showing clickable filter buttons, Grayscale and Sepia at minimum, and a <b>physical</b> button wired to a GPIO pin that actually takes the picture. Whichever filter button was clicked most recently is the one applied to the next photo.</p>
+  </div>
+
+  <div class="card">
+    <h2>Your task</h2>
+    <div class="checkbox-line"><div class="box"></div><p>Wire a new push button to <span class="pin gpio">GPIO 27</span> and GND, this is your shutter</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Build a Tkinter window with at least 2 filter buttons</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Store your filters in a dictionary, name paired with function, and generate the buttons with a loop, not one at a time by hand</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Pressing the physical button captures a photo, applies the currently selected filter, and shows the result in the GUI</p></div>
+  </div>
+
+  <details class="hint"><summary>Hint 1: two different Button classes</summary>
+    <p style="margin-top:8px">Both <code>tkinter</code> and <code>gpiozero</code> have a class called <code>Button</code>. Importing both normally will cause one to silently overwrite the other. Import one with a different name.</p>
+    <pre>from gpiozero import Button as PiButton</pre>
+  </details>
+
+  <details class="hint"><summary>Hint 2: building buttons from a dictionary, without a closure bug</summary>
+    <p style="margin-top:8px">Looping over a dictionary to create buttons has a classic trap: if your button's command directly uses the loop variable, every button ends up using whatever the loop variable was <i>last</i> set to, not the value it had when that specific button was created. Fix it by capturing the current value as a default argument in a lambda.</p>
+    <pre>filters = {"Grayscale": ImageOps.grayscale, "Sepia": sepia}
+
+for name, func in filters.items():
+    tk.Button(window, text=name,
+              command=lambda f=func: set_filter(f)).pack(side="left")</pre>
+  </details>
+
+  <details class="hint"><summary>Hint 3: full structure, if you're really stuck</summary>
+    <pre>import tkinter as tk
+from gpiozero import Button as PiButton
+from picamera2 import Picamera2
+from PIL import Image, ImageTk, ImageOps
+from datetime import datetime
+
+def sepia(image):
+    gray = ImageOps.grayscale(image)
+    return ImageOps.colorize(gray, black="#3f2f1e", white="#f4e1c1")
+
+filters = {"Grayscale": ImageOps.grayscale, "Sepia": sepia}
+current_filter = ImageOps.grayscale
+
+camera = Picamera2()
+camera.start()
+
+window = tk.Tk()
+photo_label = tk.Label(window)
+photo_label.pack()
+
+def set_filter(f):
+    global current_filter
+    current_filter = f
+
+for name, func in filters.items():
+    tk.Button(window, text=name,
+              command=lambda f=func: set_filter(f)).pack(side="left")
+
+def take_photo():
+    filename = datetime.now().strftime("booth_%H%M%S.jpg")
+    camera.capture_file(filename)
+    img = Image.open(filename)
+    filtered = current_filter(img)
+    display_img = ImageTk.PhotoImage(filtered.resize((320, 240)))
+    photo_label.config(image=display_img)
+    photo_label.image = display_img
+
+shutter = PiButton(27)
+shutter.when_pressed = lambda: window.after(0, take_photo)
+
+window.mainloop()</pre>
+    <div class="callout">Notice <code>window.after(0, take_photo)</code> instead of calling <code>take_photo()</code> directly from the button. gpiozero's button events fire on a background thread, and handing the actual work to <code>window.after()</code> makes sure Tkinter runs it safely on its own thread instead.</div>
+  </details>
+
+  <div class="card">
+    <h2>Push further (optional)</h2>
+    <p>Add a third filter using <code>ImageOps.invert</code> or <code>ImageOps.solarize</code>. Since your buttons are generated from the dictionary, how much code did you actually have to change to add it?</p>
+  </div>
+
+  <div class="footer-note">Raspberry Pi Camp · Day 4 · Level 2</div>
+  <div class="copyright">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>

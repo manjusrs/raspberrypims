@@ -1,0 +1,42 @@
+<svg viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg" width="100%" style="max-width:640px;display:block">
+  <rect x="10" y="20" width="620" height="180" rx="10" fill="#F1ECDF" stroke="#3A4150" stroke-width="1.5"/>
+
+  <!-- LED -->
+  <line x1="90" y1="70" x2="90" y2="110" stroke="#FFB238" stroke-width="4"/>
+  <polygon points="75,70 105,70 90,95" fill="#FFB238"/>
+  <text x="66" y="130" font-size="11" font-family="JetBrains Mono, monospace" fill="#171B26">LED</text>
+  <rect x="80" y="150" width="20" height="26" rx="3" fill="#1F8378"/>
+  <text x="58" y="186" font-size="10.5" font-family="JetBrains Mono, monospace" fill="#1F8378">GPIO 17</text>
+  <path d="M90 110 L90 150" stroke="#2FB8AC" stroke-width="3" fill="none"/>
+
+  <!-- Button 1 -->
+  <rect x="190" y="65" width="44" height="28" rx="4" fill="#FF6B5E"/>
+  <text x="180" y="120" font-size="10.5" font-family="JetBrains Mono, monospace" fill="#171B26">P1 button</text>
+  <rect x="202" y="140" width="20" height="26" rx="3" fill="#1F8378"/>
+  <text x="180" y="186" font-size="10.5" font-family="JetBrains Mono, monospace" fill="#1F8378">GPIO 27</text>
+  <path d="M212 93 L212 140" stroke="#2FB8AC" stroke-width="3" fill="none"/>
+
+  <!-- Button 2 -->
+  <rect x="310" y="65" width="44" height="28" rx="4" fill="#FF6B5E"/>
+  <text x="300" y="120" font-size="10.5" font-family="JetBrains Mono, monospace" fill="#171B26">P2 button</text>
+  <rect x="322" y="140" width="20" height="26" rx="3" fill="#1F8378"/>
+  <text x="300" y="186" font-size="10.5" font-family="JetBrains Mono, monospace" fill="#1F8378">GPIO 22</text>
+  <path d="M332 93 L332 140" stroke="#2FB8AC" stroke-width="3" fill="none"/>
+
+  <!-- LCD -->
+  <rect x="460" y="50" width="200" height="80" rx="6" fill="#1F5C4F" stroke="#3A4150" stroke-width="1.5"/>
+  <text x="475" y="80" font-size="13" font-family="JetBrains Mono, monospace" fill="#C9F5E4">Get Ready...</text>
+  <text x="500" y="145" font-size="11" font-family="JetBrains Mono, monospace" fill="#171B26">I2C LCD screen</text>
+
+  <rect x="470" y="150" width="18" height="24" rx="3" fill="#E4572E"/>
+  <text x="458" y="186" font-size="9.5" font-family="JetBrains Mono, monospace" fill="#E4572E">5V</text>
+  <rect x="500" y="150" width="18" height="24" rx="3" fill="#3A4150"/>
+  <text x="488" y="186" font-size="9.5" font-family="JetBrains Mono, monospace" fill="#3A4150">GND</text>
+  <rect x="530" y="150" width="18" height="24" rx="3" fill="#1F8378"/>
+  <text x="512" y="186" font-size="9.5" font-family="JetBrains Mono, monospace" fill="#1F8378">SDA</text>
+  <rect x="560" y="150" width="18" height="24" rx="3" fill="#1F8378"/>
+  <text x="542" y="186" font-size="9.5" font-family="JetBrains Mono, monospace" fill="#1F8378">SCL</text>
+  <path d="M479 130 L479 150 M509 130 L509 150 M539 130 L539 150 M569 130 L569 150" stroke="#3A4150" stroke-width="2" fill="none"/>
+
+  <text x="30" y="205" font-size="10" font-family="JetBrains Mono, monospace" fill="#3A4150">SDA and SCL are fixed pins on the header, they carry I2C, not general-purpose GPIO.</text>
+</svg>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Warm-Up — Lists &amp; Disk Space — Day 4</title>
+<link rel="stylesheet" href="../../styles/style.css">
+</head>
+<body>
+<a class="back-btn" href="index.html">← Day 4</a>
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <span class="eyebrow">Daily Warm-Up · Day 4</span>
+      <h1>Lists, Dictionaries, and Disk Space</h1>
+      <span class="level-badge l1"><span class="dot"></span>LEVEL 1 · GUIDED</span>
+    </div>
+    <div class="doc-meta">Name: <span class="fillin">&nbsp;</span><br><br>Time: <span class="fillin">&nbsp;</span></div>
+  </div>
+  <div class="rail"></div>
+
+  <div class="card">
+    <h2>Why today's warm-up is different</h2>
+    <p>Today you're building a photo booth that takes a lot of pictures. That raises two new problems: how do you keep a growing list of filter options organized in code, and how do you know when your SD card is running out of room. Both problems have a clean tool.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">1</span>Lists</h2>
+    <p>A list holds many values in one variable, in order.</p>
+    <pre>filters = ["Grayscale", "Sepia", "Normal"]
+
+for name in filters:
+    print(name)</pre>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">2</span>Dictionaries</h2>
+    <p>A dictionary pairs up a label with a value, a name with a function, a word with a definition, anything. Today you'll pair a filter's name with the actual function that applies it.</p>
+    <pre>ages = {"Sam": 12, "Priya": 13}
+print(ages["Sam"])
+
+for name, age in ages.items():
+    print(name, "is", age)</pre>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">3</span>Try it</h2>
+    <div class="checkbox-line"><div class="box"></div><p>Make a list of your 3 favorite camp activities so far</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Print each one with a <code>for</code> loop</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Make a dictionary pairing each activity to a rating from 1 to 10</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Print each activity and its rating using <code>.items()</code></p></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">4</span>Checking disk space</h2>
+    <p>A photo booth fills up storage fast. Two commands to keep an eye on it.</p>
+    <table>
+      <tr><th>Command</th><th>What it does</th></tr>
+      <tr><td class="mono">df -h</td><td>Shows how full the whole SD card is</td></tr>
+      <tr><td class="mono">du -sh foldername</td><td>Shows the total size of one folder</td></tr>
+    </table>
+    <div class="callout">Your teacher spent this week wrestling with SD cards. This is exactly the kind of command that catches a full card before it becomes a bigger problem.</div>
+  </div>
+
+  <div class="footer-note">Raspberry Pi Camp · Day 4 Warm-Up</div>
+  <div class="copyright">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>

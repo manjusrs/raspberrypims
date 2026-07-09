@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Reaction Game — DIY Day — Raspberry Pi Camp</title>
+<link rel="stylesheet" href="../../../styles/style.css">
+<style>
+  .page { max-width: 760px; }
+  .list { list-style:none; padding:0; margin:0; }
+  .list li { margin-bottom: 12px; }
+  .list a {
+    display:flex; justify-content:space-between; align-items:center;
+    text-decoration:none; color: var(--ink);
+    background: var(--paper-card); border:1.5px solid var(--line);
+    border-radius: 12px; padding: 16px 20px; font-family: var(--font-display); font-weight:600;
+  }
+  .list a:hover { border-color: var(--circuit-teal); }
+  .list span.tag { font-family: var(--font-mono); font-size:12px; font-weight:500; color: var(--graphite); }
+</style>
+</head>
+<body>
+<a class="back-btn" href="../index.html">← DIY Day</a>
+<div class="page">
+  <span class="eyebrow">DIY Day Option</span>
+  <h1 style="font-size:36px;margin:6px 0 20px">2-Player Reaction Game</h1>
+  <div class="rail"></div>
+  <p style="max-width:56ch;color:var(--graphite);margin-top:16px">LED, two buttons, an I2C screen. Pick this up if you want a fully self-contained project with clear steps instead of building something from scratch.</p>
+  <ul class="list" style="margin-top:24px">
+    <li><a href="handout.html">Build the Game<span class="tag">START HERE</span></a></li>
+    <li><a href="worksheet.html">Observation Worksheet<span class="tag">OPTIONAL</span></a></li>
+    <li><a href="notebook.html">Engineering Notebook<span class="tag">OPTIONAL</span></a></li>
+    <li><a href="level2.html">Catch a False Start<span class="tag">EXTENSION</span></a></li>
+    <li><a href="level3.html">Track a Running Score<span class="tag">EXTENSION</span></a></li>
+  </ul>
+  <div class="copyright" style="margin-top:32px">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Engineering Notebook — Reaction Game — DIY Day</title>
+<link rel="stylesheet" href="../../../styles/style.css">
+</head>
+<body>
+<a class="back-btn" href="index.html">← Reaction Game</a>
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <span class="eyebrow">Engineering Notebook · DIY Day</span>
+      <h1>Circuit Log &amp; Debug Trail</h1>
+      <span class="level-badge diy"><span class="dot"></span>DIY OPTION</span>
+    </div>
+    <div class="doc-meta">Name: <span class="fillin">&nbsp;</span></div>
+  </div>
+  <div class="rail"></div>
+
+  <div class="card">
+    <h2>1. Wiring log</h2>
+    <table>
+      <tr><th>From</th><th>To</th><th>Purpose</th><th>Worked? (Y/N)</th></tr>
+      <tr class="fill-row"><td></td><td></td><td></td><td></td></tr>
+      <tr class="fill-row"><td></td><td></td><td></td><td></td></tr>
+      <tr class="fill-row"><td></td><td></td><td></td><td></td></tr>
+      <tr class="fill-row"><td></td><td></td><td></td><td></td></tr>
+      <tr class="fill-row"><td></td><td></td><td></td><td></td></tr>
+      <tr class="fill-row"><td></td><td></td><td></td><td></td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>2. I2C-specific log</h2>
+    <table>
+      <tr><th>My i2cdetect address</th><td class="fill-row"></td></tr>
+      <tr><th>Did the address in my code match?</th><td class="fill-row"></td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>3. Debug checklist</h2>
+    <div class="checkbox-line"><div class="box"></div><p>Does the LCD address in your code match what <code>i2cdetect</code> actually found?</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>If the screen shows nothing, is I2C enabled in raspi-config?</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>If a button doesn't register, does its GPIO number in code match the wire?</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>If old text overlaps new text on screen, did you forget <code>lcd.clear()</code>?</p></div>
+  </div>
+
+  <div class="card">
+    <h2>4. Bug report</h2>
+    <table>
+      <tr><td style="width:35%"><b>What I expected</b></td><td class="fill-row"></td></tr>
+      <tr><td><b>What actually happened</b></td><td class="fill-row"></td></tr>
+      <tr><td><b>What I checked</b></td><td class="fill-row"></td></tr>
+      <tr><td><b>What fixed it</b></td><td class="fill-row"></td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>5. Final circuit sketch</h2>
+    <div style="border:1.5px dashed var(--line); border-radius:10px; height:220px;"></div>
+  </div>
+
+  <div class="footer-note">Raspberry Pi Camp · DIY Day · Reaction Game Notebook</div>
+  <div class="copyright">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>

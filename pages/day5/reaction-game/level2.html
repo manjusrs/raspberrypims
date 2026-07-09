@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Extension — Catch a False Start — Reaction Game</title>
+<link rel="stylesheet" href="../../../styles/style.css">
+</head>
+<body>
+<a class="back-btn" href="index.html">← Reaction Game</a>
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <span class="eyebrow">DIY Extension</span>
+      <h1>Catch a False Start</h1>
+      <span class="level-badge l2"><span class="dot"></span>LEVEL 2 · ON YOUR OWN</span>
+    </div>
+    <div class="doc-meta">Name: <span class="fillin">&nbsp;</span></div>
+  </div>
+  <div class="rail red"></div>
+
+  <div class="card">
+    <h2>The challenge</h2>
+    <p>Right now, pressing a button during "Get Ready..." does nothing, the game just ignores it and keeps waiting. Real reaction games punish that. If either player presses before the LED turns on, end the round immediately and declare the <i>other</i> player the winner, with the LCD showing something like "P1 false start! P2 wins."</p>
+  </div>
+
+  <div class="card">
+    <h2>Your task</h2>
+    <div class="checkbox-line"><div class="box"></div><p>During the "Get Ready" wait, keep checking both buttons</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>If a button is pressed during that wait, skip the LED flash entirely</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Display a false start message naming the guilty player and the winner by default</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Still support "play again"</p></div>
+  </div>
+
+  <details class="hint"><summary>Hint 1: sleep() can't check anything</summary>
+    <p style="margin-top:8px">Your current wait uses <code>sleep()</code>, which does nothing but pause, it can't detect a button press while it's running. Replace it with a loop that checks the elapsed time and the buttons on every pass instead.</p>
+  </details>
+
+  <details class="hint"><summary>Hint 2: tracking elapsed time inside a loop</summary>
+    <pre>wait_time = random.uniform(2, 5)
+start = time()
+false_start = None
+
+while time() - start < wait_time:
+    if button1.is_pressed:
+        false_start = "Player 1"
+        break
+    elif button2.is_pressed:
+        false_start = "Player 2"
+        break</pre>
+  </details>
+
+  <details class="hint"><summary>Hint 3: full structure, if you're really stuck</summary>
+    <pre>if false_start is not None:
+    other = "Player 2" if false_start == "Player 1" else "Player 1"
+    lcd.clear()
+    lcd.write_string(false_start + " false start!")
+    lcd.cursor_pos = (1, 0)
+    lcd.write_string(other + " wins!")
+else:
+    led.on()
+    lcd.clear()
+    lcd.write_string('GO!')
+    start_time = time()
+    <span class="c"># ...rest of the normal game as before</span></pre>
+  </details>
+
+  <div class="card">
+    <h2>Push further (optional)</h2>
+    <p>Right now a false start ends the whole round. What if, instead, it just disqualified that one player, and the game kept waiting for the other player's real reaction? Describe what would need to change.</p>
+  </div>
+
+  <div class="footer-note">Raspberry Pi Camp · DIY Day · Reaction Game Extension</div>
+  <div class="copyright">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>

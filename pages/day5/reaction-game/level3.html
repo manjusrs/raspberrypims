@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Extension — Running Score — Reaction Game</title>
+<link rel="stylesheet" href="../../../styles/style.css">
+</head>
+<body>
+<a class="back-btn" href="index.html">← Reaction Game</a>
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <span class="eyebrow">DIY Extension</span>
+      <h1>Track a Running Score</h1>
+      <span class="level-badge l3"><span class="dot"></span>LEVEL 3 · HARDEST</span>
+    </div>
+    <div class="doc-meta">Name: <span class="fillin">&nbsp;</span></div>
+  </div>
+  <div class="rail" style="color:var(--signal-coral)"></div>
+
+  <div class="card">
+    <h2>The challenge</h2>
+    <p>Right now every round forgets the last one. Turn this into a real match: keep score across rounds, show the running score on the LCD after every round, and once a player reaches 3 wins, declare them the champion and stop the game.</p>
+  </div>
+
+  <div class="card">
+    <h2>Why this is genuinely hard</h2>
+    <p>Every previous step reset itself each round. This one doesn't. You need a variable that survives from one round to the next, gets updated, not replaced, and gets checked against a win condition every single round. That's real state management, the same idea behind saving progress in a video game.</p>
+  </div>
+
+  <div class="card">
+    <h2>Your task</h2>
+    <div class="checkbox-line"><div class="box"></div><p>Create two counters before the game loop starts, one per player, both starting at 0</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>After each round, add 1 to the winner's counter</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Show the current score on the LCD's second line, replacing the reaction time display</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>The moment a player's counter hits 3, show a champion message and stop asking "play again"</p></div>
+  </div>
+
+  <details class="hint"><summary>Hint 1: counters that live outside the loop</summary>
+    <p style="margin-top:8px">Declare <code>p1_score = 0</code> and <code>p2_score = 0</code> once, before your <code>while again == "y"</code> loop begins. If you declare them inside the loop instead, they'll reset to 0 every round, which defeats the whole point.</p>
+  </details>
+
+  <details class="hint"><summary>Hint 2: updating the right counter</summary>
+    <pre>if winner == "Player 1":
+    p1_score += 1
+else:
+    p2_score += 1</pre>
+  </details>
+
+  <details class="hint"><summary>Hint 3: full structure, if you're really stuck</summary>
+    <pre>p1_score = 0
+p2_score = 0
+champion = None
+
+while champion is None:
+    <span class="c"># ...run one full round, get `winner`...</span>
+
+    if winner == "Player 1":
+        p1_score += 1
+    else:
+        p2_score += 1
+
+    lcd.clear()
+    lcd.write_string(winner + " wins!")
+    lcd.cursor_pos = (1, 0)
+    lcd.write_string(f"P1:{p1_score}  P2:{p2_score}")
+
+    if p1_score == 3 or p2_score == 3:
+        champion = "Player 1" if p1_score == 3 else "Player 2"
+        lcd.clear()
+        lcd.write_string(champion + " wins the match!")</pre>
+  </details>
+
+  <div class="card">
+    <h2>Push further (optional)</h2>
+    <p>Combine this with the False Start extension. Should a false start count as a loss for the match score, or just cost that one round? There's no single right answer, decide and justify it in your Engineering Notebook.</p>
+  </div>
+
+  <div class="footer-note">Raspberry Pi Camp · DIY Day · Reaction Game Extension</div>
+  <div class="copyright">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>

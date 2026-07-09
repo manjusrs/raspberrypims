@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Day 4 Slides — Raspberry Pi Camp</title>
+<link rel="stylesheet" href="../../styles/style.css">
+<style>
+  body { background: var(--ink); overflow: hidden; }
+  .deck { position: relative; width: 100vw; height: 100vh; }
+  .slide {
+    position: absolute; inset: 0;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6vh 9vw;
+    color: var(--paper);
+  }
+  .slide.active { display: flex; }
+  .slide .eyebrow { margin-bottom: 10px; }
+  .slide h1 { font-size: 44px; margin: 0 0 20px; line-height: 1.1; max-width: 23ch; }
+  .slide h2.sub { font-size: 22px; font-weight: 500; color: rgba(255,255,255,0.65); margin: -10px 0 24px; font-family: var(--font-body); }
+  .slide ul { font-size: 24px; line-height: 1.65; max-width: 30ch; padding-left: 26px; }
+  .slide ul li::marker { color: var(--led-amber); }
+  .two-col { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; }
+  .card-dark {
+    background: var(--ink-soft);
+    border: 1px solid var(--line-dark);
+    border-radius: 16px;
+    padding: 24px 26px;
+  }
+  .card-dark h3 { margin-top: 0; font-size: 15px; color: var(--led-amber); letter-spacing: .03em; }
+  pre { font-size: 14.5px; }
+  .pins { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+  .rail-wrap { position: absolute; bottom: 0; left: 0; right: 0; }
+  .progress { position: fixed; top: 0; left: 0; height: 4px; background: var(--circuit-teal); transition: width .2s; z-index: 5; }
+  .nav-hint {
+    position: fixed; bottom: 20px; right: 28px;
+    font-family: var(--font-mono); font-size: 12px; color: rgba(255,255,255,0.4);
+  }
+  .count { position: fixed; bottom: 20px; left: 28px; font-family: var(--font-mono); font-size: 12px; color: rgba(255,255,255,0.4); }
+  .tag { position: fixed; top: 18px; right: 28px; font-family: var(--font-mono); font-size: 12px; padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.6); }
+  .big-num { font-family: var(--font-display); font-size: 100px; color: var(--led-amber); line-height: 1; }
+  .checklist li { list-style: none; margin-left: -26px; }
+  .checklist li::before { content: "→ "; color: var(--circuit-teal); }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<a class="back-btn on-dark" href="index.html" onclick="event.stopPropagation()">← Day 4</a>
+<div class="deck" id="deck"></div>
+<div class="count" id="count"></div>
+<div class="tag" id="tag"></div>
+<div class="nav-hint">← → or space to navigate</div>
+<div class="copyright fixed-bottom">© 2026 Manju Muralidharan Priya</div>
+
+<script id="slide-data" type="application/json">
+[
+{"session":"AM","html":"<div class='eyebrow on-dark'>Day 4 · Photo Booth</div><h1>Automatic Photo Booth</h1><h2 class='sub'>Raspberry Pi Camp — Day 4</h2><ul><li>Test the camera</li><li>Sensor triggers the shutter</li><li>An LED shows system status</li><li>Then: a real photo booth with filters</li></ul>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Warm-Up · Python</div><h1>Lists</h1><div class='card-dark'><pre>filters = [\"Grayscale\", \"Sepia\", \"Normal\"]\n\nfor name in filters:\n    print(name)</pre></div>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Warm-Up · Python</div><h1>Dictionaries</h1><div class='two-col'><ul><li>Pairs a label with a value</li><li>Today: a filter's name paired with the function that applies it</li></ul><div class='card-dark'><pre>ages = {\"Sam\": 12, \"Priya\": 13}\n\nfor name, age in ages.items():\n    print(name, \"is\", age)</pre></div></div>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Warm-Up · Linux</div><h1>Watching your storage</h1><div class='card-dark'><pre>df -h\n<span class='c'># how full is the whole card?</span>\n\ndu -sh my_photos\n<span class='c'># how big is just this folder?</span></pre></div>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Getting Set Up</div><h1>Connect the camera</h1><ul><li>CSI port, between the HDMI port and the audio jack</li><li>Silver contacts face the HDMI port</li><li>Test with <code>libcamera-hello</code> before writing any code</li></ul>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Wiring</div><h1>Today's circuit</h1><div class='card-dark'><div class='pins'><span class='pin gpio'>GPIO 17 · system LED</span><span class='pin gpio'>GPIO 22 · toggle button</span><span class='pin gpio'>GPIO 23 · sensor trigger</span><span class='pin gpio'>GPIO 24 · sensor echo</span></div></div>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Level 1 · Guided</div><h1>Take your first photo in code</h1><div class='card-dark'><pre>from picamera2 import Picamera2\n\ncamera = Picamera2()\ncamera.start()\ncamera.capture_file(\"test.jpg\")</pre></div>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Level 1 · Guided</div><h1>Recap: reading the sensor</h1><div class='card-dark'><pre>from gpiozero import DistanceSensor\n\nsensor = DistanceSensor(echo=24, trigger=23)\ncm = sensor.distance * 100</pre></div>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Level 1 · Guided</div><h1>Someone steps up, camera fires</h1><div class='card-dark'><pre>from datetime import datetime\n\nwhile True:\n    cm = sensor.distance * 100\n    if cm < 30:\n        name = datetime.now().strftime(\"photo_%H%M%S.jpg\")\n        camera.capture_file(name)\n        sleep(3)</pre></div>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Level 1 · Guided</div><h1>Adding the system LED</h1><div class='two-col'><ul><li>LED lit means the booth is watching for people</li><li>A button toggles the whole system on and off</li></ul><div class='card-dark'><pre>def toggle_system():\n    global system_on\n    system_on = not system_on\n\ntoggle_button.when_pressed = toggle_system</pre></div></div>"},
+{"session":"AM","html":"<div class='eyebrow on-dark'>Break</div><h1 class='big-num'>10:00</h1><ul><li>Save your code before you get up</li><li>Back in 10 to build the real booth</li></ul>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>This Afternoon</div><h1>Build a real photo booth</h1><ul><li>A GUI with clickable filter buttons</li><li>A physical button that actually takes the picture</li><li>This is today's Level 2, independent, with hints</li></ul>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>The Key Idea</div><h1>A dictionary of filters</h1><div class='two-col'><ul><li>Each filter's name paired with its function</li><li>Loop over the dictionary to build one button per filter</li><li>Add a new filter, get a new button, automatically</li></ul><div class='card-dark'><pre>filters = {\n    \"Grayscale\": ImageOps.grayscale,\n    \"Sepia\": sepia,\n}</pre></div></div>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Watch Out For</div><h1>Two libraries, two Button classes</h1><div class='two-col'><ul><li><code>tkinter.Button</code> for the GUI</li><li><code>gpiozero.Button</code> for the physical button</li><li>Import one of them with a different name</li></ul><div class='card-dark'><pre>from gpiozero import Button as PiButton</pre></div></div>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Your Turn</div><h1>Two challenges, no hand-holding</h1><div class='two-col'><div class='card-dark'><span class='level-badge l2' style='color:var(--wire-red)'><span class='dot'></span>LEVEL 2</span><p style='font-size:16px;margin-top:10px'>Build the photo booth: clickable GUI filters, a physical shutter button.</p></div><div class='card-dark'><span class='level-badge l3' style='color:var(--signal-coral)'><span class='dot'></span>LEVEL 3</span><p style='font-size:16px;margin-top:10px'>Merge it with this morning's sensor, the booth fires itself when someone steps up, using whichever filter is selected.</p></div></div>"},
+{"session":"PM","html":"<div class='eyebrow on-dark'>Wrap-Up</div><h1>Before you go</h1><ul class='checklist'><li>Save your code as <code>day4_yourname.py</code></li><li>Finish your Engineering Notebook wiring log</li><li>Check your storage with <code>df -h</code> before you leave</li><li>Tomorrow: DIY day, build whatever you want</li></ul>"}
+]
+</script>
+
+<script>
+const data = JSON.parse(document.getElementById('slide-data').textContent);
+const deck = document.getElementById('deck');
+data.forEach((s, i) => {
+  const el = document.createElement('div');
+  el.className = 'slide' + (i === 0 ? ' active' : '');
+  el.innerHTML = s.html + "<div class='rail-wrap'><div class='rail on-dark'></div></div>";
+  deck.appendChild(el);
+});
+let idx = 0;
+const slides = document.querySelectorAll('.slide');
+const progress = document.getElementById('progress');
+const count = document.getElementById('count');
+const tag = document.getElementById('tag');
+function render() {
+  slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+  progress.style.width = ((idx + 1) / slides.length * 100) + '%';
+  count.textContent = (idx + 1) + ' / ' + slides.length;
+  tag.textContent = 'DAY 4 · ' + data[idx].session + ' SESSION';
+}
+function next() { idx = Math.min(idx + 1, slides.length - 1); render(); }
+function prev() { idx = Math.max(idx - 1, 0); render(); }
+document.addEventListener('keydown', e => {
+  if (['ArrowRight', ' ', 'PageDown'].includes(e.key)) next();
+  if (['ArrowLeft', 'PageUp'].includes(e.key)) prev();
+});
+document.addEventListener('click', e => { if (e.clientX > window.innerWidth / 2) next(); else prev(); });
+render();
+</script>
+</body>
+</html>

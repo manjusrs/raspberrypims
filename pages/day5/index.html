@@ -4,6 +4,19 @@
 <meta charset="UTF-8">
 <title>Day 5 · DIY Day &amp; Showcase — Raspberry Pi Camp</title>
 <link rel="stylesheet" href="../../styles/style.css">
+<style>
+  .page { max-width: 760px; }
+  .list { list-style:none; padding:0; margin:0; }
+  .list li { margin-bottom: 12px; }
+  .list a {
+    display:flex; justify-content:space-between; align-items:center;
+    text-decoration:none; color: var(--ink);
+    background: var(--paper-card); border:1.5px solid var(--line);
+    border-radius: 12px; padding: 16px 20px; font-family: var(--font-display); font-weight:600;
+  }
+  .list a:hover { border-color: var(--circuit-teal); }
+  .list span.tag { font-family: var(--font-mono); font-size:12px; font-weight:500; color: var(--graphite); }
+</style>
 </head>
 <body>
 <a class="back-btn" href="../../index.html">← All Days</a>
@@ -11,10 +24,13 @@
   <span class="eyebrow">Raspberry Pi Camp</span>
   <h1 style="font-size:36px;margin:6px 0 20px">Day 5 · DIY Day &amp; Showcase</h1>
   <div class="rail"></div>
-  <div class="card" style="margin-top:24px">
-    <h2>Materials not built yet</h2>
-    <p>This day's slide deck, handout, worksheet, engineering notebook, and independent challenge levels will land in this same folder, following the exact pattern used for Day 1.</p>
-  </div>
+  <p style="max-width:56ch;color:var(--graphite);margin-top:16px">Open build day. Use anything from the week, sensors, LEDs, the camera, the LCD, whatever you like. If you'd rather have a structured project to follow instead of designing from scratch, pick one of the options below.</p>
+
+  <h2 style="font-size:18px;margin-top:32px">Ready-made options</h2>
+  <ul class="list" style="margin-top:12px">
+    <li><a href="reaction-game/index.html">2-Player Reaction Game<span class="tag">FULL PROJECT</span></a></li>
+  </ul>
+
   <div class="copyright" style="margin-top:32px">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
 </div>
 </body>

@@ -1,0 +1,40 @@
+<svg viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" width="100%" style="max-width:720px;display:block">
+  <rect x="10" y="20" width="700" height="210" rx="10" fill="#F1ECDF" stroke="#3A4150" stroke-width="1.5"/>
+
+  <!-- LED -->
+  <line x1="80" y1="60" x2="80" y2="100" stroke="#FFB238" stroke-width="4"/>
+  <polygon points="65,60 95,60 80,85" fill="#FFB238"/>
+  <text x="55" y="120" font-size="11" font-family="JetBrains Mono, monospace" fill="#171B26">system LED</text>
+  <rect x="70" y="140" width="20" height="26" rx="3" fill="#1F8378"/>
+  <text x="48" y="186" font-size="10.5" font-family="JetBrains Mono, monospace" fill="#1F8378">GPIO 17</text>
+  <path d="M80 100 L80 140" stroke="#2FB8AC" stroke-width="3" fill="none"/>
+
+  <!-- Toggle button -->
+  <rect x="190" y="65" width="50" height="28" rx="4" fill="#FF6B5E"/>
+  <text x="175" y="120" font-size="10.5" font-family="JetBrains Mono, monospace" fill="#171B26">toggle button</text>
+  <rect x="205" y="140" width="20" height="26" rx="3" fill="#1F8378"/>
+  <text x="183" y="186" font-size="10.5" font-family="JetBrains Mono, monospace" fill="#1F8378">GPIO 22</text>
+  <path d="M215 93 L215 140" stroke="#2FB8AC" stroke-width="3" fill="none"/>
+
+  <!-- Ultrasonic sensor -->
+  <rect x="340" y="55" width="150" height="70" rx="8" fill="#DCE9E7" stroke="#3A4150" stroke-width="1.5"/>
+  <circle cx="375" cy="90" r="18" fill="#C7D6D4" stroke="#3A4150"/>
+  <circle cx="455" cy="90" r="18" fill="#C7D6D4" stroke="#3A4150"/>
+  <text x="365" y="140" font-size="11" font-family="JetBrains Mono, monospace" fill="#171B26">ultrasonic sensor</text>
+  <rect x="352" y="150" width="18" height="24" rx="3" fill="#E4572E"/>
+  <text x="338" y="192" font-size="9.5" font-family="JetBrains Mono, monospace" fill="#E4572E">5V</text>
+  <rect x="384" y="150" width="18" height="24" rx="3" fill="#3A4150"/>
+  <text x="372" y="192" font-size="9.5" font-family="JetBrains Mono, monospace" fill="#3A4150">GND</text>
+  <rect x="416" y="150" width="18" height="24" rx="3" fill="#1F8378"/>
+  <text x="392" y="192" font-size="9" font-family="JetBrains Mono, monospace" fill="#1F8378">GPIO 23 trig</text>
+  <rect x="448" y="150" width="18" height="24" rx="3" fill="#1F8378"/>
+  <text x="424" y="212" font-size="9" font-family="JetBrains Mono, monospace" fill="#1F8378">GPIO 24 echo</text>
+
+  <!-- Camera note -->
+  <rect x="560" y="65" width="120" height="70" rx="8" fill="#E4D9B8" stroke="#3A4150" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="575" y="105" font-size="11" font-family="JetBrains Mono, monospace" fill="#171B26">camera</text>
+  <text x="568" y="122" font-size="9.5" font-family="JetBrains Mono, monospace" fill="#3A4150">CSI port,</text>
+  <text x="568" y="135" font-size="9.5" font-family="JetBrains Mono, monospace" fill="#3A4150">not shown here</text>
+
+  <text x="30" y="215" font-size="10" font-family="JetBrains Mono, monospace" fill="#3A4150">GPIO 27 for the shutter button gets added later, during Level 2.</text>
+</svg>

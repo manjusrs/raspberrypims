@@ -89,6 +89,7 @@ a { color: var(--circuit-teal-dim); }
 .level-badge.l2 { color: var(--wire-red); }
 .level-badge.l3 { color: var(--signal-coral); }
 .level-badge.bonus { color: var(--led-amber); border-style: dashed; }
+.level-badge.diy { color: var(--graphite); }
 .level-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
 
 /* ---------- page shell for handouts/worksheets/notebooks ---------- */

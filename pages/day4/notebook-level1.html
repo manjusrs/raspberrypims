@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Engineering Notebook — Day 4</title>
+<link rel="stylesheet" href="../../styles/style.css">
+</head>
+<body>
+<a class="back-btn" href="index.html">← Day 4</a>
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <span class="eyebrow">Engineering Notebook · Day 4</span>
+      <h1>Circuit Log &amp; Debug Trail</h1>
+      <span class="level-badge l1"><span class="dot"></span>LEVEL 1</span>
+    </div>
+    <div class="doc-meta">Name: <span class="fillin">&nbsp;</span></div>
+  </div>
+  <div class="rail"></div>
+
+  <div class="card">
+    <h2>1. Wiring log</h2>
+    <table>
+      <tr><th>From</th><th>To</th><th>Purpose</th><th>Worked? (Y/N)</th></tr>
+      <tr class="fill-row"><td></td><td></td><td></td><td></td></tr>
+      <tr class="fill-row"><td></td><td></td><td></td><td></td></tr>
+      <tr class="fill-row"><td></td><td></td><td></td><td></td></tr>
+      <tr class="fill-row"><td></td><td></td><td></td><td></td></tr>
+      <tr class="fill-row"><td></td><td></td><td></td><td></td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>2. Debug checklist</h2>
+    <div class="checkbox-line"><div class="box"></div><p>Does <code>libcamera-hello</code> show a preview before you try any Python code?</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Does your sensor's trigger and echo pin match the wiring?</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>If photos aren't appearing, check <code>ls</code> in the folder you expect, not just the terminal output.</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>If the booth fires constantly, is your cooldown <code>sleep()</code> actually inside the <code>if</code> block?</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>If the toggle button does nothing, is <code>system_on</code> declared <code>global</code> inside your function?</p></div>
+  </div>
+
+  <div class="card">
+    <h2>3. Bug report</h2>
+    <table>
+      <tr><td style="width:35%"><b>What I expected</b></td><td class="fill-row"></td></tr>
+      <tr><td><b>What actually happened</b></td><td class="fill-row"></td></tr>
+      <tr><td><b>What I checked</b></td><td class="fill-row"></td></tr>
+      <tr><td><b>What fixed it</b></td><td class="fill-row"></td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>4. Final circuit sketch</h2>
+    <p>Draw your finished circuit here: LED, toggle button, sensor, and a note showing where the camera connects.</p>
+    <div style="border:1.5px dashed var(--line); border-radius:10px; height:220px;"></div>
+  </div>
+
+  <div class="footer-note">Raspberry Pi Camp · Day 4 · Engineering Notebook</div>
+  <div class="copyright">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>

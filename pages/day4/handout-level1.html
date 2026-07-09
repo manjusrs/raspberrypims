@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Handout — Automatic Photo Booth Basics — Day 4</title>
+<link rel="stylesheet" href="../../styles/style.css">
+</head>
+<body>
+<a class="back-btn" href="index.html">← Day 4</a>
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <span class="eyebrow">Hands-On Handout · Day 4</span>
+      <h1>Camera, Sensor Trigger, System LED</h1>
+      <span class="level-badge l1"><span class="dot"></span>LEVEL 1 · WITH YOUR TEACHER</span>
+    </div>
+    <div class="doc-meta">Name: <span class="fillin">&nbsp;</span></div>
+  </div>
+  <div class="rail"></div>
+
+  <div class="card">
+    <h2>What you're building</h2>
+    <p>A booth that watches for someone stepping close, takes their photo automatically, and shows whether it's active with an LED.</p>
+  </div>
+
+  <div class="card">
+    <h2>Wiring diagram</h2>
+    <img src="../../images/day4/circuit-diagram.svg" alt="Wiring diagram: system LED on GPIO 17, toggle button on GPIO 22, ultrasonic sensor on GPIO 23/24, camera on the CSI port" style="max-width:720px;width:100%;display:block;margin:0 auto">
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">1</span>Connect the camera</h2>
+    <div class="step"><p>CSI port, between the HDMI port and the audio jack. Silver contacts face the HDMI port, blue tab faces the USB/Ethernet side.</p></div>
+    <div class="danger">Never pull the ribbon cable straight out, always release the locking tab first.</div>
+    <pre>libcamera-hello</pre>
+    <p>Confirm you see a live preview before writing any code.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">2</span>Take a photo in Python</h2>
+    <pre>from picamera2 import Picamera2
+
+camera = Picamera2()
+camera.start()
+camera.capture_file("test.jpg")</pre>
+    <p>Check with <code>ls</code> that <code>test.jpg</code> actually appeared.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">3</span>Wire the ultrasonic sensor</h2>
+    <p>Same wiring as Day 3: 5V, GND, trigger on <span class="pin gpio">GPIO 23</span>, echo on <span class="pin gpio">GPIO 24</span>.</p>
+    <pre>from gpiozero import DistanceSensor
+
+sensor = DistanceSensor(echo=24, trigger=23)
+print(sensor.distance * 100)</pre>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">4</span>Auto-capture when someone steps up</h2>
+    <pre>from time import sleep
+from datetime import datetime
+
+while True:
+    cm = sensor.distance * 100
+    if cm < 30:
+        filename = datetime.now().strftime("photo_%H%M%S.jpg")
+        camera.capture_file(filename)
+        print("Captured:", filename)
+        sleep(3)</pre>
+    <div class="callout">That <code>sleep(3)</code> is a cooldown. Without it, one person standing there triggers dozens of captures per second, not one photo.</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">5</span>Add the system LED and toggle button</h2>
+    <p>Wire the LED to <span class="pin gpio">GPIO 17</span>, and a button to <span class="pin gpio">GPIO 22</span>, both with GND.</p>
+    <pre>from gpiozero import LED, Button
+
+led = LED(17)
+toggle_button = Button(22)
+system_on = True
+
+def toggle_system():
+    global system_on
+    system_on = not system_on
+
+toggle_button.when_pressed = toggle_system
+
+while True:
+    if system_on:
+        led.on()
+        cm = sensor.distance * 100
+        if cm < 30:
+            filename = datetime.now().strftime("photo_%H%M%S.jpg")
+            camera.capture_file(filename)
+            sleep(3)
+    else:
+        led.off()
+    sleep(0.1)</pre>
+    <div class="callout">Notice you didn't need <code>window.after()</code> here. Since this is a plain terminal program, not a Tkinter GUI, <code>button.when_pressed</code> quietly watches for the press in the background on its own, without freezing your <code>while True</code> loop. That changes once you add a GUI this afternoon.</div>
+  </div>
+
+  <div class="card">
+    <h2>Before you move on</h2>
+    <div class="checkbox-line"><div class="box"></div><p>Camera captures a test photo successfully</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Stepping within 30cm triggers an automatic capture</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>The cooldown prevents rapid-fire duplicate photos</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>The LED turns off when the toggle button is pressed, and capturing stops</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Worksheet and Engineering Notebook filled in</p></div>
+  </div>
+
+  <div class="footer-note">Raspberry Pi Camp · Day 4 · Level 1 Handout</div>
+  <div class="copyright">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>
