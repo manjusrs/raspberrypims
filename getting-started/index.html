@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Getting Started — Raspberry Pi Camp</title>
+<link rel="stylesheet" href="../styles/style.css">
+<style>
+  .page { max-width: 820px; }
+  .section { margin-top: 36px; }
+  .section h2 { font-size: 20px; margin-bottom: 4px; }
+  .section .sub { color: var(--graphite); font-size: 14px; margin: 0 0 16px; }
+  .item-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; margin-top: 14px; }
+  .item-card {
+    background: var(--paper-card); border: 1.5px solid var(--line); border-radius: 12px;
+    padding: 14px 16px;
+  }
+  .item-card .name { font-family: var(--font-display); font-weight: 600; font-size: 14.5px; }
+  .item-card .note { font-size: 12.5px; color: var(--graphite); margin-top: 4px; }
+  .link-list { list-style:none; padding:0; margin: 14px 0 0; display: grid; gap: 10px; }
+  .link-list li a {
+    display:flex; justify-content:space-between; align-items:center; gap: 12px;
+    text-decoration:none; color: var(--ink);
+    background: var(--paper-card); border:1.5px solid var(--line);
+    border-radius: 10px; padding: 14px 18px;
+  }
+  .link-list li a:hover { border-color: var(--circuit-teal); }
+  .link-list .title { font-family: var(--font-display); font-weight: 600; font-size: 14.5px; }
+  .link-list .desc { font-size: 12.5px; color: var(--graphite); margin-top: 3px; }
+  .link-list .arrow { font-family: var(--font-mono); color: var(--graphite); flex: none; }
+</style>
+</head>
+<body>
+<a class="back-btn" href="../index.html">← All Days</a>
+<div class="page">
+  <span class="eyebrow">Before You Start</span>
+  <h1 style="font-size:36px;margin:6px 0 10px">Getting Started with Raspberry Pi</h1>
+  <p style="max-width:56ch;color:var(--graphite)">Everything used across this camp, what to buy, what to read, and where to keep learning after the week is over.</p>
+  <div class="rail"></div>
+
+  <div class="section">
+    <h2>What You'll Need</h2>
+    <p class="sub">Every one of these gets used somewhere across the five days. Quantities assume one full kit per student.</p>
+    <div class="item-grid">
+      <div class="item-card"><div class="name">Raspberry Pi 3B+</div><div class="note">The board itself. This camp is built specifically for this model.</div></div>
+      <div class="item-card"><div class="name">microSD card, 16GB+</div><div class="note">Flashed with Raspberry Pi OS. Buy a couple of spares, they get corrupted more often than you'd like.</div></div>
+      <div class="item-card"><div class="name">5V/2.5A power supply</div><div class="note">Official or a reliable equivalent. Underpowered supplies cause flaky, hard-to-diagnose bugs.</div></div>
+      <div class="item-card"><div class="name">Monitor + HDMI cable</div><div class="note">The 3B+ uses a full-size HDMI port, no adapter needed.</div></div>
+      <div class="item-card"><div class="name">USB keyboard &amp; mouse</div><div class="note">Any standard USB (or wireless USB dongle) set works.</div></div>
+      <div class="item-card"><div class="name">Breadboard</div><div class="note">A standard half-size or full-size breadboard per student.</div></div>
+      <div class="item-card"><div class="name">Jumper wires</div><div class="note">A mixed pack of male-to-male and male-to-female wires.</div></div>
+      <div class="item-card"><div class="name">Resistors, 220–330Ω</div><div class="note">For protecting LEDs. A small assortment pack covers this easily.</div></div>
+      <div class="item-card"><div class="name">LEDs, assorted colors</div><div class="note">At least 3 per student for the Day 2 GUI project.</div></div>
+      <div class="item-card"><div class="name">Push buttons</div><div class="note">At least 3 per student across the week's projects.</div></div>
+      <div class="item-card"><div class="name">Active buzzer</div><div class="note">Used for volume control and the parking sensor project.</div></div>
+      <div class="item-card"><div class="name">Ultrasonic sensor (HC-SR04)</div><div class="note">Trigger and echo pins, used for the whole distance-sensing unit.</div></div>
+      <div class="item-card"><div class="name">Pi Camera Module</div><div class="note">Standard 15-pin CSI connector, compatible with the 3B+ (v1, v2, or the standard-connector version of Module 3).</div></div>
+      <div class="item-card"><div class="name">1602 I2C LCD screen</div><div class="note">A GeeekPi or equivalent 16x2 character display with an I2C backpack.</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Book Recommendations</h2>
+    <p class="sub">Ordered roughly by how closely they match this camp's age range and topics.</p>
+    <ul class="link-list">
+      <li><a href="https://nostarch.com/raspiforkids" target="_blank" rel="noopener">
+        <div><div class="title">Raspberry Pi Projects for Kids — Dan Aldred</div><div class="desc">No Starch Press. Explicitly built around the Pi 3B+, covers LEDs, the camera, and sensors, closely mirrors this camp's project arc.</div></div>
+        <span class="arrow">↗</span>
+      </a></li>
+      <li><a href="https://www.amazon.com/Adventures-Raspberry-Carrie-Anne-Philbin/dp/1119269067" target="_blank" rel="noopener">
+        <div><div class="title">Adventures in Raspberry Pi, 3rd Edition — Carrie Anne Philbin</div><div class="desc">Written specifically for ages 11–15, project-based, from a former Director of Education at the Raspberry Pi Foundation.</div></div>
+        <span class="arrow">↗</span>
+      </a></li>
+      <li><a href="https://www.amazon.com/Hello-Raspberry-Pi-programming-beginners/dp/1617292451" target="_blank" rel="noopener">
+        <div><div class="title">Hello Raspberry Pi! — Ryan Heitz</div><div class="desc">Manning Publications. A gentler on-ramp for a first-time programmer, good pick for a student who wants extra practice before or after camp.</div></div>
+        <span class="arrow">↗</span>
+      </a></li>
+      <li><a href="https://www.raspberrypi.com/news/the-6th-edition-of-our-beginners-guide-is-available-now/" target="_blank" rel="noopener">
+        <div><div class="title">The Official Raspberry Pi Beginner's Guide</div><div class="desc">Straight from the Raspberry Pi Foundation. The most comprehensive hardware reference of the bunch, available in print or as a PDF/ePub.</div></div>
+        <span class="arrow">↗</span>
+      </a></li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Tutorials &amp; Websites</h2>
+    <p class="sub">Free, official, and worth bookmarking for after the camp ends.</p>
+    <ul class="link-list">
+      <li><a href="https://projects.raspberrypi.org/en" target="_blank" rel="noopener">
+        <div><div class="title">Raspberry Pi Foundation Projects Site</div><div class="desc">250+ free, step-by-step coding projects, filterable by topic and skill level. The official next stop after this camp.</div></div>
+        <span class="arrow">↗</span>
+      </a></li>
+      <li><a href="https://www.raspberrypi.com/documentation/" target="_blank" rel="noopener">
+        <div><div class="title">Official Raspberry Pi Documentation</div><div class="desc">Hardware specs, OS setup, and troubleshooting, straight from the source.</div></div>
+        <span class="arrow">↗</span>
+      </a></li>
+      <li><a href="https://gpiozero.readthedocs.io/en/stable/recipes.html" target="_blank" rel="noopener">
+        <div><div class="title">gpiozero Recipes</div><div class="desc">The exact library used all week for LEDs, buttons, sensors, and buzzers. This page is full of short, ready-to-run examples.</div></div>
+        <span class="arrow">↗</span>
+      </a></li>
+    </ul>
+  </div>
+
+  <div class="copyright" style="margin-top:36px">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>

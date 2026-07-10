@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Subscribe — Raspberry Pi Camp</title>
+<link rel="stylesheet" href="../styles/style.css">
+<style>
+  .page { max-width: 640px; }
+  .setup-note {
+    background: rgba(255, 178, 56, 0.12); border: 1.5px dashed var(--led-amber);
+    border-radius: 10px; padding: 14px 18px; font-size: 13.5px; margin-bottom: 28px;
+  }
+  .setup-note code { background: rgba(0,0,0,0.06); padding: 1px 5px; border-radius: 4px; }
+  form { margin-top: 24px; }
+  .field-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  input[type="email"] {
+    flex: 1; min-width: 220px; font-family: var(--font-body); font-size: 15px;
+    padding: 13px 16px; border-radius: 10px; border: 1.5px solid var(--line);
+    background: var(--paper-card); color: var(--ink);
+  }
+  input[type="email"]:focus { outline: none; border-color: var(--circuit-teal); }
+  button.subscribe-btn {
+    font-family: var(--font-display); font-weight: 600; font-size: 15px;
+    padding: 13px 24px; border-radius: 10px; border: none;
+    background: var(--ink); color: var(--paper); cursor: pointer;
+  }
+  button.subscribe-btn:hover { background: var(--circuit-teal-dim); }
+  button.subscribe-btn:disabled { opacity: 0.6; cursor: default; }
+  .form-message { margin-top: 14px; font-size: 14px; font-family: var(--font-mono); }
+  .form-message.success { color: var(--circuit-teal-dim); }
+  .form-message.error { color: var(--signal-coral); }
+  .fallback { margin-top: 28px; font-size: 13.5px; color: var(--graphite); }
+</style>
+</head>
+<body>
+<a class="back-btn" href="../index.html">← All Days</a>
+<div class="page">
+  <span class="eyebrow">Stay in the Loop</span>
+  <h1 style="font-size:34px;margin:6px 0 12px">Subscribe for Future Classes</h1>
+  <p style="color:var(--graphite)">Want to hear about the next Raspberry Pi camp, or other classes? Drop your email below and we'll reach out when something new is coming up. No spam, just class announcements.</p>
+  <div class="rail"></div>
+
+  <!--
+    SETUP NOTE FOR MANJU (safe to delete once configured):
+    This form posts to Formspree (https://formspree.io), a free service that
+    collects submissions into a dashboard you can export as CSV at any time.
+    1. Create a free account at formspree.io
+    2. Create a new form, it'll give you an endpoint like
+       https://formspree.io/f/abc12345
+    3. Replace YOUR_FORM_ID below (in the form's action attribute) with that ID.
+    Until you do this, the form will show a friendly error instead of silently
+    losing anyone's email.
+  -->
+  <div class="setup-note">
+    <b>One-time setup needed:</b> this form is wired to submit to <a href="https://formspree.io" target="_blank" rel="noopener">Formspree</a>, a free service that collects signups into an exportable list (their dashboard, downloadable as CSV, exactly the "simple list" you asked for). Sign up free, create a form, and swap <code>YOUR_FORM_ID</code> in this page's HTML for your real form ID. Delete this note once it's done.
+  </div>
+
+  <form id="subscribe-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+    <div class="field-row">
+      <input type="email" name="email" id="email" placeholder="parent@email.com" required>
+      <button type="submit" class="subscribe-btn" id="submit-btn">Subscribe</button>
+    </div>
+    <div id="form-message" class="form-message"></div>
+  </form>
+
+  <p class="fallback">Prefer email? Reach out directly at <a href="mailto:REPLACE_WITH_YOUR_EMAIL">REPLACE_WITH_YOUR_EMAIL</a> and ask to be added to the list.</p>
+
+  <div class="copyright" style="margin-top:36px">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+
+<script>
+  const form = document.getElementById('subscribe-form');
+  const message = document.getElementById('form-message');
+  const submitBtn = document.getElementById('submit-btn');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if (form.action.includes('YOUR_FORM_ID')) {
+      message.textContent = "This form isn't set up yet, ask the camp organizer to finish the Formspree setup.";
+      message.className = 'form-message error';
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    try {
+      const data = new FormData(form);
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (response.ok) {
+        message.textContent = "You're subscribed! Thanks for your interest.";
+        message.className = 'form-message success';
+        form.reset();
+      } else {
+        message.textContent = "Something went wrong, please try again or email directly.";
+        message.className = 'form-message error';
+      }
+    } catch (error) {
+      message.textContent = "Something went wrong, please try again or email directly.";
+      message.className = 'form-message error';
+    }
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Subscribe';
+  });
+</script>
+</body>
+</html>

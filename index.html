@@ -26,6 +26,8 @@
     border-radius: 999px; padding: 9px 18px; margin-top: 18px;
   }
   .resources-link:hover { border-color: var(--circuit-teal); }
+  .utility-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+  .utility-row .resources-link { margin-top: 0; }
 </style>
 </head>
 <body>
@@ -33,7 +35,11 @@
   <span class="eyebrow">Week Overview</span>
   <h1 style="font-size:38px;margin:6px 0 20px">Raspberry Pi Camp</h1>
   <p style="max-width:56ch;color:var(--graphite)">Five days, two sessions each. Every day layers a hands-on build with the teacher, a Linux &amp; Python warm-up, and two independent challenge levels.</p>
-  <a class="resources-link" href="resources/index.html">Resources &amp; Solution Files →</a>
+  <div class="utility-row">
+    <a class="resources-link" href="resources/index.html">Resources &amp; Solution Files →</a>
+    <a class="resources-link" href="subscribe/index.html">Subscribe for Updates →</a>
+    <a class="resources-link" href="getting-started/index.html">Getting Started →</a>
+  </div>
   <div class="rail" style="margin-top:20px"></div>
   <div class="grid">
     <a class="day-card ready" href="pages/day1/index.html">
