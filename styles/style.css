@@ -298,6 +298,60 @@ pre .k { color: var(--led-amber); }
   font-family: var(--font-mono);
 }
 
+/* ---------- site header / nav menu ---------- */
+.site-nav {
+  background: var(--ink);
+  border-bottom: 1px solid var(--line-dark);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+.site-nav-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 14px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.site-nav-brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--paper);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.site-nav-links {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.site-nav-links a {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 13.5px;
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+}
+.site-nav-links a:hover {
+  color: var(--paper);
+  border-color: var(--line-dark);
+  background: var(--ink-soft);
+}
+.site-nav-links a.active {
+  color: var(--led-amber);
+  background: var(--ink-soft);
+  border-color: var(--line-dark);
+}
+
 @media print {
   body { background: white; }
   .no-print { display: none; }

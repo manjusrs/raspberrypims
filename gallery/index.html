@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Showcase Gallery — Raspberry Pi Camp</title>
+<link rel="stylesheet" href="../styles/style.css">
+<style>
+  .page { max-width: 720px; }
+
+  /* --- password gate --- */
+  #gate { margin-top: 40px; }
+  #gate .card { max-width: 420px; margin: 0 auto; text-align: center; }
+  #gate input[type="password"] {
+    width: 100%; font-family: var(--font-body); font-size: 15px;
+    padding: 13px 16px; border-radius: 10px; border: 1.5px solid var(--line);
+    background: var(--paper); color: var(--ink); margin-top: 14px; box-sizing: border-box;
+  }
+  #gate input:focus { outline: none; border-color: var(--circuit-teal); }
+  #gate button {
+    margin-top: 12px; width: 100%; font-family: var(--font-display); font-weight: 600; font-size: 15px;
+    padding: 13px 24px; border-radius: 10px; border: none;
+    background: var(--ink); color: var(--paper); cursor: pointer;
+  }
+  #gate button:hover { background: var(--circuit-teal-dim); }
+  #gate-message { margin-top: 12px; font-size: 13.5px; font-family: var(--font-mono); color: var(--signal-coral); min-height: 1.2em; }
+
+  /* --- carousel --- */
+  #carousel { display: none; margin-top: 24px; }
+  .carousel-frame {
+    position: relative; background: var(--ink); border-radius: 14px; overflow: hidden;
+    aspect-ratio: 4 / 3; display: flex; align-items: center; justify-content: center;
+  }
+  .carousel-frame img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .carousel-nav {
+    display: flex; align-items: center; justify-content: space-between; margin-top: 14px;
+  }
+  .carousel-nav button {
+    font-family: var(--font-display); font-weight: 600; font-size: 14px;
+    padding: 10px 18px; border-radius: 8px; border: 1.5px solid var(--line);
+    background: var(--paper-card); cursor: pointer;
+  }
+  .carousel-nav button:hover { border-color: var(--circuit-teal); }
+  .carousel-nav button:disabled { opacity: 0.4; cursor: default; }
+  .carousel-count { font-family: var(--font-mono); font-size: 13px; color: var(--graphite); }
+  #loading-msg, #empty-msg { text-align: center; color: var(--graphite); font-size: 14px; margin-top: 20px; }
+  #empty-msg { display: none; }
+</style>
+</head>
+<body>
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a class="site-nav-brand" href="../index.html">Raspberry Pi Camp</a>
+    <div class="site-nav-links">
+      <a href="../resources/index.html">Resources</a>
+      <a href="../subscribe/index.html">Subscribe</a>
+      <a href="../getting-started/index.html">Getting Started</a>
+      <a href="index.html" class="active">Gallery</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page">
+  <span class="eyebrow">Showcase Day</span>
+  <h1 style="font-size:34px;margin:6px 0 12px">Photo Gallery</h1>
+  <p style="color:var(--graphite)">Photos from the final showcase. Enter the password from the email to view them.</p>
+  <div class="rail"></div>
+
+  <div id="gate">
+    <div class="card">
+      <p style="margin-top:0;font-size:14px;color:var(--graphite)">This gallery is private. Check your email for the password.</p>
+      <input type="password" id="password-input" placeholder="Enter password" autocomplete="off">
+      <button id="unlock-btn">View Photos</button>
+      <div id="gate-message"></div>
+    </div>
+  </div>
+
+  <div id="loading-msg" style="display:none">Loading photos...</div>
+  <div id="empty-msg">No photos found yet, check back soon.</div>
+
+  <div id="carousel">
+    <div class="carousel-frame">
+      <img id="carousel-img" src="" alt="Showcase day photo">
+    </div>
+    <div class="carousel-nav">
+      <button id="prev-btn">← Previous</button>
+      <span class="carousel-count" id="carousel-count"></span>
+      <button id="next-btn">Next →</button>
+    </div>
+  </div>
+
+  <div class="copyright" style="margin-top:36px">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+
+<!--
+  SETUP NOTES FOR MANJU (safe to delete once read):
+
+  1. PASSWORD: the gate checks a SHA-256 hash, not the plaintext password, so
+     anyone viewing this page's source sees a hash, not the actual password.
+     The default password below is "showcase2026". To set your own, open
+     gallery/hash-generator.html in a browser, type your new password, and
+     paste the hash it gives you into PASSWORD_HASH below.
+
+  2. ADDING PHOTOS: just drop files into images/gallery/ via Finder, named
+     photo1.jpg, photo2.jpg, photo3.jpg, and so on in order. Both .jpg and
+     .png are supported per number. No code editing needed, the page checks
+     for each number up to MAX_PHOTOS_TO_CHECK and only shows the ones that
+     actually exist.
+
+  3. HONEST SECURITY NOTE: this password gate is a real deterrent against a
+     parent casually browsing to this page, but it is NOT true security.
+     Static HTML/JS has no way to enforce access control on the server, so a
+     technically determined person could still find an individual photo's
+     direct URL once the gallery is unlocked (browsers have to download the
+     image file to display it, and that URL is visible in browser dev
+     tools). If you need real, unbypassable privacy for these photos, that
+     requires hosting-level protection (like Netlify password protection, or
+     serving through a proper login system), which is a hosting choice, not
+     something a static page can add on its own. For sharing photos with
+     parents who already have a private link, this gate is a reasonable,
+     good-faith speed bump, not a vault.
+-->
+
+<script>
+  const PASSWORD_HASH = "68d32482ff19e9f6e3b46987b8adee71037a1bf781b10bba6f3e3cfc61887a2f"; // default: showcase2026
+  const MAX_PHOTOS_TO_CHECK = 60;
+  const IMAGE_FOLDER = "../images/gallery/";
+
+  async function sha256(text) {
+    const data = new TextEncoder().encode(text);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  function tryLoadImage(url) {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve(url);
+      img.onerror = () => resolve(null);
+      img.src = url;
+    });
+  }
+
+  async function findAllPhotos() {
+    const checks = [];
+    for (let i = 1; i <= MAX_PHOTOS_TO_CHECK; i++) {
+      checks.push(tryLoadImage(IMAGE_FOLDER + "photo" + i + ".jpg"));
+      checks.push(tryLoadImage(IMAGE_FOLDER + "photo" + i + ".png"));
+    }
+    const results = await Promise.all(checks);
+    return results.filter(url => url !== null);
+  }
+
+  let photos = [];
+  let currentIndex = 0;
+
+  function renderCurrent() {
+    document.getElementById('carousel-img').src = photos[currentIndex];
+    document.getElementById('carousel-count').textContent = (currentIndex + 1) + ' / ' + photos.length;
+    document.getElementById('prev-btn').disabled = currentIndex === 0;
+    document.getElementById('next-btn').disabled = currentIndex === photos.length - 1;
+  }
+
+  document.getElementById('prev-btn').addEventListener('click', () => {
+    if (currentIndex > 0) { currentIndex--; renderCurrent(); }
+  });
+  document.getElementById('next-btn').addEventListener('click', () => {
+    if (currentIndex < photos.length - 1) { currentIndex++; renderCurrent(); }
+  });
+
+  async function unlockGallery() {
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('loading-msg').style.display = 'block';
+
+    photos = await findAllPhotos();
+    document.getElementById('loading-msg').style.display = 'none';
+
+    if (photos.length === 0) {
+      document.getElementById('empty-msg').style.display = 'block';
+      return;
+    }
+
+    document.getElementById('carousel').style.display = 'block';
+    currentIndex = 0;
+    renderCurrent();
+  }
+
+  async function attemptUnlock() {
+    const input = document.getElementById('password-input');
+    const message = document.getElementById('gate-message');
+    const hash = await sha256(input.value);
+
+    if (hash === PASSWORD_HASH) {
+      sessionStorage.setItem('gallery-unlocked', 'true');
+      unlockGallery();
+    } else {
+      message.textContent = "That password isn't right, check your email and try again.";
+      input.value = '';
+    }
+  }
+
+  document.getElementById('unlock-btn').addEventListener('click', attemptUnlock);
+  document.getElementById('password-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') attemptUnlock();
+  });
+
+  // Skip the gate if already unlocked earlier this browser session
+  if (sessionStorage.getItem('gallery-unlocked') === 'true') {
+    document.getElementById('gate').style.display = 'none';
+    unlockGallery();
+  }
+</script>
+</body>
+</html>

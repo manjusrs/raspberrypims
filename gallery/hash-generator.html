@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Password Hash Generator (for Manju only)</title>
+<link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+<div class="page" style="max-width:560px">
+  <span class="eyebrow">Admin Utility</span>
+  <h1 style="font-size:28px;margin:6px 0 12px">Gallery Password Hash Generator</h1>
+  <p style="color:var(--graphite);font-size:14px">This page isn't linked anywhere on the site, it's just a tool for you. Type your new gallery password below, copy the hash it produces, and paste it into <code>PASSWORD_HASH</code> in <code>gallery/index.html</code>.</p>
+  <div class="rail"></div>
+
+  <div class="card" style="margin-top:24px">
+    <input type="text" id="pw-input" placeholder="Type a new password" style="width:100%;font-family:var(--font-body);font-size:15px;padding:13px 16px;border-radius:10px;border:1.5px solid var(--line);box-sizing:border-box">
+    <button id="generate-btn" style="margin-top:12px;font-family:var(--font-display);font-weight:600;padding:12px 22px;border-radius:10px;border:none;background:var(--ink);color:var(--paper);cursor:pointer">Generate Hash</button>
+    <div style="margin-top:16px">
+      <label style="font-size:12.5px;color:var(--graphite)">Paste this into PASSWORD_HASH:</label>
+      <pre id="hash-output" style="margin-top:6px;word-break:break-all;font-size:13px"></pre>
+    </div>
+  </div>
+
+  <div class="footer-note">This file is for setup only, feel free to delete it once you're done.</div>
+</div>
+
+<script>
+  async function sha256(text) {
+    const data = new TextEncoder().encode(text);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  document.getElementById('generate-btn').addEventListener('click', async () => {
+    const pw = document.getElementById('pw-input').value;
+    if (!pw) return;
+    const hash = await sha256(pw);
+    document.getElementById('hash-output').textContent = hash;
+  });
+</script>
+</body>
+</html>
