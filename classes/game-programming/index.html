@@ -4,12 +4,43 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>2D / 3D Godot Game Programming — STEM Classes with Manju</title>
-<link rel="stylesheet" href="../../styles/style.css">
+<link rel="stylesheet" href="../../styles/style.css?v=20261005">
 <style>
   .page { max-width: 1000px; }
   .class-intro { margin-bottom: 8px; }
   .class-intro h1 { font-size: clamp(30px, 5vw, 40px); margin: 6px 0 10px; letter-spacing: -.02em; }
   .class-intro p { max-width: 62ch; color: var(--graphite); line-height: 1.6; margin: 0; }
+  .class-tablist {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  .class-tablist [role="tab"] {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1;
+    color: var(--graphite);
+    background: #fff;
+    border: 1.5px solid rgba(23, 27, 38, 0.18);
+    border-radius: 999px;
+    padding: 11px 18px;
+    cursor: pointer;
+    box-shadow: none;
+  }
+  .class-tablist [role="tab"]:hover {
+    color: var(--ink);
+    border-color: var(--circuit-teal);
+  }
+  .class-tablist [role="tab"][aria-selected="true"] {
+    color: var(--ink);
+    border-color: var(--circuit-teal);
+    box-shadow: 0 0 0 3px rgba(47, 184, 172, 0.18);
+  }
 </style>
 </head>
 <body>
