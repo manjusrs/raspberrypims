@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Raspberry Pi Middle School — STEM Classes with Manju</title>
+<link rel="stylesheet" href="../../styles/style.css">
+<style>
+  .page { max-width: 1000px; }
+  .class-intro { margin-bottom: 8px; }
+  .class-intro h1 { font-size: clamp(30px, 5vw, 40px); margin: 6px 0 10px; letter-spacing: -.02em; }
+  .class-intro p { max-width: 62ch; color: var(--graphite); line-height: 1.6; margin: 0; }
+  .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 8px; }
+  .day-card {
+    display:block; text-decoration:none; color: var(--ink);
+    background: var(--paper-card); border:1.5px solid var(--line);
+    border-radius: 14px; padding: 22px 20px; position: relative;
+  }
+  .day-card:hover { border-color: var(--circuit-teal); }
+  .day-card .num { font-family: var(--font-display); font-size: 34px; font-weight: 700; color: var(--circuit-teal-dim); }
+  .day-card h3 { font-family: var(--font-display); font-size: 17px; margin: 6px 0 4px; }
+  .day-card p { font-size: 13px; color: var(--graphite); margin: 0; }
+  .day-card .status {
+    position:absolute; top:18px; right:18px; font-family: var(--font-mono);
+    font-size: 10.5px; letter-spacing:.04em; text-transform:uppercase; color: var(--circuit-teal-dim);
+  }
+  .day-section { margin-top: 36px; }
+  .day-section:first-child { margin-top: 0; }
+  .day-section h2 {
+    font-size: 20px; margin-bottom: 4px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .day-section .num {
+    font-family: var(--font-display); font-weight: 700; font-size: 15px;
+    color: var(--paper); background: var(--ink); border-radius: 6px;
+    padding: 3px 9px;
+  }
+  .file-list { list-style:none; padding:0; margin:14px 0 0; display: grid; gap: 10px; }
+  .file-list a {
+    display:flex; justify-content:space-between; align-items:center; gap: 12px;
+    text-decoration:none; color: var(--ink);
+    background: var(--paper-card); border:1.5px solid var(--line);
+    border-radius: 10px; padding: 13px 18px; font-family: var(--font-mono); font-size: 13.5px;
+  }
+  .file-list a:hover { border-color: var(--circuit-teal); }
+  .file-list .tag {
+    font-family: var(--font-display); font-weight: 600; font-size: 11px;
+    color: var(--graphite); text-transform: uppercase; letter-spacing: .03em; flex: none;
+  }
+  .section { margin-top: 36px; }
+  .section:first-child { margin-top: 0; }
+  .section h2 { font-size: 20px; margin-bottom: 4px; }
+  .section .sub { color: var(--graphite); font-size: 14px; margin: 0 0 16px; }
+  .item-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; margin-top: 14px; }
+  .item-card {
+    background: var(--paper-card); border: 1.5px solid var(--line); border-radius: 12px;
+    padding: 14px 16px;
+  }
+  .item-card .name { font-family: var(--font-display); font-weight: 600; font-size: 14.5px; }
+  .item-card .note { font-size: 12.5px; color: var(--graphite); margin-top: 4px; }
+  .link-list { list-style:none; padding:0; margin: 14px 0 0; display: grid; gap: 10px; }
+  .link-list li a {
+    display:flex; justify-content:space-between; align-items:center; gap: 12px;
+    text-decoration:none; color: var(--ink);
+    background: var(--paper-card); border:1.5px solid var(--line);
+    border-radius: 10px; padding: 14px 18px;
+  }
+  .link-list li a:hover { border-color: var(--circuit-teal); }
+  .link-list .title { font-family: var(--font-display); font-weight: 600; font-size: 14.5px; }
+  .link-list .desc { font-size: 12.5px; color: var(--graphite); margin-top: 3px; }
+  .link-list .arrow { font-family: var(--font-mono); color: var(--graphite); flex: none; }
+  .tab-lede { color: var(--graphite); line-height: 1.6; max-width: 56ch; margin: 0 0 20px; }
+</style>
+</head>
+<body>
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a class="site-nav-brand" href="../../index.html">STEM Classes with Manju</a>
+    <div class="site-nav-links">
+      <a href="../../subscribe/index.html">Subscribe</a>
+      <a href="../../gallery/index.html">Gallery</a>
+    </div>
+  </div>
+</nav>
+<main class="page">
+  <section class="class-intro">
+    <span class="eyebrow">Raspberry Pi · Middle School</span>
+    <h1>Five-day hands-on class</h1>
+    <p>Every day combines a teacher-led build, a Linux and Python warm-up, and independent challenges that build on the previous lesson.</p>
+  </section>
+
+  <div class="rail teal" style="margin: 24px 0 28px"></div>
+
+  <div class="class-tabs" data-tabs>
+    <div class="class-tablist" role="tablist" aria-label="Raspberry Pi class sections">
+      <button type="button" role="tab" id="tab-days" aria-controls="panel-days" aria-selected="true" data-tab="days">Days</button>
+      <button type="button" role="tab" id="tab-resources" aria-controls="panel-resources" aria-selected="false" tabindex="-1" data-tab="resources">Resources</button>
+      <button type="button" role="tab" id="tab-getting-started" aria-controls="panel-getting-started" aria-selected="false" tabindex="-1" data-tab="getting-started">Getting Started</button>
+    </div>
+
+    <div class="class-tab-panel" role="tabpanel" id="panel-days" aria-labelledby="tab-days" data-panel="days">
+      <div class="grid">
+        <a class="day-card ready" href="../../pages/day1/index.html">
+          <span class="status">Ready</span>
+          <span class="num">01</span>
+          <h3>Getting Started &amp; Our First Circuit</h3>
+          <p>GPIO basics, coding fundamentals, LED + button circuit</p>
+        </a>
+        <a class="day-card ready" href="../../pages/day2/index.html">
+          <span class="status">Ready</span>
+          <span class="num">02</span>
+          <h3>Functions &amp; Basic GUIs</h3>
+          <p>Writing functions, building a Tkinter interface</p>
+        </a>
+        <a class="day-card ready" href="../../pages/day3/index.html">
+          <span class="status">Ready</span>
+          <span class="num">03</span>
+          <h3>Making a Distance Sensor</h3>
+          <p>While loops, an ultrasonic sensor, live GUI readout</p>
+        </a>
+        <a class="day-card ready" href="../../pages/day4/index.html">
+          <span class="status">Ready</span>
+          <span class="num">04</span>
+          <h3>Automatic Photo Booth</h3>
+          <p>Camera, sensor-triggered capture, GUI filters</p>
+        </a>
+        <a class="day-card ready" href="../../pages/day5/index.html">
+          <span class="status">Ready</span>
+          <span class="num">05</span>
+          <h3>DIY Day &amp; Showcase</h3>
+          <p>Open build, or follow the reaction game project</p>
+        </a>
+      </div>
+    </div>
+
+    <div class="class-tab-panel" role="tabpanel" id="panel-resources" aria-labelledby="tab-resources" data-panel="resources" hidden>
+      <p class="tab-lede">A working <code>.py</code> file for every guided build, independent challenge, and bonus this week. If your code stops working, or your SD card gets wiped, everything here is a clean starting point.</p>
+
+      <div class="day-section">
+        <h2><span class="num">01</span>Day 1 · Getting Started &amp; Our First Circuit</h2>
+        <ul class="file-list">
+          <li><a href="../../resources/day1/day1_level1_led_button.py" download>day1_level1_led_button.py<span class="tag">Level 1</span></a></li>
+          <li><a href="../../resources/day1/day1_level2_fading_led.py" download>day1_level2_fading_led.py<span class="tag">Level 2</span></a></li>
+          <li><a href="../../resources/day1/day1_level3_mode_switch.py" download>day1_level3_mode_switch.py<span class="tag">Level 3</span></a></li>
+        </ul>
+      </div>
+
+      <div class="day-section">
+        <h2><span class="num">02</span>Day 2 · Functions &amp; Basic GUIs</h2>
+        <ul class="file-list">
+          <li><a href="../../resources/day2/day2_level1_functions_gui.py" download>day2_level1_functions_gui.py<span class="tag">Level 1</span></a></li>
+          <li><a href="../../resources/day2/day2_level2_traffic_light.py" download>day2_level2_traffic_light.py<span class="tag">Level 2</span></a></li>
+          <li><a href="../../resources/day2/day2_level3_smart_buzzer.py" download>day2_level3_smart_buzzer.py<span class="tag">Level 3</span></a></li>
+        </ul>
+      </div>
+
+      <div class="day-section">
+        <h2><span class="num">03</span>Day 3 · Making a Distance Sensor</h2>
+        <ul class="file-list">
+          <li><a href="../../resources/day3/day3_level1a_fixed_sliders.py" download>day3_level1a_fixed_sliders.py<span class="tag">Level 1a</span></a></li>
+          <li><a href="../../resources/day3/day3_level1b_sensor_gui.py" download>day3_level1b_sensor_gui.py<span class="tag">Level 1b</span></a></li>
+          <li><a href="../../resources/day3/day3_level2_buzzer_swap.py" download>day3_level2_buzzer_swap.py<span class="tag">Level 2</span></a></li>
+          <li><a href="../../resources/day3/day3_level3_parking_sensor.py" download>day3_level3_parking_sensor.py<span class="tag">Level 3</span></a></li>
+          <li><a href="../../resources/day3/day3_bonus_camera_photo.py" download>day3_bonus_camera_photo.py<span class="tag">Bonus</span></a></li>
+        </ul>
+      </div>
+
+      <div class="day-section">
+        <h2><span class="num">04</span>Day 4 · Automatic Photo Booth</h2>
+        <ul class="file-list">
+          <li><a href="../../resources/day4/day4_level1_camera_sensor_trigger.py" download>day4_level1_camera_sensor_trigger.py<span class="tag">Level 1</span></a></li>
+          <li><a href="../../resources/day4/day4_level2_photo_booth.py" download>day4_level2_photo_booth.py<span class="tag">Level 2</span></a></li>
+          <li><a href="../../resources/day4/day4_level3_smart_booth.py" download>day4_level3_smart_booth.py<span class="tag">Level 3</span></a></li>
+        </ul>
+      </div>
+
+      <div class="day-section">
+        <h2><span class="num">05</span>DIY Day · Reaction Game</h2>
+        <ul class="file-list">
+          <li><a href="../../resources/day5/day5_reaction_game.py" download>day5_reaction_game.py<span class="tag">Base build</span></a></li>
+          <li><a href="../../resources/day5/day5_reaction_game_false_start.py" download>day5_reaction_game_false_start.py<span class="tag">Extension</span></a></li>
+          <li><a href="../../resources/day5/day5_reaction_game_running_score.py" download>day5_reaction_game_running_score.py<span class="tag">Extension</span></a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="class-tab-panel" role="tabpanel" id="panel-getting-started" aria-labelledby="tab-getting-started" data-panel="getting-started" hidden>
+      <p class="tab-lede">Everything used across this camp — what to buy, what to read, and where to keep learning after the week is over.</p>
+
+      <div class="section">
+        <h2>What You'll Need</h2>
+        <p class="sub">Every one of these gets used somewhere across the five days. Quantities assume one full kit per student.</p>
+        <div class="item-grid">
+          <div class="item-card"><div class="name">Raspberry Pi 3B+</div><div class="note">The board itself. This camp is built specifically for this model.</div></div>
+          <div class="item-card"><div class="name">microSD card, 16GB+</div><div class="note">Flashed with Raspberry Pi OS. Buy a couple of spares, they get corrupted more often than you'd like.</div></div>
+          <div class="item-card"><div class="name">5V/2.5A power supply</div><div class="note">Official or a reliable equivalent. Underpowered supplies cause flaky, hard-to-diagnose bugs.</div></div>
+          <div class="item-card"><div class="name">Monitor + HDMI cable</div><div class="note">The 3B+ uses a full-size HDMI port, no adapter needed.</div></div>
+          <div class="item-card"><div class="name">USB keyboard &amp; mouse</div><div class="note">Any standard USB (or wireless USB dongle) set works.</div></div>
+          <div class="item-card"><div class="name">Breadboard</div><div class="note">A standard half-size or full-size breadboard per student.</div></div>
+          <div class="item-card"><div class="name">Jumper wires</div><div class="note">A mixed pack of male-to-male and male-to-female wires.</div></div>
+          <div class="item-card"><div class="name">Resistors, 220–330Ω</div><div class="note">For protecting LEDs. A small assortment pack covers this easily.</div></div>
+          <div class="item-card"><div class="name">LEDs, assorted colors</div><div class="note">At least 3 per student for the Day 2 GUI project.</div></div>
+          <div class="item-card"><div class="name">Push buttons</div><div class="note">At least 3 per student across the week's projects.</div></div>
+          <div class="item-card"><div class="name">Active buzzer</div><div class="note">Used for volume control and the parking sensor project.</div></div>
+          <div class="item-card"><div class="name">Ultrasonic sensor (HC-SR04)</div><div class="note">Trigger and echo pins, used for the whole distance-sensing unit.</div></div>
+          <div class="item-card"><div class="name">Pi Camera Module</div><div class="note">Standard 15-pin CSI connector, compatible with the 3B+ (v1, v2, or the standard-connector version of Module 3).</div></div>
+          <div class="item-card"><div class="name">1602 I2C LCD screen</div><div class="note">A GeeekPi or equivalent 16x2 character display with an I2C backpack.</div></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Book Recommendations</h2>
+        <p class="sub">Ordered roughly by how closely they match this camp's age range and topics.</p>
+        <ul class="link-list">
+          <li><a href="https://nostarch.com/raspiforkids" target="_blank" rel="noopener">
+            <div><div class="title">Raspberry Pi Projects for Kids — Dan Aldred</div><div class="desc">No Starch Press. Explicitly built around the Pi 3B+, covers LEDs, the camera, and sensors, closely mirrors this camp's project arc.</div></div>
+            <span class="arrow">↗</span>
+          </a></li>
+          <li><a href="https://www.amazon.com/Adventures-Raspberry-Carrie-Anne-Philbin/dp/1119269067" target="_blank" rel="noopener">
+            <div><div class="title">Adventures in Raspberry Pi, 3rd Edition — Carrie Anne Philbin</div><div class="desc">Written specifically for ages 11–15, project-based, from a former Director of Education at the Raspberry Pi Foundation.</div></div>
+            <span class="arrow">↗</span>
+          </a></li>
+          <li><a href="https://www.amazon.com/Hello-Raspberry-Pi-programming-beginners/dp/1617292451" target="_blank" rel="noopener">
+            <div><div class="title">Hello Raspberry Pi! — Ryan Heitz</div><div class="desc">Manning Publications. A gentler on-ramp for a first-time programmer, good pick for a student who wants extra practice before or after camp.</div></div>
+            <span class="arrow">↗</span>
+          </a></li>
+          <li><a href="https://www.raspberrypi.com/news/the-6th-edition-of-our-beginners-guide-is-available-now/" target="_blank" rel="noopener">
+            <div><div class="title">The Official Raspberry Pi Beginner's Guide</div><div class="desc">Straight from the Raspberry Pi Foundation. The most comprehensive hardware reference of the bunch, available in print or as a PDF/ePub.</div></div>
+            <span class="arrow">↗</span>
+          </a></li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>Tutorials &amp; Websites</h2>
+        <p class="sub">Free, official, and worth bookmarking for after the camp ends.</p>
+        <ul class="link-list">
+          <li><a href="https://projects.raspberrypi.org/en" target="_blank" rel="noopener">
+            <div><div class="title">Raspberry Pi Foundation Projects Site</div><div class="desc">250+ free, step-by-step coding projects, filterable by topic and skill level. The official next stop after this camp.</div></div>
+            <span class="arrow">↗</span>
+          </a></li>
+          <li><a href="https://www.raspberrypi.com/documentation/" target="_blank" rel="noopener">
+            <div><div class="title">Official Raspberry Pi Documentation</div><div class="desc">Hardware specs, OS setup, and troubleshooting, straight from the source.</div></div>
+            <span class="arrow">↗</span>
+          </a></li>
+          <li><a href="https://gpiozero.readthedocs.io/en/stable/recipes.html" target="_blank" rel="noopener">
+            <div><div class="title">gpiozero Recipes</div><div class="desc">The exact library used all week for LEDs, buttons, sensors, and buzzers. This page is full of short, ready-to-run examples.</div></div>
+            <span class="arrow">↗</span>
+          </a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="copyright" style="margin-top:36px">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</main>
+<script src="../../scripts/class-tabs.js"></script>
+</body>
+</html>

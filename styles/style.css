@@ -352,6 +352,60 @@ pre .k { color: var(--led-amber); }
   border-color: var(--line-dark);
 }
 
+/* ---------- class page tabs ---------- */
+.class-tabs { margin-top: 4px; }
+.class-tablist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 22px;
+  border-bottom: 1.5px solid var(--line);
+  padding-bottom: 12px;
+}
+.class-tablist [role="tab"] {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--graphite);
+  background: transparent;
+  border: 1.5px solid transparent;
+  border-radius: 999px;
+  padding: 9px 16px;
+  cursor: pointer;
+}
+.class-tablist [role="tab"]:hover {
+  color: var(--ink);
+  border-color: var(--line);
+  background: var(--paper-card);
+}
+.class-tablist [role="tab"][aria-selected="true"] {
+  color: var(--ink);
+  background: var(--paper-card);
+  border-color: var(--circuit-teal);
+}
+.class-tablist [role="tab"]:focus-visible {
+  outline: 2px solid var(--circuit-teal);
+  outline-offset: 2px;
+}
+.class-tab-panel { min-height: 180px; }
+.coming-soon-panel {
+  background: var(--paper-card);
+  border: 1.5px dashed var(--line);
+  border-radius: 16px;
+  padding: 36px 28px;
+  max-width: 52ch;
+}
+.coming-soon-panel h2 {
+  font-size: 24px;
+  margin: 8px 0 10px;
+  letter-spacing: -.02em;
+}
+.coming-soon-panel p {
+  margin: 0;
+  color: var(--graphite);
+  line-height: 1.6;
+}
+
 @media print {
   body { background: white; }
   .no-print { display: none; }
