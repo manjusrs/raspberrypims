@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Step into 3D · Godot Game Lab</title>
+<link rel="stylesheet" href="../../styles/style.css">
+<style>
+  .key {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 5px;
+    padding: 2px 7px;
+  }
+  pre { tab-size: 4; -moz-tab-size: 4; }
+  .shot {
+    max-width: 100%;
+    width: 100%;
+    display: block;
+    border-radius: 12px;
+    border: 1.5px solid var(--line);
+    margin: 12px 0;
+  }
+  .axis-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .axis-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 13px;
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+    padding: 8px 12px;
+  }
+  .axis-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex: none;
+  }
+  .axis-dot.x { background: var(--wire-red); }
+  .axis-dot.y { background: var(--circuit-teal); }
+  .axis-dot.z { background: var(--ink); }
+  @media (max-width: 700px) {
+    .page { padding: 72px 20px 72px; }
+    .doc-header { flex-direction: column; align-items: flex-start; }
+    .doc-meta { text-align: left; }
+  }
+  @media print {
+    .back-btn { display: none !important; }
+    .card { break-inside: avoid; page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<a class="back-btn no-print" href="index.html#resources">← Godot Game Lab</a>
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <span class="eyebrow">Godot Game Lab</span>
+      <h1>Step into 3D</h1>
+      <span class="level-badge l2"><span class="dot"></span>GEM WORLD</span>
+    </div>
+    <div class="doc-meta">Name: <span class="fillin">&nbsp;</span></div>
+  </div>
+  <div class="rail"></div>
+
+  <div class="card">
+    <h2>What you're doing</h2>
+    <p>Four gems. Three are easy. One is too high. Your job is to reach them.</p>
+    <img class="shot" src="../../images/godot/gem-world-3d.png" alt="Screenshot of Gem World with platforms and floating gems">
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">1</span>Run it</h2>
+    <div class="step">
+      <p>Double-click <code>world_3d.tscn</code>. Press <span class="key">F6</span> (Run Current Scene). On a Mac laptop, try <span class="key">Fn</span> + <span class="key">F6</span>.</p>
+      <div class="callout"><span class="key">F5</span> always runs Star Catcher. <span class="key">F6</span> runs the open scene.</div>
+    </div>
+    <div class="step">
+      <p>Arrow keys move. <span class="key">Space</span> jumps.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">2</span>Moon jump</h2>
+    <div class="step">
+      <p>Open <code>player_3d.gd</code>. Try these values:</p>
+    </div>
+    <pre>SPEED = 6.0
+JUMP_POWER = 9.0   <span class="c"># try 14</span>
+GRAVITY = 20.0     <span class="c"># try 4</span></pre>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">3</span>Build a staircase</h2>
+    <div class="step">
+      <p>Set <code>JUMP_POWER</code> back to 9.0.</p>
+    </div>
+    <div class="step">
+      <p>Click <code>Platform2</code> in the Scene list. Press <span class="key">Ctrl</span> + <span class="key">D</span> to duplicate (on Mac, <span class="key">Cmd</span> + <span class="key">D</span>). Drag the arrows to place it.</p>
+    </div>
+    <div class="axis-row">
+      <span class="axis-chip"><span class="axis-dot x" aria-hidden="true"></span>red = x left and right</span>
+      <span class="axis-chip"><span class="axis-dot y" aria-hidden="true"></span>green = y up and down</span>
+      <span class="axis-chip"><span class="axis-dot z" aria-hidden="true"></span>blue = z forward and back</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">4</span>Make it yours</h2>
+    <div class="step">
+      <p><code>PLAYER_COLOR</code> in <code>player_3d.gd</code></p>
+    </div>
+    <div class="step">
+      <p><code>SKY_COLOR</code> and <code>WIN_MESSAGE</code> in <code>world_3d.gd</code></p>
+    </div>
+    <div class="step">
+      <p><code>GEM_COLOR</code> in <code>gem_3d.gd</code></p>
+    </div>
+    <div class="step">
+      <p>Drag <code>gem_3d.tscn</code> into the world for more gems.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Lost in space</h2>
+    <div class="step">
+      <p>Click Player and press <span class="key">F</span> to fly back.</p>
+    </div>
+    <div class="step">
+      <p>Scroll to zoom.</p>
+    </div>
+    <div class="step">
+      <p>Falling off the world resets you to the start.</p>
+    </div>
+  </div>
+
+  <div class="footer-note">Godot Game Lab · Step into 3D</div>
+  <div class="copyright">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>

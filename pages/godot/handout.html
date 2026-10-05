@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Remix Star Catcher · Godot Game Lab</title>
+<link rel="stylesheet" href="../../styles/style.css">
+<style>
+  .key {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 5px;
+    padding: 2px 7px;
+  }
+  pre { tab-size: 4; -moz-tab-size: 4; }
+  .map-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr 1fr;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .map-cell {
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 13.5px;
+  }
+  .map-cell strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+  .map-cell p { margin: 0; color: var(--graphite); font-size: 12.5px; line-height: 1.4; }
+  .map-center { grid-column: 2; grid-row: 1 / span 2; }
+  .write-in {
+    border-bottom: 1.4px solid var(--ink);
+    min-height: 1.4em;
+    margin: 10px 0;
+  }
+  .shot {
+    max-width: 100%;
+    width: 100%;
+    display: block;
+    border-radius: 12px;
+    border: 1.5px solid var(--line);
+    margin: 12px 0;
+  }
+  @media (max-width: 700px) {
+    .page { padding: 72px 20px 72px; }
+    .doc-header { flex-direction: column; align-items: flex-start; }
+    .doc-meta { text-align: left; }
+    .map-grid { grid-template-columns: 1fr; }
+    .map-center { grid-column: auto; grid-row: auto; }
+  }
+  @media print {
+    .back-btn { display: none !important; }
+    .card { break-inside: avoid; page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<a class="back-btn no-print" href="index.html#resources">← Godot Game Lab</a>
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <span class="eyebrow">Godot Game Lab</span>
+      <h1>Remix Star Catcher</h1>
+      <span class="level-badge l1"><span class="dot"></span>MISSIONS 1 TO 5</span>
+    </div>
+    <div class="doc-meta">Name: <span class="fillin">&nbsp;</span></div>
+  </div>
+  <div class="rail"></div>
+
+  <div class="card">
+    <h2>What you're doing</h2>
+    <p>You start with a finished game. Your job is to make it yours.</p>
+    <img class="shot" src="../../images/godot/star-catcher-2d.png" alt="Screenshot of the Star Catcher 2D game">
+    <div class="step">
+      <p><strong>Golden rule:</strong> Predict. Change one thing. Play. If it breaks, press <span class="key">Ctrl</span> + <span class="key">Z</span> (on Mac, <span class="key">Cmd</span> + <span class="key">Z</span>).</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">0</span>Open the project</h2>
+    <div class="step">
+      <p>Download <a href="star-catcher.zip" download>star-catcher.zip</a>.</p>
+    </div>
+    <div class="step">
+      <p>Unzip it. Windows: right-click, Extract All. Mac: double-click.</p>
+      <div class="callout">Do not skip the unzip!</div>
+    </div>
+    <div class="step">
+      <p>Open Godot, click Import, pick <code>project.godot</code>, then click Import &amp; Edit.</p>
+    </div>
+    <div class="step">
+      <p>Press <span class="key">F5</span> to play (on a Mac laptop, try <span class="key">Fn</span> + <span class="key">F5</span>). Press <span class="key">Space</span> to start. Arrow keys move. Press <span class="key">F8</span> to stop.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Your map of the editor</h2>
+    <div class="map-grid">
+      <div class="map-cell">
+        <strong>Scene</strong>
+        <p>The cast list. Every character and object lives here.</p>
+      </div>
+      <div class="map-cell map-center">
+        <strong>Stage</strong>
+        <p>The middle of the screen. Use the 2D, 3D, and Script buttons to switch views.</p>
+      </div>
+      <div class="map-cell">
+        <strong>Inspector</strong>
+        <p>Settings for whatever you clicked.</p>
+      </div>
+      <div class="map-cell">
+        <strong>FileSystem</strong>
+        <p>Your backpack. Every file in the project is here.</p>
+      </div>
+      <div class="map-cell">
+        <strong>Play buttons</strong>
+        <p>Top right. Press these to run or stop the game.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">1</span>Mission 1 · Sign your game</h2>
+    <div class="step">
+      <p>Open <code>main.gd</code>. Change <code>GAME_TITLE</code> and <code>MADE_BY</code>. Keep the quotes.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">2</span>Mission 2 · Paint it</h2>
+    <div class="step">
+      <p>Change the color settings in these four files.</p>
+    </div>
+    <table>
+      <thead>
+        <tr><th>File</th><th>Color setting</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>main.gd</code></td><td><code>BACKGROUND_COLOR</code></td></tr>
+        <tr><td><code>player.gd</code></td><td><code>PLAYER_COLOR</code></td></tr>
+        <tr><td><code>star.gd</code></td><td><code>STAR_COLOR</code></td></tr>
+        <tr><td><code>enemy.gd</code></td><td><code>ENEMY_COLOR</code></td></tr>
+      </tbody>
+    </table>
+    <div class="step">
+      <p>Tip: type <code>Color.</code> and pick from the popup list.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">3</span>Mission 3 · Tune your hero</h2>
+    <div class="step">
+      <p>A variable is a labeled box. The label is the name. The value inside can change.</p>
+    </div>
+    <div class="step">
+      <p>In <code>player.gd</code>, change <code>SPEED</code> (default 300) and <code>PLAYER_SIZE</code> (default 1.0).</p>
+    </div>
+    <div class="step">
+      <p>Before you play, write your prediction.</p>
+      <p>I think faster SPEED will: <span class="write-in"></span></p>
+      <p>I think bigger PLAYER_SIZE will: <span class="write-in"></span></p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">4</span>Mission 4 · Change the rules</h2>
+    <div class="step">
+      <p>In <code>main.gd</code>, try these settings. Defaults are shown.</p>
+    </div>
+    <pre>SCORE_TO_WIN = 10
+TIME_LIMIT = 45
+LIVES = 3
+NUMBER_OF_STARS = 4
+NUMBER_OF_ENEMIES = 3
+WIN_MESSAGE = "You win!"
+LOSE_MESSAGE = "Game over!"</pre>
+    <div class="step">
+      <p>Enemy <code>SPEED</code> lives in <code>enemy.gd</code>. Star <code>POINTS</code> lives in <code>star.gd</code>.</p>
+    </div>
+    <div class="checkbox-line"><div class="box"></div><p>Easy mode</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Impossible mode</p></div>
+    <div class="checkbox-line"><div class="box"></div><p>Just right (a neighbor tested it)</p></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step-num">5</span>Mission 5 · Write your own code, the dash</h2>
+    <div class="step">
+      <p>In <code>player.gd</code>, find the line <code># MISSION 5</code> and type the two lines below under it.</p>
+    </div>
+    <pre>	if Input.is_key_pressed(KEY_SHIFT):
+		speed = SPEED * 2</pre>
+    <div class="step">
+      <p>An if asks a yes or no question. One Tab before <code>if</code>, two Tabs before <code>speed</code>. Do not forget the colon.</p>
+      <div class="danger">Red errors are normal. Check the line you just typed, and make sure the Tabs are real Tabs, not spaces.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Finished early?</h2>
+    <div class="step">
+      <p>Try <a href="bonus.html">Bonus Missions</a> or <a href="3d.html">Step into 3D</a>.</p>
+    </div>
+  </div>
+
+  <div class="footer-note">Godot Game Lab · Remix Star Catcher</div>
+  <div class="copyright">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>

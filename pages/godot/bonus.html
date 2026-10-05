@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bonus Missions · Godot Game Lab</title>
+<link rel="stylesheet" href="../../styles/style.css">
+<style>
+  .key {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 5px;
+    padding: 2px 7px;
+  }
+  pre { tab-size: 4; -moz-tab-size: 4; }
+  pre .new { color: var(--led-amber); }
+  @media (max-width: 700px) {
+    .page { padding: 72px 20px 72px; }
+    .doc-header { flex-direction: column; align-items: flex-start; }
+    .doc-meta { text-align: left; }
+  }
+  @media print {
+    .back-btn { display: none !important; }
+    .card { break-inside: avoid; page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<a class="back-btn no-print" href="index.html#resources">← Godot Game Lab</a>
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <span class="eyebrow">Godot Game Lab</span>
+      <h1>Bonus Missions</h1>
+      <span class="level-badge bonus"><span class="dot"></span>BONUS</span>
+    </div>
+    <div class="doc-meta">Name: <span class="fillin">&nbsp;</span></div>
+  </div>
+  <div class="rail"></div>
+
+  <div class="card">
+    <h2>A · Bonus time</h2>
+    <div class="step">
+      <p>In <code>main.gd</code>, find <code>func star_caught</code>. After <code>score += points</code>, add the amber line.</p>
+    </div>
+    <pre>func star_caught(points):
+	score += points
+<span class="new">	time_left += 2</span></pre>
+  </div>
+
+  <div class="card">
+    <h2>B · Ouch</h2>
+    <div class="step">
+      <p>In <code>main.gd</code>, find <code>func player_hit</code>. After <code>lives -= 1</code>, add the amber line.</p>
+    </div>
+    <pre>func player_hit():
+	lives -= 1
+<span class="new">	score -= 1</span></pre>
+  </div>
+
+  <div class="card">
+    <h2>C · Grow when you eat</h2>
+    <div class="step">
+      <p>In <code>func star_caught</code>, add the amber line.</p>
+    </div>
+    <pre>func star_caught(points):
+	score += points
+<span class="new">	$Player.scale *= 1.1</span></pre>
+  </div>
+
+  <div class="card">
+    <h2>D · Enemies get angry</h2>
+    <div class="step">
+      <p>In <code>enemy.gd</code>, find <code>func _process</code>. Add the amber lines.</p>
+    </div>
+    <pre>func _process(delta):
+<span class="new">	var extra = get_tree().current_scene.score * 10
+	position += direction * (SPEED + extra) * delta</span></pre>
+  </div>
+
+  <div class="card">
+    <h2>E · Swap the art</h2>
+    <div class="step">
+      <p>Drag a PNG into the art folder.</p>
+    </div>
+    <div class="step">
+      <p>Open <code>player.tscn</code>, click Sprite2D, and drag the picture onto Texture in the Inspector.</p>
+    </div>
+    <div class="step">
+      <p>Set <code>PLAYER_COLOR</code> to <code>Color.WHITE</code>.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Keep going at home</h2>
+    <div class="step">
+      <p>Godot is free. Copy the whole star-catcher folder to take it home.</p>
+    </div>
+  </div>
+
+  <div class="footer-note">Godot Game Lab · Bonus Missions</div>
+  <div class="copyright">© 2026 Manju Muralidharan Priya. All rights reserved.</div>
+</div>
+</body>
+</html>

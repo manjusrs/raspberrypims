@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Hands-on Raspberry Pi, LEGO Robotics, and game programming classes for middle and elementary school students, taught by Manju Muralidharan Priya.">
+<meta name="description" content="Hands-on Raspberry Pi, LEGO Robotics, and Godot game design classes for middle and elementary school students, taught by Manju Muralidharan Priya.">
 <title>STEM Classes with Manju</title>
 <link rel="stylesheet" href="styles/style.css">
 <style>
@@ -33,7 +33,7 @@
   .section-heading h2 { font-size: 30px; margin: 6px 0 8px; letter-spacing: -.02em; }
   .section-heading p { color: var(--graphite); margin: 0; }
   .class-grid {
-    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 18px;
   }
   .class-card {
     min-height: 260px; padding: 26px; border: 1.5px solid var(--line);
@@ -68,9 +68,6 @@
     color: var(--circuit-teal-dim);
   }
   .coming-soon .class-action { color: #98640d; }
-  @media (max-width: 900px) {
-    .class-grid { grid-template-columns: 1fr; }
-  }
   @media (max-width: 700px) {
     .page { padding: 36px 20px 72px; }
     .hero { grid-template-columns: 1fr; gap: 28px; padding-top: 16px; }
@@ -112,20 +109,28 @@
     </div>
 
     <div class="class-grid">
-      <a class="class-card coming-soon" href="classes/lego/index.html">
-        <span class="class-icon" aria-hidden="true">L</span>
-        <span class="class-status">Coming Soon</span>
-        <h3>LEGO Robotics Elementary School</h3>
-        <p>An age-appropriate introduction to robotics, engineering, and creative problem-solving with LEGO.</p>
-        <span class="class-action">Preview class page <span aria-hidden="true">→</span></span>
-      </a>
-
       <a class="class-card" href="classes/raspberry-pi/index.html">
         <span class="class-icon" aria-hidden="true">Pi</span>
         <span class="class-status">Available</span>
         <h3>Raspberry Pi Middle School</h3>
         <p>Build circuits, learn Linux and Python, and turn ideas into working projects over five hands-on days.</p>
         <span class="class-action">Open class page <span aria-hidden="true">→</span></span>
+      </a>
+
+      <a class="class-card" href="pages/godot/index.html">
+        <span class="class-icon" aria-hidden="true">G</span>
+        <span class="class-status">Ready</span>
+        <h3>Godot Game Lab Middle School</h3>
+        <p>Remix a finished 2D game, write your first lines of code, and step into a 3D world in one 3-hour workshop.</p>
+        <span class="class-action">View class <span aria-hidden="true">→</span></span>
+      </a>
+
+      <a class="class-card coming-soon" href="classes/lego/index.html">
+        <span class="class-icon" aria-hidden="true">L</span>
+        <span class="class-status">Coming Soon</span>
+        <h3>LEGO Robotics Elementary School</h3>
+        <p>An age-appropriate introduction to robotics, engineering, and creative problem-solving with LEGO.</p>
+        <span class="class-action">Preview class page <span aria-hidden="true">→</span></span>
       </a>
 
       <a class="class-card coming-soon" href="classes/game-programming/index.html">
