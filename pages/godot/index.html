@@ -63,25 +63,6 @@
     margin: 0 0 14px;
     letter-spacing: -.02em;
   }
-  .shot-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin: 20px 0;
-  }
-  .shot-grid figure { margin: 0; }
-  .shot-grid img {
-    width: 100%;
-    display: block;
-    border-radius: 12px;
-    border: 1.5px solid var(--line);
-    background: var(--paper-card);
-  }
-  .shot-grid figcaption {
-    margin-top: 8px;
-    font-size: 13px;
-    color: var(--graphite);
-  }
   .schedule {
     width: 100%;
     margin: 12px 0 0;
@@ -151,7 +132,6 @@
   }
   @media (max-width: 700px) {
     .page { padding: 36px 20px 72px; }
-    .shot-grid { grid-template-columns: 1fr; }
   }
   @media print {
     .godot-tablist, .tab-next, .site-nav { display: none !important; }
@@ -190,17 +170,6 @@
     <section class="godot-tab-panel" role="tabpanel" id="overview" aria-labelledby="tab-overview" data-panel="overview">
       <h2 class="godot-panel-heading">Overview</h2>
       <p style="max-width:62ch;color:var(--graphite);line-height:1.6;margin:0">You get a finished game called Star Catcher. Your job is to make it yours. Change the colors, the speed, and the rules. Write your first lines of code. Then step into a 3D world. No coding experience needed.</p>
-
-      <div class="shot-grid">
-        <figure>
-          <img src="../../images/godot/star-catcher-2d.png" alt="Screenshot of the Star Catcher 2D game with a player catching stars">
-          <figcaption>Star Catcher, the 2D game you will remix</figcaption>
-        </figure>
-        <figure>
-          <img src="../../images/godot/gem-world-3d.png" alt="Screenshot of the Gem World 3D scene with platforms and gems">
-          <figcaption>Gem World, the 3D scene you will explore</figcaption>
-        </figure>
-      </div>
 
       <div class="card">
         <h2>What you will do</h2>
